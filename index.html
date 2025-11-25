@@ -1,5 +1,47 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><meta charset="UTF-8"><title>Test</title></head>
-<body><h1>公開テスト</h1></body>
+<head>
+  <meta charset="UTF-8">
+  <title>崩壊スターレイル ダメージ計算機</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>崩壊スターレイル ダメージ計算機</h1>
+
+  <div class="container">
+
+    <label>参照ステータス（攻撃/HPなど）</label>
+    <input id="status" type="number">
+
+    <label>軌跡倍率（例：2.5なら 2.5 と入力）</label>
+    <input id="skill" type="number" step="0.01">
+
+    <label>ダメージ加算</label>
+    <input id="add" type="number">
+
+    <label>会心率（%）</label>
+    <input id="critRate" type="number">
+
+    <label>会心ダメージ（%）</label>
+    <input id="critDmg" type="number">
+
+    <label>属性与ダメージボーナス（%）</label>
+    <input id="dmgBuff" type="number">
+
+    <label>敵レベル</label>
+    <input id="enemyLv" type="number">
+
+    <label>防御デバフ（%）</label>
+    <input id="defDown" type="number">
+
+    <button onclick="calc()">計算する</button>
+
+    <h2>ダメージ結果</h2>
+    <div id="result">--</div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
