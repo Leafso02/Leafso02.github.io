@@ -1,47 +1,142 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>崩壊スターレイル ダメージ計算機</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>崩壊スターレイル ダメージ計算機</title>
+<style>
+  body { font-family: sans-serif; padding: 20px; }
+  .box { margin-bottom: 15px; }
+  label { display: block; margin-bottom: 5px; }
+  input { width: 200px; padding: 5px; }
+</style>
 </head>
 <body>
 
-  <h1>崩壊スターレイル ダメージ計算機</h1>
+<h1>崩壊：スターレイル ダメージ計算機</h1>
 
-  <div class="container">
+<div class="box">
+  <label>参照ステータス（攻撃/HPなど）</label>
+  <input id="stat" type="number" value="1000">
+</div>
 
-    <label>参照ステータス（攻撃/HPなど）</label>
-    <input id="status" type="number">
+<div class="box">
+  <label>軌跡倍率（例：2.0）</label>
+  <input id="skillRate" type="number" step="0.01" value="2">
+</div>
 
-    <label>軌跡倍率（例：2.5なら 2.5 と入力）</label>
-    <input id="skill" type="number" step="0.01">
+<div class="box">
+  <label>ダメージ加算</label>
+  <input id="flatDmg" type="number" value="0">
+</div>
 
-    <label>ダメージ加算</label>
-    <input id="add" type="number">
+<div class="box">
+  <label>会心率（%）</label>
+  <input id="critRate" type="number" value="50">
+</div>
 
-    <label>会心率（%）</label>
-    <input id="critRate" type="number">
+<div class="box">
+  <label>会心ダメージ（%）</label>
+  <input id="critDmg" type="number" value="100">
+</div>
 
-    <label>会心ダメージ（%）</label>
-    <input id="critDmg" type="number">
+<div class="box">
+  <label>属性与ダメージ% + その他与ダメージ%</label>
+  <input id="dmgBuff" type="number" value="0">
+</div>
 
-    <label>属性与ダメージボーナス（%）</label>
-    <input id="dmgBuff" type="number">
+<div class="box">
+  <label>攻撃キャラLv</label>
+  <input id="atkLv" type="number" value="80">
+</div>
 
-    <label>敵レベル</label>
-    <input id="enemyLv" type="number">
+<div class="box">
+  <label>敵Lv</label>
+  <input id="enemyLv" type="number" value="80">
+</div>
 
-    <label>防御デバフ（%）</label>
-    <input id="defDown" type="number">
+<div class="box">
+  <label>防御デバフ% + 防御無視%</label>
+  <input id="defDown" type="number" value="0">
+</div>
 
-    <button onclick="calc()">計算する</button>
+<div class="box">
+  <label>敵の属性耐性%</label>
+  <input id="resist" type="number" value="10">
+</div>
 
-    <h2>ダメージ結果</h2>
-    <div id="result">--</div>
+<div class="box">
+  <label>耐性貫通%</label>
+  <input id="pen" type="number" value="0">
+</div>
 
-  </div>
+<div class="box">
+  <label>被ダメージボーナス%</label>
+  <input id="taken" type="number" value="0">
+</div>
 
-  <script src="script.js"></script>
+<div class="box">
+  <label>撃破係数（0.9 or 1.0）</label>
+  <input id="breakCoef" type="number" step="0.1" value="1.0">
+</div>
+
+<button onclick="calc()">計算する</button>
+
+<h2>計算結果</h2>
+<div id="result" style="font-size: 20px; font-weight: bold;"></div>
+
+<script>
+function calc() {
+  const S = parseFloat(document.getElementById("stat").value);
+  const R = parseFloat(document.getElementById("skillRate").value);
+  const A = parseFloat(document.getElementById("flatDmg").value);
+
+  const critRate = parseFloat(document.getElementById("critRate").value) / 100;
+  const critDmg = parseFloat(document.getElementById("critDmg").value) / 100;
+
+  const dmgBuff = parseFloat(document.getElementById("dmgBuff").value) / 100;
+  const atkLv = parseFloat(document.getElementById("atkLv").value);
+  const enemyLv = parseFloat(document.getElementById("enemyLv").value);
+
+  const defDown = parseFloat(document.getElementById("defDown").value) / 100;
+  const resist = parseFloat(document.getElementById("resist").value) / 100;
+  const pen = parseFloat(document.getElementById("pen").value) / 100;
+  const taken = parseFloat(document.getElementById("taken").value) / 100;
+
+  const breakCoef = parseFloat(document.getElementById("breakCoef").value);
+
+  // ダメージ基礎値
+  const base = S * R + A;
+
+  // 会心系数
+  const critCoef = 1 + critRate * critDmg;
+
+  // 与ダメージ係数
+  const dmgCoef = 1 + dmgBuff;
+
+  // 防御係数
+  const defCoef = (20 + atkLv) /
+     (((20 + enemyLv) * (1 - defDown)) + (20 + atkLv));
+
+  // 属性耐性係数
+  const resCoef = 1 - resist + pen;
+
+  // 被ダメージ係数
+  const takenCoef = 1 + taken;
+
+  // 最終ダメージ
+  const dmg =
+    base *
+    critCoef *
+    dmgCoef *
+    defCoef *
+    resCoef *
+    takenCoef *
+    breakCoef;
+
+  document.getElementById("result").textContent =
+    "ダメージ：" + Math.floor(dmg);
+}
+</script>
+
 </body>
 </html>
