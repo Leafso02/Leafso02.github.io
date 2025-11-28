@@ -1,0 +1,19 @@
+{
+  "list": [
+    {
+      "id": 1,
+      "name": "模擬宇宙エリート",
+      "img": "./img/enemies/elite.png",
+      "lv": 80,
+      "res": {
+        "ice": 20,
+        "fire": 20,
+        "physical": 20,
+        "lightning": 20,
+        "imaginary": 20,
+        "quantum": 20,
+        "wind": 20
+      }
+    }
+  ]
+}
