@@ -1,0 +1,21 @@
+{
+  "list": [
+    {
+      "id": 1,
+      "name": "三月なのか",
+      "img": "./img/characters/march.png",
+      "element": "ice",
+      "lv": 80,
+      "ref": "atk",
+      "baseAtk": 600,
+      "baseHp": 1200,
+      "baseDef": 500,
+      "skills": {
+        "normal": { "1": 50, "2": 55, "3": 60 },
+        "skill": { "1": 100, "2": 110, "3": 120 },
+        "ultimate": { "1": 200, "2": 210, "3": 220 },
+        "talent": { "1": 80, "2": 90, "3": 100 }
+      }
+    }
+  ]
+}
