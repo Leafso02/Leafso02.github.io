@@ -1,6 +1,6 @@
-window.addEventListener('DOMContentLoaded', () => {
-    loadCharacters();  // characterLoader.js の関数
-    // loadEnemies();
-    // loadBuffs();
-});
+// js/main.js
+import { loadCharacters } from './characterLoader.js';
 
+window.addEventListener('DOMContentLoaded', () => {
+    loadCharacters();
+});
