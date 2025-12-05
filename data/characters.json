@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "三月なのか",
-      "img": "./img/characters/icon/氷/三月なのか.jpeg",
+      "img": "三月なのか.jpeg",
       "element": "ice",
       "lv": 80,
       "ref": "atk",
