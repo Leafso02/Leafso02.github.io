@@ -2,6 +2,7 @@
 export async function loadCharacters() {
     const response = await fetch('./data/characters.json');
     const data = await response.json();
+    const character_image_icon_path = "img/character/icon/"
 
     const select = document.getElementById('characterSelect');
 
