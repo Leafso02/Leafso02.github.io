@@ -28,7 +28,7 @@ export async function loadCharacters() {
             return;
         }
 
-        img.src = charData.image;
+        img.src = character_image_icon_path + charData.image;
 
         info.innerHTML = `
             <strong>${charData.name}</strong><br>
