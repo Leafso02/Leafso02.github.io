@@ -100,17 +100,7 @@ let characters = {};
 let enemies = {};
 
 async function loadData() {
-    characters = await fetch("./data/characters.json").then(r => r.json());
     enemies = await fetch("./data/enemies.json").then(r => r.json());
-
-    // キャラ読み込み
-    const charSel = document.getElementById("characterSelect");
-    characters.list.forEach(c => {
-        const opt = document.createElement("option");
-        opt.value = c.id;
-        opt.textContent = c.name;
-        charSel.appendChild(opt);
-    });
 
     // 敵読み込み
     const enemySel = document.getElementById("enemySelect");
