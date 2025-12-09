@@ -1,40 +1,37 @@
-// js/characterLoader.js
+const CHARACTER_IMAGE_BASE_PATH = "img/characters/";
+
 export async function loadCharacters() {
-    const response = await fetch('./data/characters.json');
+    const response = await fetch("./data/characters.json");
     const data = await response.json();
-    const character_image_icon_path = "img/character/icon/"
 
-    const select = document.getElementById('characterSelect');
+    const select = document.getElementById("characterSelect");
 
-    // プルダウンへ追加
+    // プルダウン生成
     data.characters.forEach(char => {
-        const option = document.createElement('option');
+        const option = document.createElement("option");
         option.value = char.id;
         option.textContent = char.name;
         select.appendChild(option);
     });
 
-    // 選択時のプレビュー処理
-    select.addEventListener('change', () => {
-        const charId = select.value;
-        const charData = data.characters.find(c => c.id === charId);
+    // 選択時の表示処理
+    select.addEventListener("change", () => {
+        const selectedId = select.value;
+        const character = data.characters.find(c => c.id === selectedId);
 
-        const preview = document.getElementById('charPreview');
-        const img = document.getElementById('charImg');
-        const info = document.getElementById('charInfo');
+        const preview = document.getElementById("charPreview");
+        const img = document.getElementById("charImg");
+        const info = document.getElementById("charInfo");
 
-        if (!charData) {
+        if (!character) {
             preview.style.display = "none";
             return;
         }
 
-        img.src = character_image_icon_path + charData.image;
+        // ✅ 共通パス + JSONのファイル名
+        img.src = CHARACTER_IMAGE_BASE_PATH + character.image;
 
-        info.innerHTML = `
-            <strong>${charData.name}</strong><br>
-            属性：<img src="${charData.elementImage}" style="width:24px; vertical-align:middle;">
-        `;
-
+        info.textContent = character.name;
         preview.style.display = "block";
     });
 }
