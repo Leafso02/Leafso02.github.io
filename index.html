@@ -131,7 +131,7 @@ document.getElementById("characterSelect").addEventListener("change", () => {
     const c = characters.list.find(x => x.id == id);
 
     // 画像表示
-    document.getElementById("charImg").src = c.img;
+    document.getElementById("charImg").src = "img/characters/" + c.image;
     document.getElementById("charPreview").style.display = "block";
     document.getElementById("charInfo").textContent =
         `${c.name} / ${c.element}`;
