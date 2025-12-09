@@ -1,4 +1,4 @@
-const CHARACTER_IMAGE_BASE_PATH = "img/characters/";
+const CHARACTER_IMAGE_BASE_PATH = "img/character/";
 
 export async function loadCharacters() {
     const response = await fetch("./data/characters.json");
