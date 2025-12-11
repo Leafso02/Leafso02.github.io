@@ -2,13 +2,21 @@
   "Trailblazer" : {
     "noramalAttack" : {
       "name" : "サヨナラ安打",
-      "type" : "NORMALATTACK"
-      "reference" : "ATK"
-      "content" : "指定した敵単体に開拓者の攻撃力X%分の物理ダメージを与える。"
+      "type" : "BasicATK",
+      "Target" : "Single",
+      "content" : "指定した敵単体に開拓者の攻撃力X%分の物理ダメージを与える。",
+      "formula" : {
+      
+      }
     }
     "skill" : {
-      "name" : "安息ホームラン"
-      "type" : SKILL
+      "name" : "安息ホームラン",
+      "type" : "Skill",
+      "Target" : "Blast",
+      "content" : "",
+      "formula" : {
+        
+      }
     }
   }
 }
