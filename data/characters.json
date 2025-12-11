@@ -3,7 +3,7 @@
     {
       "id": "trailblazer_destruction",
       "name": "開拓者-壊滅",
-      "image": "icon/氷/三月なのか.jpeg",
+      "image": "icon/物理/開拓者.jpeg",
       "element": "Physical",
       "baseHp": 1203,
       "baseAtk": 620,
