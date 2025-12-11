@@ -2,125 +2,30 @@
   "basicATK" : {
     "count" : 1,
     "levels" : [
-      {
-        "level" : 1,
-        "multipilers" : [
-          {"id": "x", "value": 0.50}
-        ]
-      },
-      {
-      "level" : 2,
-        "multipilers" : [
-          {"id": "x", "value": 0.60}
-        ]
-      },
-      {
-        "level" : 3,
-        "multipilers" : [
-          {"id": "x", "value": 0.70}
-        ]
-      },
-      {
-      "level" : 4,
-        "multipilers" : [
-          {"id": "x", "value": 0.80}
-        ]
-      },
-      {
-        "level" : 5,
-        "multipilers" : [
-          {"id": "x", "value": 0.90}
-        ]
-      },
-      {
-      "level" : 6,
-        "multipilers" : [
-          {"id": "x", "value": 1.00}
-        ]
-      },
-      {
-      "level" : 7,
-        "multipilers" : [
-          {"id": "x", "value": 1.10}
-        ]
-      },
+      { "level" : 1, "multipilers" : [{"id": "x", "value": 0.50}] },
+      { "level" : 2, "multipilers" : [{"id": "x", "value": 0.60}] },
+      { "level" : 3, "multipilers" : [{"id": "x", "value": 0.70}] },
+      { "level" : 4, "multipilers" : [{"id": "x", "value": 0.80}] },
+      { "level" : 5, "multipilers" : [{"id": "x", "value": 0.90}] },
+      { "level" : 6, "multipilers" : [{"id": "x", "value": 1.00}] },
+      { "level" : 7, "multipilers" : [{"id": "x", "value": 1.10}] },
     ]
   },
   "skill" : {
     "count" : 1,
     "levels" : [
-      {
-        "level" : 1,
-        "multipilers" : [
-          {"id": "x", "value": 0.62}
-        ]
-      },
-      {
-        "level" : 2,
-        "multipilers" : [
-          {"id": "x", "value": 0.68}
-        ]
-      },
-      {
-        "level" : 3,
-        "multipilers" : [
-          {"id": "x", "value": 0.75}
-        ]
-      },
-      {
-        "level" : 4,
-        "multipilers" : [
-          {"id": "x", "value": 0.81}
-        ]
-      },
-      {
-        "level" : 5,
-        "multipilers" : [
-          {"id": "x", "value": 0.87}
-        ]
-      },
-      {
-        "level" : 6,
-        "multipilers" : [
-          {"id": "x", "value": 0.93}
-        ]
-      },
-      {
-        "level" : 7,
-        "multipilers" : [
-          {"id": "x", "value": 1.01}
-        ]
-      },
-      {
-        "level" : 8,
-        "multipilers" : [
-          {"id": "x", "value": 1.09}
-        ]
-      },
-      {
-        "level" : 9,
-        "multipilers" : [
-          {"id": "x", "value": 1.17}
-        ]
-      },
-      {
-        "level" : 10,
-        "multipilers" : [
-          {"id": "x", "value": 1.25}
-        ]
-      },
-      {
-        "level" : 11,
-        "multipilers" : [
-          {"id": "x", "value": 1.31}
-        ]
-      },
-      {
-        "level" : 12,
-        "multipilers" : [
-          {"id": "x", "value": 1.37}
-        ]
-      },
+      { "level" : 1, "multipilers" : [{"id": "x", "value": 0.62}] },
+      { "level" : 2, "multipilers" : [{"id": "x", "value": 0.68}] },
+      { "level" : 3, "multipilers" : [{"id": "x", "value": 0.75}] },
+      { "level" : 4, "multipilers" : [{"id": "x", "value": 0.81}] },
+      { "level" : 5, "multipilers" : [{"id": "x", "value": 0.87}] },
+      { "level" : 6, "multipilers" : [{"id": "x", "value": 0.93}] },
+      { "level" : 7, "multipilers" : [{"id": "x", "value": 1.01}] },
+      { "level" : 8, "multipilers" : [{"id": "x", "value": 1.09}] },
+      { "level" : 9, "multipilers" : [{"id": "x", "value": 1.17}] },
+      { "level" : 10, "multipilers" : [{"id": "x", "value": 1.25}] },
+      { "level" : 11, "multipilers" : [{"id": "x", "value": 1.31}] },
+      { "level" : 12, "multipilers" : [{"id": "x", "value": 1.37}] },
     ]
   }
   "ultimate" : {
