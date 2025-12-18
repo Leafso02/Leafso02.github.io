@@ -13,6 +13,6 @@
   },
   "talent" : {
     "name" : "盗塁牽制",
-    "type" : Enhance
+    "type" : "Enhance"
   }
 }
