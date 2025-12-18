@@ -2,5 +2,17 @@
   "basicATK" : {
     "name" : "サヨナラ安打",
     "type" : "Single"
+  },
+  "skill" : {
+    "name" : "安息ホームラン",
+    "type" : "Blast"
+  },
+  "ultimate" : {
+    "name" : "スターダストエース",
+    "type" : 
+  },
+  "talent" : {
+    "name" : "盗塁牽制",
+    "type" : Enhance
   }
 }
