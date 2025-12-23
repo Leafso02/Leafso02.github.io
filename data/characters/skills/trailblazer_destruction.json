@@ -1,0 +1,27 @@
+{
+  "basicATK" : {
+    "name" : "サヨナラ安打",
+    "modes" : [
+      {"type" : "Single", "label" : "単体"}
+    ]
+  },
+  "skill" : {
+    "name" : "安息ホームラン",
+    "modes" : [
+      {"type" : "Blast", "label" : "拡散"}
+    ]
+  },
+  "ultimate" : {
+    "name" : "スターダストエース",
+    "modes" : [
+      {"type" : "Single", "label" : "単体"}
+      {"type" : "Blast", "label" : "拡散"}
+    ]
+  },
+  "talent" : {
+    "name" : "盗塁牽制",
+    "modes" : [
+      {"type" : "Enhance", "label" : "単体"}
+    ]
+  }
+}
