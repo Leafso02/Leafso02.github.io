@@ -1,1 +1,66 @@
+{
+  "characterId": "trailblazer_destruction",
+  "eidolons": [
+    {
+      "level": 1,
+      "name": "万界に墜臨した星芒",
+      "description": "必殺技で敵を倒した時、EPを10回復する。",
+      "effects": []
+    },
+    {
+      "level": 2,
+      "name": "縁の下假合した人身",
+      "description": "物理弱点の敵に攻撃後、HPを回復。",
+      "effects": []
+    },
+    {
+      "level": 3,
+      "name": "前路を示す言霊",
+      "description": "戦闘スキルLv+2、天賦Lv+2。",
+      "effects": [
+        {
+          "type": "skillLevelUp",
+          "targets": ["skill", "talent"],
+          "value": 2,
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "name": "毀滅の瞬間を凝視する瞳",
+      "description": "弱点撃破状態の敵に命中時、会心率+25%。",
+      "effects": [
+        {
+          "type": "statBonus",
+          "targets": ["critRate"],
+          "value": 0.25,
+          "condition": "enemyBroken"
+        }
+      ]
+    },
+    {
+      "level": 5,
+      "name": "災劫に燃える再生の希望",
+      "description": "必殺技Lv+2、通常攻撃Lv+1。",
+      "effects": [
+        {
+          "type": "skillLevelUp",
+          "targets": ["ultimate"],
+          "value": 2,
+        },
+        {
+          "type": "skillLevelUp",
+          "targets": ["basicATK"],
+          "value": 1,
+        }
+      ]
+    },
+    {
+      "level": 6,
+      "name": "拓宇行天の意志",
+      "description": "敵撃破時も天賦が発動。",
+      "effects": []
+    }
+  ]
+}
 
