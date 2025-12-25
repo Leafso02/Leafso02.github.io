@@ -1,1 +1,74 @@
-
+{
+  "characterId": "cerydra",
+  "eidolons": [
+    {
+      "level": 1,
+      "name": "全ての王冠を奪え",
+      "description": "「軍功」を所持しているキャラが敵にダメージを与える時、ターゲットの防御力を16%無視する。「軍功」が「爵位」に昇格している間、そのキャラが敵に戦闘スキルダメージを与える時、さらにターゲットの防御力を20%無視する。ケリュドラが戦闘スキルを発動する時、指定した味方のEPを2回復する。",
+      "effects": [
+        {
+          "calcScope" : "any_atk",
+          "target" : "single",
+          "valueType" : "DefIgnore"
+          "value" : 16,
+          "condition" : 
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "name": "万民の願いをここに",
+      "description": "「軍功」を所持しているキャラの与ダメージ+40%。フィールド上に、ケリュドラ以外に「軍功」を所持している味方がいる場合、ケリュドラの与ダメージ+160%。",
+      "effects": []
+    },
+    {
+      "level": 3,
+      "name": "旧き律法を焼き払え",
+      "description": "戦闘スキルのLv.+2、最大Lv.+15まで。通常攻撃のLv.+1、最大Lv.10まで。",
+      "effects": [
+        {
+          "type": "skillLevelUp",
+          "targets": ["skill", "talent"],
+          "value": 2,
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "name": "天地も人界も改めよう",
+      "description": "必殺技のダメージ倍率+240%。",
+      "effects": [
+        {
+          "type": "statBonus",
+          "targets": ["critRate"],
+          "value": 0.25,
+          "condition": "enemyBroken"
+        }
+      ]
+    },
+    {
+      "level": 5,
+      "name": "恩も仇も等しく返そう",
+      "description": "必殺技のLv.+2、最大Lv.15まで。",
+      "effects": [
+        {
+          "type": "skillLevelUp",
+          "targets": ["ultimate"],
+          "value": 2,
+        },
+        {
+          "type": "skillLevelUp",
+          "targets": ["basicATK"],
+          "value": 1,
+        }
+      ]
+    },
+    {
+      "level": 6,
+      "name": "我は征く、星の大海へ",
+      "description": "「軍功」を所持しているキャラの全属性耐性貫通+20%、「軍功」による付加ダメージの倍率+300%。
+                      フィールド上に、ケリュドラ以外に「軍功」を所持している味方がいる場合、ケリュドラの全属性耐性貫通+20%。",
+      "effects": []
+    }
+  ]
+}
