@@ -1,0 +1,30 @@
+{
+  "basicATK" : {
+    "base" : [
+      {"id" : 1, "name" : "征け、兵は神速を尊ぶ", "type" : "atkOnly", "label" : "単体"
+        "atk" : [
+          {"id" : "x", "multiplier" : "basicATK", "reference" : "Atk"}
+        ]
+      }
+    ]
+  },
+  "skill" : {
+    "base" : [
+      {"skillid" : 1, "name" : "名を馳せよ、歩兵も将の器", "type" : "supOnly", "label" : "サポート",
+       "buffGroups" : [
+          {
+            "buffGroupId" : 1, 
+            "condition" : "userAct", 
+            "buffs" : [
+              {"id" : "x", "multiplier" : "skill", "valueType" : "CritDmg"},
+              {"id" : "y", "multiplier" : "skill", "valueType" : "ResPen"}
+            ]
+          },
+        ]
+      }  
+    ],
+    "enhancement" : {
+      "eidolons1"
+    }
+  }
+}
