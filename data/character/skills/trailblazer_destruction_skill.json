@@ -1,26 +1,29 @@
 {
   "basicATK" : {
     "name" : "サヨナラ安打",
-    "modes" : [
+    "base" : [
       {"type" : "Single", "label" : "単体"}
-    ]
+    ],
+    "eidolons" : {
+      "level1"
+    }
   },
   "skill" : {
     "name" : "安息ホームラン",
-    "modes" : [
+    "base" : [
       {"type" : "Blast", "label" : "拡散"}
     ]
   },
   "ultimate" : {
     "name" : "スターダストエース",
-    "modes" : [
+    "base" : [
       {"type" : "Single", "label" : "単体"}
       {"type" : "Blast", "label" : "拡散"}
     ]
   },
   "talent" : {
     "name" : "盗塁牽制",
-    "modes" : [
+    "base" : [
       {"type" : "Enhance", "label" : "単体"}
     ]
   }
