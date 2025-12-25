@@ -24,7 +24,16 @@
       }  
     ],
     "enhancement" : {
-      "eidolons1"
+      "eidolons" : [
+        {
+          "level" : 1,
+          "operations" : [
+            {
+              "op" : 
+            }
+          ]
+        }
+      ]
     }
   }
 }
