@@ -1,7 +1,7 @@
 {
   "basicATK" : {
     "base" : [
-      {"id" : 1, "name" : "征け、兵は神速を尊ぶ", "type" : "atkOnly", "label" : "単体"
+      {"skillid" : 1, "name" : "征け、兵は神速を尊ぶ", "type" : "atkOnly", "label" : "単体"
         "atk" : [
           {"id" : "x", "multiplier" : "basicATK", "reference" : "Atk"}
         ]
