@@ -72,7 +72,7 @@
               ]
             }
           ]
-        },
+        }
       ]
     }
   },
@@ -135,7 +135,7 @@
                 "targetSkillId" : [1],
                 "targetBuffGroupId" : 1,
                 "buffs" : [
-                  {"valueType" : "spd", "valueUnit": "flat", "target" : "ally", "source" : {"type" : "fixed", "value" : 20}},
+                  {"valueType" : "spd", "valueUnit": "flat", "target" : "ally", "source" : {"type" : "fixed", "value" : 20}}
                 ]
               }
             ]
@@ -157,7 +157,7 @@
                   ]
                 }
               ]
-            },
+            }
           ]
         },
         {
