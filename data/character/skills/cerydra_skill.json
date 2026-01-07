@@ -68,7 +68,7 @@
               "targetSkillId" : [1],
               "targetBuffGroupId" : 2,
               "buffs" : [
-                {"valueType" : "DefIg", "valueUnit": "percent", "target" : "ally", "source" : {"type" : "fixed", "value" : 20}},
+                {"valueType" : "DefIg", "valueUnit": "percent", "target" : "ally", "source" : {"type" : "fixed", "value" : 20}}
               ]
             }
           ]
