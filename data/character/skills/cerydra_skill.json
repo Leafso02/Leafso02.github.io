@@ -22,7 +22,7 @@
               {"valueType" : "CritDmg", "valueUnit": "percent", "target" : "ally", "source" : {"type" : "multiplier", "table" : "skill", "id" : "x"}},
               {"valueType" : "ResPen", "valueUnit": "percent", "target" : "ally", "source" : {"type" : "multiplier", "table" : "skill", "id" : "y"}}
             ]
-          },
+          }
         ]
       }  
     ],
@@ -47,6 +47,8 @@
           "level" : 1,
           "operations" : [
             {
+
+              
               "op" : "addBuffGroup",
               "targetSkillId" : [1],
               "buffGroup" : [
@@ -58,28 +60,19 @@
                   ]
                 }
               ]
+
+              
             },
             {
               "op" : "addBuffToGroup",
-              "targetSkillId" : 1,
-              "targetBuffGroupId" : 1,
+              "targetSkillId" : [1],
+              "targetBuffGroupId" : 2,
               "buffs" : [
                 {"valueType" : "DefIg", "valueUnit": "percent", "target" : "ally", "source" : {"type" : "fixed", "value" : 20}},
               ]
             }
           ]
         },
-        "level" : 2,
-        "operations" : [
-          {
-            "op" : "addBuffToGroup",
-            "targetSkillId" : 1,
-            "targetBuffGroupId" : 1,
-            "buffs" : [
-              {"valueType" : "OtherDmg", "target" : "ally", "source" : {"type" : "fixed", "value" : 40}}
-            ]
-          }
-        ]
       ]
     }
   },
@@ -104,7 +97,7 @@
               "buffGroupId" : 1,
               "condition" : "always",
               "buffs" : [
-                {"valueType" : "IncreaseMultiplier", "target" : "self", "source" : {"type" : "fixed", "value" : 240}}
+                {"valueType" : "IncreaseMultiplier", "valueUnit": "percent", "target" : "self", "source" : {"type" : "fixed", "value" : 240}}
               ]
             }
           ]
@@ -117,10 +110,76 @@
       "bufGroups" : [
           {
             "buffGroupId" : 1,
-            "condition" : "userAct"
+            "condition" : "always",
+            "buffs" : [
+              {"valueType" : "refStat", "valueUnit": "percent", "target" : "self", "source" : {"type" : "fixed", "value" : 240}}
+              {"valueType" : "IncreaseMultiplier", "valueUnit": "percent", "target" : "self", "source" : {"type" : "fixed", "value" : 240}}
+            ]
           }
         ]
       }
-    ]
+    ],
+      "enhancement" : {    
+        "bonusAbility" : [
+          {
+            "Ascension" : 6,
+            "operations" : [
+              {
+                "op" : "addBuffToGroup",
+                "targetSkillId" : [1],
+                "targetBuffGroupId" : 1,
+                "buffs" : [
+                  {"valueType" : "spd", "valueUnit": "flat", "target" : "ally", "source" : {"type" : "fixed", "value" : 20}},
+                ]
+              }
+            ]
+          }
+        ],
+     "eidolons" : [
+          {
+          "level" : 1,
+          "operations" : [
+            {
+              "op" : "addBuffGroup",
+              "targetSkillId" : [1],
+              "buffGroup" : [
+                {
+                  "buffGroupId" : 2,
+                  "condition" : "always",
+                  "buffs" : [
+                     {"valueType" : "DefIg", "valueUnit": "percent", "target" : "ally", "source" : {"type" : "fixed", "value" : 16}},
+                  ]
+                }
+              ]
+            },
+          ]
+        },
+        {
+          "level" : 2,
+          "operations" : [
+            {
+              "op" : "addBuffToGroup",
+              "targetSkillId" : [1],
+              "targetBuffGroupId" : 1,
+              "buffs" : [
+                {"valueType" : "OtherDmg", "valueUnit": "percent", "target" : "ally", "source" : {"type" : "fixed", "value" : 40}}
+              ]
+            }
+          ]
+        },
+        {
+          "level" : 6,
+          "operations" : [
+            {
+              "op" : "addBufftoGroup",
+              "targetSkillId" : [1],
+              "targetBuffGroupId" : 1,
+              "buffs" : [
+                {"valueType" : "resPen", "valueUnit": "percent", "target" : "ally", "source" : {"type" : "fixed", "value" : 40}}
+              ]
+            }
+          ]
+        }
+      ]
   }
 }
