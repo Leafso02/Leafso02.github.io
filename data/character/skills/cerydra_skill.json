@@ -79,7 +79,7 @@
 
 
 
-  
+
   "ultimate" : {
     "base" : [
       {"skillId" : 1, "name" : "世は盤上、チェックメイト", "type" : "atkOnly", "label" : "全体攻撃",
