@@ -8,6 +8,9 @@
       }
     ]
   },
+
+
+  
   "skill" : {
     "base" : [
       {"skillid" : 1, "name" : "名を馳せよ、歩兵も将の器", "type" : "supOnly", "label" : "サポート",
@@ -16,31 +19,91 @@
             "buffGroupId" : 1, 
             "condition" : "userAct", 
             "buffs" : [
-              {"id" : "x", "multiplier" : "skill", "valueType" : "CritDmg"},
-              {"id" : "y", "multiplier" : "skill", "valueType" : "ResPen"}
+              {"valueType" : "CritDmg", "valueUnit": "percent", "target" : "ally", "source" : {"type" : "multiplier", "table" : "skill", "id" : "x"}},
+              {"valueType" : "ResPen", "valueUnit": "percent", "target" : "ally", "source" : {"type" : "multiplier", "table" : "skill", "id" : "y"}}
             ]
           },
         ]
       }  
     ],
-    "enhancement" : {
-      "eidolons" : [
-        {
+      "enhancement" : {
+        "bonusAbility" : [
+          {
+            "Ascension" : 2,
+            "operations" : [
+              {
+                "op" : "addBuffToGroup",
+                "targetSkillId" : [1],
+                "buffGroupId" : 1,
+                "buffs" : [
+                  {"valueType" : "spd", "valueUnit": "flat", "target" : "ally", "source" : {"type" : "fixed", "value" : 20}},
+                ]
+              }
+            ]
+          }
+        ]
+        "eidolons" : [
+          {
           "level" : 1,
           "operations" : [
             {
-              "op" : 
+              "op" : "addBuffGroup",
+              "targetSkillId" : [1],
+              "buffGroup" : [
+                {
+                  "buffGroupId" : 2,
+                  "condition" : "always",
+                  "buffs" : [
+                     {"valueType" : "DefIg", "target" : "ally", "source" : {"type" : "fixed", "value" : 16}},
+                  ]
+                }
+              ]
+            },
+            {
+              "op" : "addBuffToGroup",
+              "targetSkillId" : 1,
+              "buffGroupId" : 1,
+              "buffs" : [
+                {"valueType" : "DefIg", "target" : "ally", "source" : {"type" : "fixed", "value" : 20}},
+              ]
             }
           ]
-        }
+        },
+        "level" : 2,
+        "operations" : [
+          {
+            "op" : "addBuffToGroup",
+            "targetSkillId" : 1,
+            "buffGroupId" : 1,
+            "buffs" : [
+              {"valueType" : "OtherDmg", "target" : "ally", "source" : {"type" : "fixed", "value" : 40}}
+            ]
+          }
+        ]
       ]
     }
   },
+
+
+
+  
   "ultimate" : {
     "base" : [
-      {"skillId" : 1, "name" : "世は盤上、チェックメイト", "type" : "atkOnly", "label" : "全体攻撃"
+      {"skillId" : 1, "name" : "世は盤上、チェックメイト", "type" : "atkOnly", "label" : "全体攻撃",
       "atk" : [
           {"id" : "x", "multiplier" : "ultimate", "reference" : "Atk"}
+        ]
+      }
+    ]
+  },
+  "talent" : {
+    "base" : [
+      {"skillId" : 1, "name" : "栄光をカイザーに", "type" : "supOnly", "lbel" : "サポート",
+      "bufGroups" : [
+          {
+            "buffGroupId" : 1,
+            "condition" : "userAct"
+          }
         ]
       }
     ]
