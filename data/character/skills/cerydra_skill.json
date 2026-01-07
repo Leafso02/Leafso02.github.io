@@ -29,19 +29,19 @@
       "enhancement" : {
         "bonusAbility" : [
           {
-            "Ascension" : 2,
+            "Ascension" : 6,
             "operations" : [
               {
                 "op" : "addBuffToGroup",
                 "targetSkillId" : [1],
-                "buffGroupId" : 1,
+                "targetBuffGroupId" : 1,
                 "buffs" : [
                   {"valueType" : "spd", "valueUnit": "flat", "target" : "ally", "source" : {"type" : "fixed", "value" : 20}},
                 ]
               }
             ]
           }
-        ]
+        ],
         "eidolons" : [
           {
           "level" : 1,
@@ -62,7 +62,7 @@
             {
               "op" : "addBuffToGroup",
               "targetSkillId" : 1,
-              "buffGroupId" : 1,
+              "targetBuffGroupId" : 1,
               "buffs" : [
                 {"valueType" : "DefIg", "target" : "ally", "source" : {"type" : "fixed", "value" : 20}},
               ]
@@ -74,7 +74,7 @@
           {
             "op" : "addBuffToGroup",
             "targetSkillId" : 1,
-            "buffGroupId" : 1,
+            "targetBuffGroupId" : 1,
             "buffs" : [
               {"valueType" : "OtherDmg", "target" : "ally", "source" : {"type" : "fixed", "value" : 40}}
             ]
@@ -94,7 +94,20 @@
           {"id" : "x", "multiplier" : "ultimate", "reference" : "Atk"}
         ]
       }
-    ]
+    ],
+     "eidolons" : [
+        {
+          "level" : 4,
+          "operations" : [
+            {
+              "op" : "addBuffGroup",
+              "buffGroupId" : 1,
+              "condition" : ""
+              "buffs"
+            }
+          ]
+        }
+     ]
   },
   "talent" : {
     "base" : [
