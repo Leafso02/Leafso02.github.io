@@ -54,7 +54,7 @@
                   "buffGroupId" : 2,
                   "condition" : "always",
                   "buffs" : [
-                     {"valueType" : "DefIg", "target" : "ally", "source" : {"type" : "fixed", "value" : 16}},
+                     {"valueType" : "DefIg", "valueUnit": "percent", "target" : "ally", "source" : {"type" : "fixed", "value" : 16}},
                   ]
                 }
               ]
@@ -64,7 +64,7 @@
               "targetSkillId" : 1,
               "targetBuffGroupId" : 1,
               "buffs" : [
-                {"valueType" : "DefIg", "target" : "ally", "source" : {"type" : "fixed", "value" : 20}},
+                {"valueType" : "DefIg", "valueUnit": "percent", "target" : "ally", "source" : {"type" : "fixed", "value" : 20}},
               ]
             }
           ]
@@ -102,8 +102,10 @@
             {
               "op" : "addBuffGroup",
               "buffGroupId" : 1,
-              "condition" : ""
-              "buffs"
+              "condition" : "always",
+              "buffs" : [
+                {"valueType" : "IncreaseMultiplier", "target" : "self", "source" : {"type" : "fixed", "value" : 240}}
+              ]
             }
           ]
         }
