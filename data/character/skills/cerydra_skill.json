@@ -106,14 +106,20 @@
   },
   "talent" : {
     "base" : [
-      {"skillId" : 1, "name" : "栄光をカイザーに", "type" : "supOnly", "lbel" : "サポート",
+      {"skillId" : 1, "name" : "栄光をカイザーに", "type" : "supOnly", "label" : "サポート",
       "bufGroups" : [
           {
             "buffGroupId" : 1,
             "condition" : "always",
             "buffs" : [
-              {"valueType" : "refStat", "valueUnit": "percent", "target" : "self", "source" : {"type" : "fixed", "value" : 240}}
-              {"valueType" : "IncreaseMultiplier", "valueUnit": "percent", "target" : "self", "source" : {"type" : "fixed", "value" : 240}}
+              {"valueType" : "Status", "valueUnit": "percent", "target" : "ally", "source" : {
+                "type" : "expression", "oprator" : "multiply", 
+                "left" : {"type" : "statScale", "refTarget" : "self", "refStat" : "Atk", "rate" : 100},
+                "right" : {"type" : "multiplier", "table" : "talent", "id" : "x"}}},
+              {"valueType" : "addDmg", "valueUnit": "percent", "target" : "ally", "source" : {
+                "type" : "expression", "oprator" : "multiply",
+                "left" : {"type" : "statScale", "refTarget" : "self", "refStat" : "Atk", "rate" : 100},
+                "right" : {"type" : "multiplier", "table" : "talent", "id" : "y"}}}
             ]
           }
         ]
