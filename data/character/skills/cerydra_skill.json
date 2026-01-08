@@ -26,7 +26,10 @@
         "buffGroups": [
           {
             "buffGroupId": 1,
-            "condition": "userAct",
+            "condition": {
+              "type" : "user",
+              "value" : "userAct"
+            },
             "buffs": [
               {
                 "valueType": "CritDmg",
@@ -57,7 +60,7 @@
       "eidolons": [
         {
           "level": 1,
-          "name" : "全ての王冠を奪え",
+          "name": "全ての王冠を奪え",
           "operations": [
             {
               "op": "addBuffToGroup",
@@ -98,30 +101,41 @@
         ]
       }
     ],
-    "eidolons": [
-      {
-        "level": 4,
-        "name" : "天地も人界も改めよう",
-        "operations": [
-          {
-            "op": "addBuffGroup",
-            "buffGroupId": 1,
-            "condition": "always",
-            "buffs": [
-              {
-                "valueType": "IncreaseMultiplier",
-                "valueUnit": "percent",
-                "target": "self",
-                "source": {
-                  "type": "fixed",
-                  "value": 240
+    "enhancement": {
+      "eidolons": [
+        {
+          "level": 4,
+          "name": "天地も人界も改めよう",
+          "operations": [
+            {
+              "op" : "changeType",
+              "newType" : "both"
+            },
+            {
+              "op": "addBuffGroup",
+              "targetSkillId": [
+                1
+              ],
+              "condition": {
+                "type" : "attack",
+                "value" : ["ultimate"]
+              },
+              "buffs": [
+                {
+                  "valueType": "IncreaseMultiplier",
+                  "valueUnit": "percent",
+                  "target": "self",
+                  "source": {
+                    "type": "fixed",
+                    "value": 240
+                  }
                 }
-              }
-            ]
-          }
-        ]
-      }
-    ]
+              ]
+            }
+          ]
+        }
+      ]
+    }
   },
   "talent": {
     "base": [
@@ -130,10 +144,13 @@
         "name": "栄光をカイザーに",
         "type": "supOnly",
         "label": "サポート",
-        "bufGroups": [
+        "buffGroups": [
           {
             "buffGroupId": 1,
-            "condition": "always",
+            "condition": {
+              "type" : "always",
+              "value" : "always"
+            },
             "buffs": [
               {
                 "valueType": "Status",
@@ -141,7 +158,7 @@
                 "target": "ally",
                 "source": {
                   "type": "expression",
-                  "oprator": "multiply",
+                  "operator": "multiply",
                   "left": {
                     "type": "statScale",
                     "refTarget": "self",
@@ -161,7 +178,7 @@
                 "target": "ally",
                 "source": {
                   "type": "expression",
-                  "oprator": "multiply",
+                  "operator": "multiply",
                   "left": {
                     "type": "statScale",
                     "refTarget": "self",
@@ -184,7 +201,7 @@
       "bonusAbility": [
         {
           "Ascension": 6,
-          "name" : "征した者",
+          "name": "征した者",
           "operations": [
             {
               "op": "addBuffToGroup",
@@ -210,7 +227,7 @@
       "eidolons": [
         {
           "level": 1,
-          "name" : "全ての王冠を奪え",
+          "name": "全ての王冠を奪え",
           "operations": [
             {
               "op": "addBuffToGroup",
@@ -238,7 +255,7 @@
         },
         {
           "level": 2,
-          "name" : "万民の願いをここに",
+          "name": "万民の願いをここに",
           "operations": [
             {
               "op": "addBuffToGroup",
@@ -262,7 +279,7 @@
         },
         {
           "level": 6,
-          "name" : "我は征く、星の大海へ",
+          "name": "我は征く、星の大海へ",
           "operations": [
             {
               "op": "addBufftoGroup",

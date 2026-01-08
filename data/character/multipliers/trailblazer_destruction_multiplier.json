@@ -8,7 +8,7 @@
       { "level" : 4, "multipilers" : [{"id": "x", "value": 0.80}] },
       { "level" : 5, "multipilers" : [{"id": "x", "value": 0.90}] },
       { "level" : 6, "multipilers" : [{"id": "x", "value": 1.00}] },
-      { "level" : 7, "multipilers" : [{"id": "x", "value": 1.10}] },
+      { "level" : 7, "multipilers" : [{"id": "x", "value": 1.10}] }
     ]
   },
   "skill" : {
@@ -25,9 +25,9 @@
       { "level" : 9, "multipilers" : [{"id": "x", "value": 1.17}] },
       { "level" : 10, "multipilers" : [{"id": "x", "value": 1.25}] },
       { "level" : 11, "multipilers" : [{"id": "x", "value": 1.31}] },
-      { "level" : 12, "multipilers" : [{"id": "x", "value": 1.37}] },
+      { "level" : 12, "multipilers" : [{"id": "x", "value": 1.37}] }
     ]
-  }
+  },
   "ultimate" : {
     "count" : 3,
     "levels" : [
@@ -128,7 +128,7 @@
         ]
       }
     ]
-  }
+  },
   "talent" : {
     "count" : 1,
     "levels" : [
@@ -203,7 +203,7 @@
          "multipilers" : [
            {"id": "x", "value": 0.22}
          ]
-      },
+      }
     ]
   }
 }

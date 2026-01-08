@@ -1,0 +1,38 @@
+{
+    "characterId": "trailblazer_destruction",
+    "bonusAbilities": [
+        {
+            "ascension": 2,
+            "name" : "来た者"
+        },
+        {
+            "ascension" : 4,
+            "name" : "見た者"
+        },
+        {
+            "ascension": 6,
+            "name": "征した者",
+            "operations": [
+                {
+                    "op": "addBuffToGroup",
+                    "target": {
+                        "skillType": "talent",
+                        "skillId": 1,
+                        "buffGroupId": 1
+                    },
+                    "buffs": [
+                        {
+                            "valueType": "Spd",
+                            "valueUnit": "flat",
+                            "target": "ally",
+                            "source": {
+                                "type": "fixed",
+                                "value": 20
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

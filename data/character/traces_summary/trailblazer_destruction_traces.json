@@ -11,10 +11,10 @@
       "name" : "力溜め",
       "description" : "戦闘開始時、EPを15回復する。",
       "effect" : [
-        "type": "statBonus",
-        "targets": ["critRate"],
-        "value": 0.25,
-        "condition": "enemyBroken"
+        "type" : "statBonus",
+        "targets" : ["critRate"],
+        "value" : 0.25,
+        "condition" : "enemyBroken"
       ]
     }
   ]
