@@ -1,232 +1,56 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>スタレ ダメージ計算機</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>HSR Damage Calculator</title>
+
+  <!-- 画面装飾用CSS -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<h1>崩壊：スターレイル ダメージ計算機</h1>
+  <!-- ===== タイトル ===== -->
+  <h1>ダメージ計算機（試作）</h1>
 
-<!-- キャラ選択 -->
-<section>
-    <h2>キャラ選択</h2>
-    <select id="characterSelect">
-        <option value="">キャラを選択</option>
-    </select>
+  <!-- ===== 入力エリア ===== -->
+  <div class="panel">
 
-    <div id="charPreview" style="display:none;">
-        <img id="charImg" src="" alt="キャラ画像">
-        <p id="charInfo"></p>
-    </div>
-</section>
-
-<!-- スキル選択 -->
-<section>
-    <h2>スキル選択</h2>
-    <select id="skillTypeSelect">
-        <option value="">スキル種別を選択</option>
-        <option value="normal">通常攻撃</option>
-        <option value="skill">スキル</option>
+    <!-- 攻撃方法選択 -->
+    <label>
+      攻撃方法：
+      <select id="attackType">
+        <option value="basic">通常攻撃</option>
+        <option value="skill">戦闘スキル</option>
         <option value="ultimate">必殺技</option>
-        <option value="talent">天賦</option>
-    </select>
+      </select>
+    </label>
 
-    <select id="skillLevelSelect">
-        <option value="">スキルレベルを選択</option>
-    </select>
+    <!-- スキルレベル -->
+    <label>
+      スキルLv：
+      <input type="number" id="skillLevel" value="10" min="1" max="12" />
+    </label>
 
-    <p>選択倍率：<span id="selectedMultiplier">0</span>%</p>
-</section>
+    <!-- 星魂レベル -->
+    <label>
+      星魂Lv：
+      <input type="number" id="eidolonLevel" value="0" min="0" max="6" />
+    </label>
 
-<!-- ステータス入力 -->
-<section>
-    <h2>ステータス入力</h2>
-    <label>攻撃力: <input id="atk" type="number"></label><br>
-    <label>HP: <input id="hp" type="number"></label><br>
-    <label>防御力: <input id="def" type="number"></label><br>
-</section>
+    <!-- 計算ボタン -->
+    <button id="calcBtn">計算する</button>
 
-<!-- バフ -->
-<section>
-    <h2>バフ入力</h2>
-    <label>会心率(%): <input id="critRate" type="number" value="0"></label><br>
-    <label>会心ダメージ(%): <input id="critDmg" type="number" value="0"></label><br>
-    <label>与ダメバフ(%): <input id="dmgBuff" type="number" value="0"></label><br>
-    <label>被ダメバフ(%): <input id="takenBuff" type="number" value="0"></label><br>
-    <label>防御デバフ(%): <input id="defDown" type="number" value="0"></label><br>
-    <label>防御無視(%): <input id="defIgnore" type="number" value="0"></label><br>
-    <label>耐性貫通(%): <input id="resPen" type="number" value="0"></label><br>
-</section>
+  </div>
 
-<!-- 敵選択 -->
-<section>
-    <h2>敵選択</h2>
-    <select id="enemySelect">
-        <option value="">敵を選択</option>
-    </select>
-
-    <div id="enemyPreview" style="display:none;">
-        <img id="enemyImg" src="" alt="敵画像">
-        <p id="enemyInfo"></p>
-    </div>
-</section>
-
-<!-- 撃破状態 -->
-<section>
-    <h2>撃破状態</h2>
-    <select id="breakState">
-        <option value="0.9">靭性残り（0.9）</option>
-        <option value="1.0">弱点撃破状態（1.0）</option>
-    </select>
-</section>
-
-<!-- 計算 -->
-<button id="calcBtn">計算する</button>
-
-<!-- 結果 -->
-<section>
+  <!-- ===== 結果表示 ===== -->
+  <div class="result">
     <h2>計算結果</h2>
-    <p>通常ダメージ: <span id="resultNormal">0</span></p>
-    <p>付加ダメージ: <span id="resultAdd">0</span></p>
-    <p>持続ダメージ: <span id="resultDot">0</span></p>
-    <p>超撃破ダメージ: <span id="resultSuperBreak">0</span></p>
-</section>
+    <p id="damageResult">---</p>
+  </div>
 
-<script>
-// --- JSON 読み込み ---
-let characters = {};
-let enemies = {};
+  <!-- ===== メインJS ===== -->
+  <!-- type="module" にすることで import/export が使える -->
+  <script type="module" src="data/js/mainCalc.js"></script>
 
-async function loadData() {
-    enemies = await fetch("./data/enemies.json").then(r => r.json());
-
-    // 敵読み込み
-    const enemySel = document.getElementById("enemySelect");
-    enemies.list.forEach(e => {
-        const opt = document.createElement("option");
-        opt.value = e.id;
-        opt.textContent = e.name;
-        enemySel.appendChild(opt);
-    });
-}
-loadData();
-
-// --- キャラ選択時 ---
-document.getElementById("characterSelect").addEventListener("change", () => {
-    const id = document.getElementById("characterSelect").value;
-    if (!id) return;
-
-    const c = characters.list.find(x => x.id == id);
-
-    // 画像表示
-    document.getElementById("charImg").src = "img/character/" + c.image;
-    document.getElementById("charPreview").style.display = "block";
-    document.getElementById("charInfo").textContent =
-        `${c.name} / ${c.element}`;
-
-    // スキルレベル選択を生成
-    const levelSel = document.getElementById("skillLevelSelect");
-    levelSel.innerHTML = '<option value="">スキルレベルを選択</option>';
-
-    for (let i = 1; i <= 15; i++) {
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = `Lv.${i}`;
-        levelSel.appendChild(opt);
-    }
-});
-
-// --- スキル倍率取得 ---
-function getSkillMultiplier(charId, type, level) {
-    const c = characters.list.find(x => x.id == charId);
-    if (!c) return 0;
-
-    return c.skills[type]?.[level] ?? 0;
-}
-
-// スキルレベル変更時
-document.getElementById("skillLevelSelect").addEventListener("change", () => {
-    const charId = document.getElementById("characterSelect").value;
-    const type = document.getElementById("skillTypeSelect").value;
-    const lv = document.getElementById("skillLevelSelect").value;
-
-    const mul = getSkillMultiplier(charId, type, lv);
-    document.getElementById("selectedMultiplier").textContent = mul;
-});
-
-// --- 敵選択時 ---
-document.getElementById("enemySelect").addEventListener("change", () => {
-    const id = document.getElementById("enemySelect").value;
-    if (!id) return;
-
-    const e = enemies.list.find(x => x.id == id);
-
-    document.getElementById("enemyImg").src = e.img;
-    document.getElementById("enemyPreview").style.display = "block";
-    document.getElementById("enemyInfo").textContent =
-        `Lv.${e.lv} / 耐性: ${JSON.stringify(e.res)}`;
-});
-
-// --- 計算 ---
-document.getElementById("calcBtn").addEventListener("click", () => {
-    const charId = document.getElementById("characterSelect").value;
-    const type = document.getElementById("skillTypeSelect").value;
-    const lv = document.getElementById("skillLevelSelect").value;
-    const enemyId = document.getElementById("enemySelect").value;
-
-    const c = characters.list.find(x => x.id == charId);
-    const e = enemies.list.find(x => x.id == enemyId);
-
-    const mul = getSkillMultiplier(charId, type, lv) / 100;
-
-    const atk = Number(document.getElementById("atk").value);
-    const hp = Number(document.getElementById("hp").value);
-    const def = Number(document.getElementById("def").value);
-
-    const critRate = Number(document.getElementById("critRate").value) / 100;
-    const critDmg = Number(document.getElementById("critDmg").value) / 100;
-    const dmgBuff = Number(document.getElementById("dmgBuff").value) / 100;
-    const takenBuff = Number(document.getElementById("takenBuff").value) / 100;
-    const defDown = Number(document.getElementById("defDown").value) / 100;
-    const defIgnore = Number(document.getElementById("defIgnore").value) / 100;
-    const resPen = Number(document.getElementById("resPen").value) / 100;
-
-    const breakCoef = Number(document.getElementById("breakState").value);
-
-    const refStat =
-        c.ref === "atk" ? atk :
-        c.ref === "hp" ? hp :
-        def;
-
-    const base = refStat * mul;
-
-    const critCoef = 1 + (critRate * critDmg);
-
-    const dmgCoef = 1 + dmgBuff;
-    const takenCoef = 1 + takenBuff;
-
-    const defCoef = (20 + c.lv) /
-        ((20 + e.lv) * (1 - defDown - defIgnore) + (20 + c.lv));
-
-    const resCoef = 1 - (e.res[c.element] / 100) + resPen;
-
-    const normal = base * critCoef * dmgCoef * defCoef * resCoef * takenCoef * breakCoef;
-    const add = normal;
-    const dot = base * dmgCoef * defCoef * resCoef * takenCoef * breakCoef;
-
-    // 超撃破ダメージ（簡易版）
-    const superBreak = base * defCoef * resCoef * takenCoef * breakCoef;
-
-    document.getElementById("resultNormal").textContent = Math.floor(normal);
-    document.getElementById("resultAdd").textContent = Math.floor(add);
-    document.getElementById("resultDot").textContent = Math.floor(dot);
-    document.getElementById("resultSuperBreak").textContent = Math.floor(superBreak);
-});
-</script>
-
-<script type="module" src="js/main.js"></script>
-    
 </body>
 </html>
