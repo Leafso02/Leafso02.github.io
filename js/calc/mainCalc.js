@@ -1,85 +1,119 @@
-import { loadJSON } from "./loadData.js";
+import { loadJSON, characterList } from "./loadData.js";
 import { collectBuffs } from "./buffEngine.js";
 import { applyBuffsToStats } from "./statEngine.js";
 import { calculateDamage } from "./damageEngine.js";
 
-/**
- * HTMLの各要素を取得
- * - ユーザー入力
- * - 計算結果表示
- */
-const attackTypeSelect = document.getElementById("attackType");
+/* ===== HTML要素取得 ===== */
+const characterSelect = document.getElementById("characterSelect");
+const skillSelect = document.getElementById("skillSelect");
 const skillLevelInput = document.getElementById("skillLevel");
 const eidolonLevelInput = document.getElementById("eidolonLevel");
-const calcBtn = document.getElementById("calcBtn");
 const resultElem = document.getElementById("damageResult");
 
-/**
- * 初期ロード時に必要なJSONをすべて読み込む
- * 一度読み込めば再利用するためグローバルに保持
- */
-let characterData;
-let skillData;
-let eidolonsData;
-let tracesData;
-let multipliersData;
+/* ===== 現在選択中のキャラデータ ===== */
+let current = {};
 
+/**
+ * 初期化処理
+ * - キャラ一覧をUIに反映
+ */
 async function init() {
-  characterData = await loadJSON("data/character/characters/cerydra_character.json");
-  skillData = await loadJSON("data/character/skills/cerydra_skill.json");
-  eidolonsData = await loadJSON("data/character/eidolons/cerydra_eidolons.json");
-  tracesData = await loadJSON("data/character/traces/cerydra_traces.json");
-  multipliersData = await loadJSON("data/character/multipliers/cerydra_multiplier.json");
+  characterList.forEach(c => {
+    const option = document.createElement("option");
+    option.value = c.id;
+    option.textContent = c.name;
+    characterSelect.appendChild(option);
+  });
+
+  await loadCharacter(characterList[0].id);
 }
 
-init();
+/**
+ * キャラクター変更時の処理
+ */
+characterSelect.addEventListener("change", async e => {
+  await loadCharacter(e.target.value);
+});
 
 /**
- * 「計算する」ボタンが押された時の処理
+ * キャラデータ一式をロードする
  */
-calcBtn.addEventListener("click", () => {
+async function loadCharacter(characterId) {
+  current.character = await loadJSON(
+    `data/character/characters/${characterId}_character.json`
+  );
+  current.skills = await loadJSON(
+    `data/character/skills/${characterId}_skill.json`
+  );
+  current.eidolons = await loadJSON(
+    `data/character/eidolons/${characterId}_eidolons.json`
+  );
+  current.traces = await loadJSON(
+    `data/character/traces/${characterId}_traces.json`
+  );
+  current.multipliers = await loadJSON(
+    `data/character/multipliers/${characterId}_multiplier.json`
+  );
 
-  // UIから現在の入力値を取得
-  const attackType = attackTypeSelect.value;
+  buildSkillSelect();
+}
+
+/**
+ * 「攻撃可能なスキルのみ」セレクトに反映
+ */
+function buildSkillSelect() {
+  skillSelect.innerHTML = "";
+
+  Object.entries(current.skills).forEach(([skillType, data]) => {
+    if (!data.base) return;
+
+    data.base.forEach(skill => {
+      if (skill.type === "atkOnly" || skill.type === "both") {
+        const option = document.createElement("option");
+        option.value = skillType;
+        option.textContent = skill.name;
+        skillSelect.appendChild(option);
+      }
+    });
+  });
+}
+
+/**
+ * ダメージ計算ボタン
+ */
+document.getElementById("calcBtn").addEventListener("click", () => {
+
+  const skillType = skillSelect.value;
   const skillLevel = Number(skillLevelInput.value);
   const eidolonLevel = Number(eidolonLevelInput.value);
 
-  // 現在の計算状況（condition判定用）
-  const context = {
-    attackType,
-    userAction: null
-  };
-
-  // 発動中のバフを収集
   const buffs = collectBuffs({
-    skillData,
-    eidolonsData,
-    tracesData,
-    multiplierData: multipliersData,
-    skillType: attackType,
+    skillData: current.skills,
+    eidolonsData: current.eidolons,
+    tracesData: current.traces,
+    multiplierData: current.multipliers,
+    skillType,
     skillLevel,
     eidolonLevel,
-    context
+    context: { attackType: skillType }
   });
 
-  // キャラの基礎ステータス
   const baseStats = {
-    atk: characterData.baseAtk,
+    atk: current.character.baseAtk,
     critDmg: 0,
     resPen: 0
   };
 
-  // バフ反映後ステータス
   const finalStats = applyBuffsToStats(baseStats, buffs);
 
-  // ダメージ計算
-  const damage = calculateDamage({
+  const dmg = calculateDamage({
     attackerStats: finalStats,
-    multiplierData: multipliersData,
-    skillType: attackType,
+    multiplierData: current.multipliers,
+    skillType,
     skillLevel
   });
 
-  // 結果を画面に表示
-  resultElem.textContent = `ダメージ：${damage}`;
+  resultElem.textContent = `ダメージ：${Math.floor(dmg)}`;
 });
+
+init();

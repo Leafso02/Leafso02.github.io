@@ -3,54 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <title>HSR Damage Calculator</title>
-
-  <!-- 画面装飾用CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ===== タイトル ===== -->
-  <h1>ダメージ計算機（試作）</h1>
+<h1>ダメージ計算機（試作）</h1>
 
-  <!-- ===== 入力エリア ===== -->
-  <div class="panel">
+<div class="panel">
 
-    <!-- 攻撃方法選択 -->
-    <label>
-      攻撃方法：
-      <select id="attackType">
-        <option value="basic">通常攻撃</option>
-        <option value="skill">戦闘スキル</option>
-        <option value="ultimate">必殺技</option>
-      </select>
-    </label>
+  <!-- ===== キャラクター選択 ===== -->
+  <label>
+    キャラクター：
+    <select id="characterSelect"></select>
+  </label>
 
-    <!-- スキルレベル -->
-    <label>
-      スキルLv：
-      <input type="number" id="skillLevel" value="10" min="1" max="12" />
-    </label>
+  <!-- ===== 攻撃スキル選択 ===== -->
+  <label>
+    使用スキル：
+    <select id="skillSelect"></select>
+  </label>
 
-    <!-- 星魂レベル -->
-    <label>
-      星魂Lv：
-      <input type="number" id="eidolonLevel" value="0" min="0" max="6" />
-    </label>
+  <!-- ===== スキルレベル ===== -->
+  <label>
+    スキルLv：
+    <input type="number" id="skillLevel" value="10" min="1" max="15">
+  </label>
 
-    <!-- 計算ボタン -->
-    <button id="calcBtn">計算する</button>
+  <!-- ===== 星魂レベル ===== -->
+  <label>
+    星魂Lv：
+    <input type="number" id="eidolonLevel" value="0" min="0" max="6">
+  </label>
 
-  </div>
+  <button id="calcBtn">計算する</button>
+</div>
 
-  <!-- ===== 結果表示 ===== -->
-  <div class="result">
-    <h2>計算結果</h2>
-    <p id="damageResult">---</p>
-  </div>
+<div class="result">
+  <h2>結果</h2>
+  <p id="damageResult">---</p>
+</div>
 
-  <!-- ===== メインJS ===== -->
-  <!-- type="module" にすることで import/export が使える -->
-  <script type="module" src="data/js/mainCalc.js"></script>
-
+<script type="module" src="data/js/mainCalc.js"></script>
 </body>
 </html>
