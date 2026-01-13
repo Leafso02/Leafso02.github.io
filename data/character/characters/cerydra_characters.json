@@ -1,10 +1,7 @@
 {
-      "id": "cerydra",
-      "name": "ケリュドラ",
-      "image": "icon/wind/cerydra.jpeg",
-      "element": "wind",
-      "baseHp": 1359,
-      "baseAtk": 620,
-      "baseDef": 485,
-      "baseSpe": 99
+  "id": "cerydra",
+  "baseHp": 1359,
+  "baseAtk": 620,
+  "baseDef": 485,
+  "baseSpe": 99
 }

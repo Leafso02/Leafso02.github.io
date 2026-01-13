@@ -1,48 +1,56 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>HSR Damage Calculator</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <title>HSR Damage Calculator</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-<h1>ダメージ計算機（試作）</h1>
+    <h1>ダメージ計算機（試作）</h1>
 
-<div class="panel">
+    <div class="panel">
 
-  <!-- ===== キャラクター選択 ===== -->
-  <label>
-    キャラクター：
-    <select id="characterSelect"></select>
-  </label>
+        <!-- ===== キャラクター選択 ===== -->
+        <label>
+            キャラクター：
+            <select id="characterSelect"></select>
 
-  <!-- ===== 攻撃スキル選択 ===== -->
-  <label>
-    使用スキル：
-    <select id="skillSelect"></select>
-  </label>
+            <script type="module">
+                import { initCharacterSelect } from "./data/js/ui/characterSelect.js";
+                initCharacterSelect();
+            </script>
+        </label>
 
-  <!-- ===== スキルレベル ===== -->
-  <label>
-    スキルLv：
-    <input type="number" id="skillLevel" value="10" min="1" max="15">
-  </label>
+        <!-- ===== 攻撃スキル選択 ===== -->
+        <label>
+            使用スキル：
+            <select id="skillSelect"></select>
+        </label>
 
-  <!-- ===== 星魂レベル ===== -->
-  <label>
-    星魂Lv：
-    <input type="number" id="eidolonLevel" value="0" min="0" max="6">
-  </label>
+        <!-- ===== スキルレベル ===== -->
+        <label>
+            スキルLv：
+            <input type="number" id="skillLevel" value="10" min="1" max="15">
+        </label>
 
-  <button id="calcBtn">計算する</button>
-</div>
+        <!-- ===== 星魂レベル ===== -->
+        <label>
+            星魂Lv：
+            <input type="number" id="eidolonLevel" value="0" min="0" max="6">
+        </label>
 
-<div class="result">
-  <h2>結果</h2>
-  <p id="damageResult">---</p>
-</div>
+        <button id="calcBtn">計算する</button>
+    </div>
 
-<script type="module" src="data/js/mainCalc.js"></script>
+    <div class="result">
+        <h2>結果</h2>
+        <p id="damageResult">---</p>
+    </div>
+
+    <script type="module" src="data/js/mainCalc.js"></script>
 </body>
+
 </html>
