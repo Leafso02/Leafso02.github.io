@@ -1,6 +1,11 @@
-// JSONファイルをfetchして読み込む共通関数
-// path: JSONファイルのパス
-export async function loadJSON(path) {
-  const res = await fetch(path);
-  return res.json();
-}
+import { initCharacterSelect } from "./characterSelect.js";
+
+/**
+ * ページ読み込み時にUI初期化を行う
+ */
+window.addEventListener("DOMContentLoaded", () => {
+
+  // キャラクター選択プルダウンを生成する
+  initCharacterSelect();
+
+});

@@ -1,19 +1,19 @@
-import { loadCharacterIndex } from "../loadCharacters.js";
-
 /**
- * キャラクター選択プルダウンを初期化する
+ * キャラクター一覧データを取得する
+ *
+ * ・UIで使用するための「軽量キャラクター一覧」を読み込む
+ * ・この関数は「プルダウンに表示するためだけ」に存在する
  */
-export async function initCharacterSelect() {
-  const select = document.getElementById("characterSelect");
-  const characters = await loadCharacterIndex();
+export async function loadCharacterList() {
 
-  // 初期化
-  select.innerHTML = "";
+  // キャラクター一覧JSONを取得する
+  const response = await fetch("./data/character/index/characters.json");
 
-  characters.forEach(char => {
-    const option = document.createElement("option");
-    option.value = char.id;
-    option.textContent = char.name;
-    select.appendChild(option);
-  });
+  // 読み込み失敗時は即エラー（表示されない原因を隠さない）
+  if (!response.ok) {
+    throw new Error("キャラクター一覧データの取得に失敗");
+  }
+
+  // JSON → JavaScript配列へ変換
+  return await response.json();
 }
