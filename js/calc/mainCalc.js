@@ -65,16 +65,17 @@ export function getAttackableSkills() {
 
   const result = [];
 
-  Object.entries(current.skills).forEach(([skillType, data]) => {
+  Object.entries(current.skills).forEach(([skillKey, data]) => {
 
     if (!data.base) return;
 
     data.base.forEach(skill => {
 
-      if (skill.type === "atkOnly" || skill.type === "both") {
+ if (skill.type === "atkOnly" || skill.type === "both") {
         result.push({
-          skillType,      // 例: "ultimate"
-          name: skill.name // 表示用
+          skillKey,                 // 例: "basicATK"
+          categoryLabel: data.skillLabel || "その他", // JSON の skillLabel をカテゴリとして使用
+          skillName: skill.name
         });
       }
     });

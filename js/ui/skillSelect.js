@@ -18,9 +18,18 @@ export function updateSkillSelect() {
   console.log("[skillSelect] attackable skills:", skills);
 
   skills.forEach(skill => {
+  // カテゴリが変わったら optgroup を生成
+    if (currentGroupLabel !== skill.categoryLabel) {
+      currentGroupLabel = skill.categoryLabel;
+      currentOptGroup = document.createElement("optgroup");
+      currentOptGroup.label = currentGroupLabel;
+      skillSelect.appendChild(currentOptGroup);
+    }
+
     const option = document.createElement("option");
-    option.value = skill.skillType; // 例: "ultimate"
-    option.textContent = skill.name;
-    skillSelect.appendChild(option);
+    option.value = skill.skillKey; // JSONのキー
+    option.textContent = skill.skillName; // スキル名
+
+    currentOptGroup.appendChild(option);
   });
 }

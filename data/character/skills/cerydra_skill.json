@@ -1,5 +1,6 @@
 {
   "basicATK": {
+    "skillLabel" : "通常攻撃",
     "base": [
       {
         "skillId": 1,
@@ -17,6 +18,7 @@
     ]
   },
   "skill": {
+    "skillLabel" : "戦闘スキル",
     "base": [
       {
         "skillId": 1,
@@ -55,37 +57,10 @@
           }
         ]
       }
-    ],
-    "enhancement": {
-      "eidolons": [
-        {
-          "level": 1,
-          "name": "全ての王冠を奪え",
-          "operations": [
-            {
-              "op": "addBuffToGroup",
-              "targetSkillId": [
-                1
-              ],
-              "targetBuffGroupId": 2,
-              "buffs": [
-                {
-                  "valueType": "DefIg",
-                  "valueUnit": "percent",
-                  "target": "ally",
-                  "source": {
-                    "type": "fixed",
-                    "value": 20
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+    ]
   },
   "ultimate": {
+    "skillLabel" : "必殺技",
     "base": [
       {
         "skillId": 1,
@@ -100,44 +75,10 @@
           }
         ]
       }
-    ],
-    "enhancement": {
-      "eidolons": [
-        {
-          "level": 4,
-          "name": "天地も人界も改めよう",
-          "operations": [
-            {
-              "op" : "changeType",
-              "newType" : "both"
-            },
-            {
-              "op": "addBuffGroup",
-              "targetSkillId": [
-                1
-              ],
-              "condition": {
-                "type" : "attack",
-                "value" : ["ultimate"]
-              },
-              "buffs": [
-                {
-                  "valueType": "IncreaseMultiplier",
-                  "valueUnit": "percent",
-                  "target": "self",
-                  "source": {
-                    "type": "fixed",
-                    "value": 240
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+    ]
   },
   "talent": {
+    "skillLabel" : "天賦",
     "base": [
       {
         "skillId": 1,
@@ -196,112 +137,6 @@
           }
         ]
       }
-    ],
-    "enhancement": {
-      "bonusAbility": [
-        {
-          "Ascension": 6,
-          "name": "征した者",
-          "operations": [
-            {
-              "op": "addBuffToGroup",
-              "targetSkillId": [
-                1
-              ],
-              "targetBuffGroupId": 1,
-              "buffs": [
-                {
-                  "valueType": "Spd",
-                  "valueUnit": "flat",
-                  "target": "ally",
-                  "source": {
-                    "type": "fixed",
-                    "value": 20
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "eidolons": [
-        {
-          "level": 1,
-          "name": "全ての王冠を奪え",
-          "operations": [
-            {
-              "op": "addBuffToGroup",
-              "targetSkillId": [
-                1
-              ],
-              "buffGroup": [
-                {
-                  "targetBuffGroupId": 1,
-                  "buffs": [
-                    {
-                      "valueType": "DefIg",
-                      "valueUnit": "percent",
-                      "target": "ally",
-                      "source": {
-                        "type": "fixed",
-                        "value": 16
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "level": 2,
-          "name": "万民の願いをここに",
-          "operations": [
-            {
-              "op": "addBuffToGroup",
-              "targetSkillId": [
-                1
-              ],
-              "targetBuffGroupId": 1,
-              "buffs": [
-                {
-                  "valueType": "OtherDmg",
-                  "valueUnit": "percent",
-                  "target": "ally",
-                  "source": {
-                    "type": "fixed",
-                    "value": 40
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "level": 6,
-          "name": "我は征く、星の大海へ",
-          "operations": [
-            {
-              "op": "addBufftoGroup",
-              "targetSkillId": [
-                1
-              ],
-              "targetBuffGroupId": 1,
-              "buffs": [
-                {
-                  "valueType": "ResPen",
-                  "valueUnit": "percent",
-                  "target": "ally",
-                  "source": {
-                    "type": "fixed",
-                    "value": 20
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+    ]
   }
 }
