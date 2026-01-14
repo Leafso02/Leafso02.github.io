@@ -8,10 +8,14 @@ import { getAttackableSkills } from "../calc/mainCalc.js";
  */
 export function updateSkillSelect() {
 
+    console.log("[skillSelect] updateSkillSelect called");
+
   const skillSelect = document.getElementById("skillSelect");
   skillSelect.innerHTML = "";
 
   const skills = getAttackableSkills();
+
+  console.log("[skillSelect] attackable skills:", skills);
 
   skills.forEach(skill => {
     const option = document.createElement("option");
