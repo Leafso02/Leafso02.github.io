@@ -9,7 +9,7 @@ import { updateSkillSelect } from "./skillSelect.js";
 export async function loadCharacterList() {
 
   // キャラクター一覧JSONを取得する
-  const response = await fetch("./data/character/index/characters.json");
+  const response = await fetch("data/character/index/characters.json");
 
   // 読み込み失敗時は即エラー（表示されない原因を隠さない）
   if (!response.ok) {

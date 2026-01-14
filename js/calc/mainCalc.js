@@ -62,7 +62,7 @@ export async function loadCharacterData(characterId) {
 export function getAttackableSkills() {
 
   console.log("[mainCalc] current.skills =", current.skills);
-  
+
   const result = [];
 
   Object.entries(current.skills).forEach(([skillType, data]) => {
