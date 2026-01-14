@@ -45,9 +45,6 @@ export async function loadCharacterData(characterId) {
   current.multipliers = await loadJSON(
     `data/character/multipliers/${characterId}_multiplier.json`
   );
-
-  // 読み込んだスキル情報を「攻撃可能スキルのみ」UIに反映
-  buildSkillSelect();
 }
 
 /**
