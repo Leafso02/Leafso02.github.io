@@ -10,5 +10,4 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // キャラクター選択プルダウンを生成する
   initCharacterSelect();
-  res += i;
 });
