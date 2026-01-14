@@ -1,85 +1,95 @@
-import { loadJSON, characterList } from "./loadData.js";
+import { loadJSON } from "./loadData.js";
 import { collectBuffs } from "./buffEngine.js";
 import { applyBuffsToStats } from "./statEngine.js";
 import { calculateDamage } from "./damageEngine.js";
 
-/* ===== HTML要素取得 ===== */
-const characterSelect = document.getElementById("characterSelect");
+/* ===== HTML要素取得 =====
+ * ・計算に必要な入力値のみ取得
+ * ・キャラ選択UIはここでは制御しない
+ */
 const skillSelect = document.getElementById("skillSelect");
 const skillLevelInput = document.getElementById("skillLevel");
 const eidolonLevelInput = document.getElementById("eidolonLevel");
 const resultElem = document.getElementById("damageResult");
 
-/* ===== 現在選択中のキャラデータ ===== */
+/* ===== 現在ロード中のキャラデータ =====
+ * ・characterSelect 側から指定されたキャラIDを元に構築される
+ */
 let current = {};
 
 /**
- * 初期化処理
- * - キャラ一覧をUIに反映
+ * キャラIDを受け取り、計算に必要な全JSONを読み込む
+ *
+ * ・characterId：選択されたキャラのID
+ * ・読み込んだデータは current に集約する
  */
-async function init() {
-  characterList.forEach(c => {
-    const option = document.createElement("option");
-    option.value = c.id;
-    option.textContent = c.name;
-    characterSelect.appendChild(option);
-  });
+export async function loadCharacterData(characterId) {
 
-  await loadCharacter(characterList[0].id);
-}
-
-/**
- * キャラクター変更時の処理
- */
-characterSelect.addEventListener("change", async e => {
-  await loadCharacter(e.target.value);
-});
-
-/**
- * キャラデータ一式をロードする
- */
-async function loadCharacter(characterId) {
   current.character = await loadJSON(
     `data/character/characters/${characterId}_character.json`
   );
+
   current.skills = await loadJSON(
     `data/character/skills/${characterId}_skill.json`
   );
+
   current.eidolons = await loadJSON(
     `data/character/eidolons/${characterId}_eidolons.json`
   );
+
   current.traces = await loadJSON(
     `data/character/traces/${characterId}_traces.json`
   );
+
   current.multipliers = await loadJSON(
     `data/character/multipliers/${characterId}_multiplier.json`
   );
 
+  // 読み込んだスキル情報を「攻撃可能スキルのみ」UIに反映
   buildSkillSelect();
 }
 
 /**
- * 「攻撃可能なスキルのみ」セレクトに反映
+ * 攻撃に使用可能なスキルだけを skillSelect に反映する
+ *
+ * ・current.skills の内容を参照
+ * ・攻撃不可スキルは除外
  */
-function buildSkillSelect() {
-  skillSelect.innerHTML = "";
+/**
+ * 現在ロードされているキャラの
+ * 「攻撃に使用できるスキル一覧」を生成して返す
+ *
+ * ・UI側はこの戻り値をそのまま select に反映する
+ */
+export function getAttackableSkills() {
+
+  const result = [];
 
   Object.entries(current.skills).forEach(([skillType, data]) => {
+
     if (!data.base) return;
 
     data.base.forEach(skill => {
+
       if (skill.type === "atkOnly" || skill.type === "both") {
-        const option = document.createElement("option");
-        option.value = skillType;
-        option.textContent = skill.name;
-        skillSelect.appendChild(option);
+        result.push({
+          skillType,      // 例: "ultimate"
+          name: skill.name // 表示用
+        });
       }
     });
   });
+
+  return result;
 }
 
 /**
- * ダメージ計算ボタン
+ * ダメージ計算処理
+ *
+ * ・UI入力値を収集
+ * ・バフを集計
+ * ・最終ステータスを算出
+ * ・ダメージを計算し画面に表示
  */
 document.getElementById("calcBtn").addEventListener("click", () => {
 
@@ -87,6 +97,7 @@ document.getElementById("calcBtn").addEventListener("click", () => {
   const skillLevel = Number(skillLevelInput.value);
   const eidolonLevel = Number(eidolonLevelInput.value);
 
+  // 各種データを buffEngine に送る
   const buffs = collectBuffs({
     skillData: current.skills,
     eidolonsData: current.eidolons,
@@ -98,14 +109,17 @@ document.getElementById("calcBtn").addEventListener("click", () => {
     context: { attackType: skillType }
   });
 
+  // キャラ基礎ステータスを定義
   const baseStats = {
     atk: current.character.baseAtk,
     critDmg: 0,
     resPen: 0
   };
 
+  // バフを基礎ステータスに反映
   const finalStats = applyBuffsToStats(baseStats, buffs);
 
+  // ダメージ計算
   const dmg = calculateDamage({
     attackerStats: finalStats,
     multiplierData: current.multipliers,
@@ -115,5 +129,3 @@ document.getElementById("calcBtn").addEventListener("click", () => {
 
   resultElem.textContent = `ダメージ：${Math.floor(dmg)}`;
 });
-
-init();

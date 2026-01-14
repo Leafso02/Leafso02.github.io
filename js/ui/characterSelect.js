@@ -8,18 +8,32 @@ import { loadCharacterList } from "./loadCharacter.js";
  */
 export async function initCharacterSelect() {
 
-    console.log("[characterSelect] init start");
-
-  // HTML上の<select>を取得
   const select = document.getElementById("characterSelect");
+  const skillSelect = document.getElementById("skillSelect");
 
-    console.log("[characterSelect] select element:", select);
+  // キャラ変更時
+  select.addEventListener("change", async (e) => {
 
-  // selectが無い＝HTML設計ミス
-  if (!select) {
-    console.error("characterSelect がHTMLに存在しません");
-    return;
-  }
+    const characterId = e.target.value;
+
+    // ① 選択されたキャラの全データを計算側にロード
+    await loadCharacterData(characterId);
+
+    // ② 攻撃可能なスキル一覧を取得
+    const skills = getAttackableSkills();
+
+    // ③ スキル選択UIを更新
+    skillSelect.innerHTML = "";
+
+    skills.forEach(skill => {
+
+      const option = document.createElement("option");
+      option.value = skill.skillType;
+      option.textContent = skill.name;
+
+      skillSelect.appendChild(option);
+    });
+  });
 
   // プルダウンを初期化
   select.innerHTML = "";
