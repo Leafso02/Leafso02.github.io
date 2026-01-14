@@ -1,3 +1,4 @@
+console.log("[mainCalc] loaded");
 import { loadJSON } from "./loadData.js";
 import { collectBuffs } from "./buffEngine.js";
 import { applyBuffsToStats } from "./statEngine.js";
