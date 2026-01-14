@@ -18,7 +18,7 @@ export function updateSkillSelect() {
 skills.forEach(skill => {
   const option = document.createElement("option");
   option.value = skill.skillKey;   // 計算用キー（basicATKなど）
-  option.textContent = skill.data.categoryLabel; // 日本語ラベル
+  option.textContent = skill.categoryLabel; // 日本語ラベル
   skillSelect.appendChild(option);
 });
 }
