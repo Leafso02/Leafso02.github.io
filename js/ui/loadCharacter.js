@@ -28,6 +28,8 @@ export async function loadCharacterList() {
  */
 export async function loadCharacter(characterId) {
 
+  console.log("loadCharacterの呼び出し成功");
+
   // キャラ関連JSONをすべてロードし、current を構築
   await loadCharacterData(characterId);
 
