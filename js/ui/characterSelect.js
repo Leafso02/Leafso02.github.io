@@ -8,8 +8,12 @@ import { loadCharacterList } from "./loadCharacter.js";
  */
 export async function initCharacterSelect() {
 
+    console.log("[characterSelect] init start");
+
   // HTML上の<select>を取得
   const select = document.getElementById("characterSelect");
+
+    console.log("[characterSelect] select element:", select);
 
   // selectが無い＝HTML設計ミス
   if (!select) {
@@ -23,8 +27,12 @@ export async function initCharacterSelect() {
   // キャラクター一覧を取得
   const characters = await loadCharacterList();
 
+    console.log("[characterSelect] loaded characters:", characters);
+
   // キャラクターを1件ずつ<option>として追加
   characters.forEach(char => {
+    
+    console.log("[characterSelect] add option:", char);
 
     // option要素を生成
     const option = document.createElement("option");
@@ -38,4 +46,5 @@ export async function initCharacterSelect() {
     // selectに追加
     select.appendChild(option);
   });
+    console.log("[characterSelect] init complete");
 }

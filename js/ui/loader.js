@@ -5,6 +5,9 @@ import { initCharacterSelect } from "./characterSelect.js";
  */
 window.addEventListener("DOMContentLoaded", () => {
 
+    // loader.jsが実行されたかのデバッグ
+  console.log("[loader] DOMContentLoaded");
+
   // キャラクター選択プルダウンを生成する
   initCharacterSelect();
   res += i;
