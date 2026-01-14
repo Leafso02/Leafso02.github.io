@@ -15,21 +15,31 @@ export function updateSkillSelect() {
 
   const skills = getAttackableSkills();
 
-  console.log("[skillSelect] attackable skills:", skills);
+    // カテゴリごとにスキルをグループ化する
+  const grouped = {}; // { "通常攻撃": [...], "戦闘スキル": [...] }
 
   skills.forEach(skill => {
-  // カテゴリが変わったら optgroup を生成
-    if (currentGroupLabel !== skill.categoryLabel) {
-      currentGroupLabel = skill.categoryLabel;
-      currentOptGroup = document.createElement("optgroup");
-      currentOptGroup.label = currentGroupLabel;
-      skillSelect.appendChild(currentOptGroup);
-    }
+    const label = skill.categoryLabel || "その他"; // カテゴリラベルを取得
+    if (!grouped[label]) grouped[label] = [];
+    grouped[label].push(skill);
+  });
 
-    const option = document.createElement("option");
-    option.value = skill.skillKey; // JSONのキー
-    option.textContent = skill.skillName; // スキル名
+// グループごとに optgroup を生成
+  Object.entries(grouped).forEach(([categoryLabel, skillArray]) => {
 
-    currentOptGroup.appendChild(option);
+    // optgroup要素を作成し、カテゴリラベルを設定
+    const optgroup = document.createElement("optgroup");
+    optgroup.label = categoryLabel;
+
+    // 各スキルを option として optgroup に追加
+    skillArray.forEach(skill => {
+      const option = document.createElement("option");
+      option.value = skill.skillKey; // 後続の計算で参照するID
+      option.textContent = skill.skillName; // スキル名を表示
+      optgroup.appendChild(option);
+    });
+
+    // 完成した optgroup を select に追加
+    skillSelect.appendChild(optgroup);
   });
 }
