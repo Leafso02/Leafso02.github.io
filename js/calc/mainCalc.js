@@ -1,16 +1,11 @@
 console.log("[mainCalc] loaded");
 
 import { loadJSON } from "./loadData.js";
-
-console.log("=== context debug ===");
-console.log(context);
-console.log("skills:", context.skills);
-console.log("skillType:", context.skillType);
-
+import { buildContext } from "./contextBuilder.js";
 import { collectAllBuffs } from "./buffEngine.js";
 import { applyBuffsToStats } from "./statEngine.js";
 
-import { calculateBaseDamage } from "./baseDamageEngine.js";
+import { calculateBaseDamage } from "./baseDmgEngine.js";
 import { calculateCritCoef } from "./critCoefEngine.js";
 import { calculateIncreaseDmgCoef } from "./increaseDmgCoefEngine.js";
 
@@ -94,6 +89,16 @@ document.getElementById("calcBtn").addEventListener("click", () => {
   const skillKey = skillSelect.value;
   const skillLevel = Number(skillLevelInput.value);
   const eidolonLevel = Number(eidolonLevelInput.value);
+
+  const context = buildContext({
+  skillType: selectedSkillType, // "basic" | "skill" | "ult"
+  skills: characterSkills,
+  traces: characterTraces,
+  eidolons: characterEidolons,
+  eidolonLevel,
+  manualBuffs,
+  isUserTurn: true,
+});
 
   /**
    * ============================

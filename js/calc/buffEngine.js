@@ -1,6 +1,6 @@
 import { checkCondition } from "./conditionEngine.js";
 import { getMultiplier } from "./multiplierEngine.js";
-
+import { buildContext } from "./contextBuilder.js";
 
 /**
  * 計算に使用するすべてのバフを収集する
@@ -61,16 +61,35 @@ function collectTraceBuffs(context) {
 
 function collectSkillBuffs(context) {
   const result = [];
+
+  // 
+  if (!context.skills) {
+    console.warn("[buffEngine] context.skills is undefined", context);
+    return result;
+  }
+
+  if (!context.skillType) {
+    console.warn("[buffEngine] context.skillType is undefined", context);
+    return result;
+  }
+
   const skillGroup = context.skills[context.skillType];
-  if (!skillGroup?.base) return result;
+
+  if (!skillGroup?.base) {
+    console.warn(
+      `[buffEngine] skillGroup.base not found for skillType: ${context.skillType}`,
+      skillGroup
+    );
+    return result;
+  }
 
   skillGroup.base.forEach(skill => {
     skill.buffGroups?.forEach(group => {
-      group.buffs.forEach(buff => {
+      group.buffs?.forEach(buff => {
         result.push({
           ...buff,
           source: "skill",
-          skillId: skill.skillId
+          skillId: skill.skillId,
         });
       });
     });
@@ -78,6 +97,7 @@ function collectSkillBuffs(context) {
 
   return result;
 }
+
 
 function collectAllyBuffs(context) {
   // 将来実装
