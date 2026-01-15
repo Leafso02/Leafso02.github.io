@@ -1,7 +1,7 @@
 console.log("[mainCalc] loaded");
 
 import { loadJSON } from "./loadData.js";
-import { collectBuffs } from "./buffEngine.js";
+import { collectAllBuffs } from "./buffEngine.js";
 import { applyBuffsToStats } from "./statEngine.js";
 
 import { calculateBaseDamage } from "./baseDamageEngine.js";
@@ -94,7 +94,7 @@ document.getElementById("calcBtn").addEventListener("click", () => {
    * 1. バフ収集
    * ============================
    */
-  const buffs = collectBuffs({
+  const buffs = collectAllBuffs({
     skillData: current.skills,
     eidolonsData: current.eidolons,
     tracesData: current.traces,
