@@ -91,7 +91,7 @@ document.getElementById("calcBtn").addEventListener("click", () => {
   const eidolonLevel = Number(eidolonLevelInput.value);
 
   const context = buildContext({
-  skillType: selectedSkillType, // "basic" | "skill" | "ult"
+  skillType: skillKey, // "basic" | "skill" | "ult"
   skills: characterSkills,
   traces: characterTraces,
   eidolons: characterEidolons,
