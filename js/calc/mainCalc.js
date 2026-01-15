@@ -1,6 +1,12 @@
 console.log("[mainCalc] loaded");
 
 import { loadJSON } from "./loadData.js";
+
+console.log("=== context debug ===");
+console.log(context);
+console.log("skills:", context.skills);
+console.log("skillType:", context.skillType);
+
 import { collectAllBuffs } from "./buffEngine.js";
 import { applyBuffsToStats } from "./statEngine.js";
 
