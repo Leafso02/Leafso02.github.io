@@ -1,8 +1,8 @@
 console.log("[mainCalc] loaded");
 import { loadJSON } from "./loadData.js";
-import { collectBuffs } from "./buffEngine.js";
-import { applyBuffsToStats } from "./statEngine.js";
-import { calculateDamage } from "./damageEngine.js";
+import { calculateBaseDamage } from "./baseDamageEngine.js";
+import { calculateFinalStats } from "./statEngine.js";
+
 
 /* ===== HTML要素取得 =====
  * ・計算に必要な入力値のみ取得
@@ -60,9 +60,6 @@ export async function loadCharacterData(characterId) {
  * ・UI側はこの戻り値をそのまま select に反映する
  */
 export function getAttackableSkills() {
-
-  console.log("[mainCalc] current.skills =", current.skills);
-
   const result = [];
 
   Object.entries(current.skills).forEach(([skillKey, data]) => {
@@ -85,48 +82,65 @@ export function getAttackableSkills() {
 }
 
 /**
- * ダメージ計算処理
- *
- * ・UI入力値を収集
- * ・バフを集計
- * ・最終ステータスを算出
- * ・ダメージを計算し画面に表示
+ * メインのダメージ計算処理
  */
-document.getElementById("calcBtn").addEventListener("click", () => {
 
-  const skillType = skillSelect.value;
-  const skillLevel = Number(skillLevelInput.value);
-  const eidolonLevel = Number(eidolonLevelInput.value);
+export function calculateDamage({
+  skillData,
+  multiplierData,
+  characterData,
+  skillKey,
+  skillLevel
+}) {
 
-  // 各種データを buffEngine に送る
-  const buffs = collectBuffs({
-    skillData: current.skills,
-    eidolonsData: current.eidolons,
-    tracesData: current.traces,
-    multiplierData: current.multipliers,
-    skillType,
-    skillLevel,
-    eidolonLevel,
-    context: { attackType: skillType }
-  });
+  /**
+   * ============================
+   * 1. 最終ステータス算出
+   * ============================
+   */
 
-  // キャラ基礎ステータスを定義
-  const baseStats = {
-    atk: current.character.baseAtk,
-    critDmg: 0,
-    resPen: 0
-  };
+  const finalStats = calculateFinalStats(characterData);
 
-  // バフを基礎ステータスに反映
-  const finalStats = applyBuffsToStats(baseStats, buffs);
+  /**
+   * ============================
+   * 2. ダメージ基礎値
+   * ============================
+   */
 
-  // ダメージ計算
-  const dmg = calculateDamage({
-    attackerStats: finalStats,
-    multiplierData: current.multipliers,
-    skillType,
+  const baseResult = calculateBaseDamage({
+    skillData,
+    multiplierData,
+    finalStats,
+    skillKey,
     skillLevel
   });
 
-  resultElem.textContent = `ダメージ：${Math.floor(dmg)}`;
-});
+  const baseDamage = baseResult.baseDamage;
+
+  /**
+   * ============================
+   * 3. 会心係数
+   * ============================
+   */
+
+  const critRate = finalStats.CritRate ?? 0;
+  const critDmg = finalStats.CritDmg ?? 0;
+
+  const critMultiplier = 1 + (critRate * critDmg);
+
+  /**
+   * ============================
+   * 4. ダメージ（敵係数なし）
+   * ============================
+   */
+
+  const totalDamage = baseDamage * critMultiplier;
+
+  return {
+    baseDamage,
+    critRate,
+    critDmg,
+    critMultiplier,
+    totalDamage
+  };
+}

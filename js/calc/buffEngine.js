@@ -1,108 +1,120 @@
 import { checkCondition } from "./conditionEngine.js";
 import { getMultiplier } from "./multiplierEngine.js";
 
+
 /**
- * 現在の状況で有効なバフをすべて集める
- *
- * - スキル固有バフ
- * - 星魂バフ
- * - 軌跡バフ
- *
- * を一括で処理する
+ * 計算に使用するすべてのバフを収集する
  */
-export function collectBuffs({
-  skillData,
-  eidolonsData,
-  tracesData,
-  multiplierData,
-  skillType,
-  skillLevel,
-  eidolonLevel,
-  context
-}) {
+export function collectAllBuffs(context) {
   const buffs = [];
 
-  /* ==========================
-     スキル由来のバフ処理
-  ========================== */
-  const bases = skillData[skillType]?.base ?? [];
+  buffs.push(
+    ...collectEidolonBuffs(context),
+    ...collectTraceBuffs(context),
+    ...collectSkillBuffs(context),
+    ...collectAllyBuffs(context),
+    ...collectLightConeBuffs(context),
+    ...collectManualBuffs(context)
+  );
 
-  for (const base of bases) {
-    for (const group of base.buffGroups ?? []) {
-
-      // conditionを満たしていなければスキップ
-      if (!checkCondition(group.condition, context)) continue;
-
-      // group内のバフを展開
-      for (const buff of group.buffs) {
-        buffs.push(
-          resolveBuff(buff, multiplierData, skillType, skillLevel)
-        );
-      }
-    }
-  }
-
-  /* ==========================
-     星魂（eidolons）処理
-  ========================== */
-  for (const e of eidolonsData.eidolons ?? []) {
-
-    // 未解放の星魂は無視
-    if (e.level > eidolonLevel) continue;
-
-    for (const op of e.operations ?? []) {
-      if (op.op === "addBuffToGroup") {
-        for (const buff of op.buffs ?? []) {
-          buffs.push(
-            resolveBuff(buff, multiplierData, skillType, skillLevel)
-          );
-        }
-      }
-    }
-  }
-
-  /* ==========================
-     追加能力（traces）処理
-  ========================== */
-  for (const t of tracesData.bonusAbilities ?? []) {
-    for (const op of t.operations ?? []) {
-      if (op.op === "addBuffToGroup") {
-        for (const buff of op.buffs ?? []) {
-          buffs.push(
-            resolveBuff(buff, multiplierData, skillType, skillLevel)
-          );
-        }
-      }
-    }
-  }
-
-  return buffs;
+  // 条件評価
+  return buffs.filter(buff => evaluateCondition(buff.condition, context));
 }
 
-/**
- * バフのsourceを解決し、数値として確定させる
- */
-function resolveBuff(buff, multiplierData, skillType, skillLevel) {
-  let value = 0;
+/* =====================
+ * 各バフ種別ごとの収集
+ * ===================== */
 
-  // 固定値バフ
-  if (buff.source.type === "fixed") {
-    value = buff.source.value;
+function collectEidolonBuffs(context) {
+  const result = [];
+
+  Object.values(context.eidolons || {}).forEach(eidolon => {
+    if (!eidolon.buffs) return;
+    if (eidolon.level > context.eidolonLevel) return;
+
+    eidolon.buffs.forEach(buff => {
+      result.push({
+        ...buff,
+        source: "eidolon"
+      });
+    });
+  });
+
+  return result;
+}
+
+function collectTraceBuffs(context) {
+  const result = [];
+
+  Object.values(context.traces || {}).forEach(trace => {
+    trace.bonusAbility?.forEach(buff => {
+      result.push({ ...buff, source: "trace" });
+    });
+
+    trace.statusBonus?.forEach(buff => {
+      result.push({ ...buff, source: "trace" });
+    });
+  });
+
+  return result;
+}
+
+function collectSkillBuffs(context) {
+  const result = [];
+  const skillGroup = context.skills[context.skillType];
+  if (!skillGroup?.base) return result;
+
+  skillGroup.base.forEach(skill => {
+    skill.buffGroups?.forEach(group => {
+      group.buffs.forEach(buff => {
+        result.push({
+          ...buff,
+          source: "skill",
+          skillId: skill.skillId
+        });
+      });
+    });
+  });
+
+  return result;
+}
+
+function collectAllyBuffs(context) {
+  // 将来実装
+  return [];
+}
+
+function collectLightConeBuffs(context) {
+  // 将来実装
+  return [];
+}
+
+function collectManualBuffs(context) {
+  return context.manualBuffs || [];
+}
+
+/* =====================
+ * 条件評価エンジン
+ * ===================== */
+
+function evaluateCondition(condition, context) {
+  if (!condition) return true;
+
+  switch (condition.type) {
+    case "always":
+      return true;
+
+    case "skillType":
+      return context.skillType === condition.value;
+
+    case "eidolonLevel":
+      return context.eidolonLevel >= condition.value;
+
+    case "userAct":
+      return context.isUserTurn === true;
+
+    default:
+      console.warn("未対応の条件:", condition);
+      return true;
   }
-
-  // 倍率参照バフ
-  if (buff.source.type === "multiplier") {
-    value = getMultiplier(
-      multiplierData,
-      buff.source.table,
-      skillLevel,
-      buff.source.id
-    );
-  }
-
-  // 計算済みバフとして返却
-  return {
-    ...buff,
-    resolvedValue: value
-  };
 }
