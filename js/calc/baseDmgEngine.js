@@ -104,7 +104,7 @@ export function calculateBaseDamage({
    */
 
   // 今回はまだ計算しない
-  const increaseDamage = 0;
+  const addMultiplierDmg = 0;
 
   /**
    * ============================
@@ -114,12 +114,12 @@ export function calculateBaseDamage({
 
   const baseDamage =
     (refStatValue * traceMultiplier) +
-    increaseDamage;
+    addMultiplierDmg;
 
   return {
     baseDamage,
     refStat: refStatKey,
     traceMultiplier,
-    increaseDamage
+    addMultiplierDmg
   };
 }

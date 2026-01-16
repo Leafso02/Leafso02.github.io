@@ -166,9 +166,7 @@ calcBtn.addEventListener("click", () => {
    * 与ダメ係数
    * ========== */
 
-  const increaseDmgResult = calculateIncreaseDmgCoef({
-    buffs
-  });
+  const increaseDmgResult = calculateIncreaseDmgCoef(buffs);
 
   console.log("[mainCalc] increaseDmgCoef", increaseDmgResult);
 
