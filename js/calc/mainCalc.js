@@ -134,7 +134,7 @@ calcBtn.addEventListener("click", () => {
    * ステータス計算
    * ========== */
 
-  const finalStats = applyBuffsToStats(baseStats, buffs);
+  const finalStats = calculateFinalStats(baseStats, buffs);
 
   console.log("[mainCalc] finalStats", finalStats);
 
