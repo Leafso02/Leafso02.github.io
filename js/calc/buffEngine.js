@@ -5,7 +5,7 @@
  *   「今このアタッカーに有効なバフ」だけを抽出する
  */
 
-export function collectAttackerBuffs({
+export function collectAllBuffs({
   attackerSkills,
   usedSkillType,
   eidolonLevel,
