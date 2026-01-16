@@ -160,7 +160,7 @@ calcBtn.addEventListener("click", () => {
     finalStats
   });
 
-  console.log("[CritCoef]", critCoefResult, critCoefResult);
+  console.log("[mainCalc] CritCoef", critCoefResult, critCoefResult);
 
   /* ==========
    * 与ダメ係数
