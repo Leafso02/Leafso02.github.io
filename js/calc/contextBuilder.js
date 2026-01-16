@@ -1,19 +1,19 @@
 export function buildContext({
-  skillType,
   skills,
-  traces = {},
-  eidolons = {},
-  eidolonLevel = 0,
-  manualBuffs = [],
-  isUserTurn = true,
+  traces,
+  eidolons,
+  skillType,
+  eidolonLevel,
+  manualBuffs,
 }) {
   return {
     skillType,
-    skills,
-    traces,
-    eidolons,
     eidolonLevel,
     manualBuffs,
-    isUserTurn,
+
+    // ★ ここが重要
+    skills,
+    traces: traces.bonusAbilities ?? [],
+    eidolons: eidolons.eidolons ?? []
   };
 }
