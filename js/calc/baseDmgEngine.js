@@ -89,6 +89,7 @@ export function calculateBaseDamage({
   const multiplierTableName = atkDef.multiplier; // 例: "basicATK"
 
   const multiplierTable = multiplierData[multiplierTableName];
+  console.log("multiplierTable " + multiplierTable)
 
   if (!multiplierTable) {
     throw new Error(`倍率テーブルが存在しません: ${multiplierTableName}`);
