@@ -1,10 +1,8 @@
 console.log("[mainCalc] loaded");
 
 import { loadJSON } from "./loadData.js";
-import { buildContext } from "./contextBuilder.js";
 import { collectAllBuffs } from "./buffEngine.js";
-import { applyBuffsToStats } from "./statEngine.js";
-
+import { calculateFinalStats } from "./statEngine.js";
 import { calculateBaseDamage } from "./baseDmgEngine.js";
 import { calculateCritCoef } from "./critCoefEngine.js";
 import { calculateIncreaseDmgCoef } from "./increaseDmgCoefEngine.js";
@@ -83,160 +81,107 @@ export function getAttackableSkills() {
   return result;
 }
 
-/* ===== ダメージ計算 ===== */
-document.getElementById("calcBtn").addEventListener("click", () => {
+/* =====================
+ * 計算ボタン
+ * ===================== */
 
-  const skillKey = skillSelect.value;
+calcBtn.addEventListener("click", () => {
+
+  /* ==========
+   * ユーザー入力
+   * ========== */
+
+  const skillType = skillSelect.value;     // "basicATK" 等
   const skillLevel = Number(skillLevelInput.value);
   const eidolonLevel = Number(eidolonLevelInput.value);
 
-  const context = buildContext({
-  skillType: skillKey, // "basic" | "skill" | "ult"
-  skills: characterSkills,
-  traces: characterTraces,
-  eidolons: characterEidolons,
-  eidolonLevel,
-  manualBuffs,
-  isUserTurn: true,
-});
-
-  /**
-   * ============================
-   * 1. バフ収集
-   * ============================
-   */
-  const buffs = collectAllBuffs({
-    skillData: current.skills,
-    eidolonsData: current.eidolons,
-    tracesData: current.traces,
-    skillType: skillKey,
+  console.log("[mainCalc] input", {
+    skillType,
     skillLevel,
-    eidolonLevel,
-    context: { attackType: skillKey }
+    eidolonLevel
   });
 
-  /**
-   * ============================
-   * 2. 最終ステータス算出
-   * ============================
-   */
+  /* ==========
+   * バフ収集
+   * ========== */
+
+  const buffs = collectAllBuffs({
+    skills: current.skills,
+    traces: current.traces,
+    eidolons: current.eidolons,
+    skillType,
+    eidolonLevel,
+    isUserTurn: true,
+    manualBuffs: []
+  });
+
+  console.log("[mainCalc] buffs", buffs);
+
+  /* ==========
+   * 基礎ステータス
+   * ========== */
+
   const baseStats = {
+    Hp: current.character.baseHp,
     Atk: current.character.baseAtk,
-    CritRate: current.character.baseCritRate ?? 0,
-    CritDmg: current.character.baseCritDmg ?? 0,
-    ResPen: 0
+    Def: current.character.baseDef,
+    Spd: current.character.baseSpd,
+    CritRate: current.character.critRate || 0,
+    CritDmg: current.character.critDmg || 0
   };
+
+  /* ==========
+   * ステータス計算
+   * ========== */
 
   const finalStats = applyBuffsToStats(baseStats, buffs);
 
-  /**
-   * ============================
-   * 3. 各 Engine から値を取得
-   * ============================
-   */
+  console.log("[mainCalc] finalStats", finalStats);
+
+  /* ==========
+   * ダメージ基礎値
+   * ========== */
+
   const baseDmgResult = calculateBaseDamage({
     skillData: current.skills,
     multiplierData: current.multipliers,
     finalStats,
-    skillKey,
+    skillKey: skillType,
     skillLevel
   });
+
+  console.log("[mainCalc] baseDamage", baseDmgResult);
+
+  /* ==========
+   * 会心係数
+   * ========== */
 
   const critCoefResult = calculateCritCoef({
     finalStats
   });
 
-  const increaseDmgCoefResult = calculateIncreaseDmgCoef({
+  console.log("[CritCoef]", critCoef, used);
+
+  /* ==========
+   * 与ダメ係数
+   * ========== */
+
+  const increaseDmgResult = calculateIncreaseDmgCoef({
     buffs
   });
 
-  /**
-   * ============================
-   * 3.5. デバッグ
-   * ============================
-   */
-  console.log(
-    "skillData:" + skillData + 
-    "eidolonsData:" + eidolonsData + 
-    "tracesData:" + skilltracesDataData + 
-    "skillType:" + skillType + 
-    "skillLevel:" + skillLevel + 
-    "eidolonLevel:" + eidolonLevel + 
-    "context:" + context + 
-    "Atk:" + Atk + 
-    "CritRate:" + CritRate + 
-    "CritDmg:" + CritDmg + 
-    "multiplierData:" + multiplierData + 
-    "finalStats:" + finalStats + 
-    "skillKey:" + skillKey + 
-    "buffs:" + buffs
-  )
+  console.log("[mainCalc] increaseDmgCoef", increaseDmgResult);
 
-  const debugElem = document.getElementById("debugOutput");
+  /* ==========
+   * 最終計算
+   * ========== */
 
-
-  /**
-   * ============================
-   * 4. 最終ダメージ計算
-   * ============================
-   */
-  const finalDamage =
+  const damage =
     baseDmgResult.baseDamage *
     critCoefResult.critCoef *
-    increaseDmgCoefResult.increaseDmgCoef;
+    increaseDmgResult.increaseDmgCoef;
 
-  /**
-   * ============================
-   * 5. 表示
-   * ============================
-   */
-  resultElem.textContent = `ダメージ：${Math.floor(finalDamage)}`;
+  console.log("[mainCalc] finalDamage", damage);
 
-  /**
-   * ============================
-   * 6. デバッグ出力（重要）
-   * ============================
-   */
-  console.log("[Damage Debug]", {
-    baseDamage: baseDmgResult,
-    critCoef: critCoefResult,
-    increaseDmgCoef: increaseDmgCoefResult
-  });
-
-  const debugData = {
-  skill: {
-    skillKey,
-    skillLevel
-  },
-
-  baseDamage: {
-    refStat: baseDmgResult.refStat,
-    refStatValue: finalStats[baseDmgResult.refStat],
-    traceMultiplier: baseDmgResult.traceMultiplier,
-    increaseDamage: baseDmgResult.increaseDamage,
-    baseDamage: baseDmgResult.baseDamage
-  },
-
-  crit: {
-    critRate: critCoefResult.critRate,
-    critDmg: critCoefResult.critDmg,
-    critCoef: critCoefResult.critCoef
-  },
-
-  increaseDamage: {
-    typeDmg: increaseDmgCoefResult.typeDmg,
-    otherDmg: increaseDmgCoefResult.otherDmg,
-    increaseDmgCoef: increaseDmgCoefResult.increaseDmgCoef
-  },
-
-  final: {
-    damage:
-      baseDmgResult.baseDamage *
-      critCoefResult.critCoef *
-      increaseDmgCoefResult.increaseDmgCoef
-  }
-};
-
-debugElem.textContent = JSON.stringify(debugData, null, 2);
-
+  resultElem.textContent = `ダメージ：${Math.floor(damage)}`;
 });

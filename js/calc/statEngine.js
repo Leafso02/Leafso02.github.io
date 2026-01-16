@@ -21,132 +21,43 @@
  * @returns {Object}
  *   計算に使用する最終ステータス
  */
-export function applyBuffsToStats(baseStats, buffs) {
+export function calculateFinalStats(baseStats, buffs) {
 
-  /**
-   * ============================
-   * 1. ステータス構造を初期化
-   * ============================
-   */
+  // 将来の基礎ステータス変更バフ用
+  // baseStats = modifyBaseStats(baseStats, buffs);
+  
+   // 1. 初期化
+  const finalStats = { ...baseStats };
 
-  // 元の基礎ステ（JSONそのまま）
-  const base = { ...baseStats };
-
-  // 基礎ステータスを変更する効果（将来対応）
-  const baseModifier = {};
-
-  // %バフ（base参照）
+  // 2. ステータスごとに集計用バケツを用意
+  const flatBonus = {};
   const percentBonus = {};
 
-  // 実数加算バフ
-  const flatBonus = {};
+  Object.keys(baseStats).forEach(stat => {
+    flatBonus[stat] = 0;
+    percentBonus[stat] = 0;
+  });
 
-  /**
-   * ============================
-   * 2. バフを種類ごとに振り分ける
-   * ============================
-   */
-
+  // 3. バフを振り分け
   buffs.forEach(buff => {
+    const stat = buff.valueType;
+    if (!(stat in baseStats)) return;
 
-    const stat = buff.valueType; // 例: "Atk", "CritDmg"
+    if (buff.valueUnit === "flat") {
+      flatBonus[stat] += buff.value;
+    }
 
-    // 未定義ステータスは無視
-    if (!stat) return;
-
-    switch (buff.valueUnit) {
-
-      /**
-       * ---------
-       * %バフ
-       * ---------
-       * ・必ず base のみ参照
-       */
-      case "percent": {
-        percentBonus[stat] = (percentBonus[stat] || 0) + buff.value;
-        break;
-      }
-
-      /**
-       * ---------
-       * 実数加算
-       * ---------
-       */
-      case "flat": {
-        flatBonus[stat] = (flatBonus[stat] || 0) + buff.value;
-        break;
-      }
-
-      /**
-       * ---------
-       * 基礎ステ変更（将来用）
-       * ---------
-       * 例: 基礎Atk +300 / ×1.2
-       */
-      case "baseAdd": {
-        baseModifier[stat] ??= { add: 0, multiply: 1 };
-        baseModifier[stat].add += buff.value;
-        break;
-      }
-
-      case "baseMultiply": {
-        baseModifier[stat] ??= { add: 0, multiply: 1 };
-        baseModifier[stat].multiply *= buff.value;
-        break;
-      }
-
-      default:
-        // 未対応の valueUnit は無視（後で拡張）
-        break;
+    if (buff.valueUnit === "percent") {
+      percentBonus[stat] += buff.value;
     }
   });
 
-  /**
-   * ============================
-   * 3. 有効基礎ステータスを確定
-   * ============================
-   */
-
-  const effectiveBase = {};
-
-  Object.keys(base).forEach(stat => {
-
-    const modifier = baseModifier[stat];
-
-    // 基礎ステ変更がない場合
-    if (!modifier) {
-      effectiveBase[stat] = base[stat];
-      return;
-    }
-
-    // 基礎ステ変更がある場合
-    effectiveBase[stat] =
-      (base[stat] + modifier.add) * modifier.multiply;
-  });
-
-  /**
-   * ============================
-   * 4. 最終ステータスを算出
-   * ============================
-   *
-   * final =
-   *   effectiveBase
-   * + (effectiveBase × percent)
-   * + flat
-   */
-
-  const finalStats = {};
-
-  Object.keys(effectiveBase).forEach(stat => {
-
-    const baseValue = effectiveBase[stat];
-    const percent = percentBonus[stat] || 0;
-    const flat = flatBonus[stat] || 0;
-
+  // 4. 計算
+  Object.keys(baseStats).forEach(stat => {
     finalStats[stat] =
-      baseValue +
-      (baseValue * percent) +
-      flat;
+      baseStats[stat] +
+      flatBonus[stat] +
+      baseStats[stat] * percentBonus[stat];
   });
 
   return finalStats;
