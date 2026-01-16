@@ -1,94 +1,66 @@
-import { checkCondition } from "./conditionEngine.js";
 /**
- * 計算に使用するすべてのバフを収集する
+ * buffEngine.js
+ *
+ * ・星魂・追加能力が適用されたスキル群から
+ *   「今このアタッカーに有効なバフ」だけを抽出する
  */
-export function collectAllBuffs(context) {
-  console.log("[buffEngine] context dump", structuredClone(context));
+
+export function collectAttackerBuffs({
+  attackerSkills,
+  usedSkillType,
+  eidolonLevel,
+  isUserTurn,
+  manualBuffs = [],
+}) {
   const buffs = [];
 
+  // 1. 使用スキル由来バフ
   buffs.push(
-    ...collectEidolonBuffs(context),
-    ...collectTraceBuffs(context),
-    ...collectSkillBuffs(context),
-    ...collectAllyBuffs(context),
-    ...collectLightConeBuffs(context),
-    ...collectManualBuffs(context)
+    ...collectSkillBuffs(attackerSkills, usedSkillType, {
+      eidolonLevel,
+      isUserTurn,
+    })
   );
 
+  // 2. 天賦（常時）
+  buffs.push(
+    ...collectTalentBuffs(attackerSkills, {
+      eidolonLevel,
+      isUserTurn,
+    })
+  );
+
+  // 3. 手動バフ
+  buffs.push(...normalizeBuffs(manualBuffs));
+
+  // 4. サポーター由来バフ（入れ物）
+  buffs.push(
+    ...collectSupporterBuffs()
+  );
+
+  return buffs;
+
   // 条件評価
-  return buffs.filter(buff => evaluateCondition(buff.condition, context));
+  // return buffs.filter(buff => evaluateCondition(buff.condition, context));
 }
 
 /* =====================
  * 各バフ種別ごとの収集
  * ===================== */
 
-function collectEidolonBuffs(context) {
+// 使用スキル由来のバフを集計
+function collectSkillBuffs(skills, skillType, context) {
   const result = [];
 
-  Object.values(context.eidolons || {}).forEach(eidolon => {
-    if (!eidolon.buffs) return;
-    if (eidolon.level > context.eidolonLevel) return;
-
-    eidolon.buffs.forEach(buff => {
-      result.push({
-        ...buff,
-        source: "eidolon"
-      });
-    });
-  });
-
-  return result;
-}
-
-function collectTraceBuffs(context) {
-  const result = [];
-
-  Object.values(context.traces || {}).forEach(trace => {
-    trace.bonusAbility?.forEach(buff => {
-      result.push({ ...buff, source: "trace" });
-    });
-
-    trace.statusBonus?.forEach(buff => {
-      result.push({ ...buff, source: "trace" });
-    });
-  });
-
-  return result;
-}
-
-function collectSkillBuffs(context) {
-  const result = [];
-
-  // 
-  if (!context.skills) {
-    console.warn("[buffEngine] context.skills is undefined", context);
-    return result;
-  }
-
-  if (!context.skillType) {
-    console.warn("[buffEngine] context.skillType is undefined", context);
-    return result;
-  }
-
-  const skillGroup = context.skills[context.skillType];
-
-  if (!skillGroup?.base) {
-    console.warn(
-      `[buffEngine] skillGroup.base not found for skillType: ${context.skillType}`,
-      skillGroup
-    );
-    return result;
-  }
+  const skillGroup = skills[skillType];
+  if (!skillGroup?.base) return result;
 
   skillGroup.base.forEach(skill => {
     skill.buffGroups?.forEach(group => {
       group.buffs?.forEach(buff => {
-        result.push({
-          ...buff,
-          source: "skill",
-          skillId: skill.skillId,
-        });
+        if (!isBuffActive(buff.condition, context)) return;
+
+        result.push(normalizeBuff(buff));
       });
     });
   });
@@ -97,8 +69,51 @@ function collectSkillBuffs(context) {
 }
 
 
-function collectAllyBuffs(context) {
-  // 将来実装
+function collectTalentBuffs(skills, context) {
+  const result = [];
+
+  const talentGroup = skills.talent;
+  if (!talentGroup?.base) return result;
+
+  talentGroup.base.forEach(talent => {
+    // atkOnly の天賦は無視
+    if (talent.type === "atkOnly") return;
+
+    talent.buffGroups?.forEach(group => {
+      group.buffs?.forEach(buff => {
+        if (!isBuffActive(buff.condition, context)) return;
+
+        result.push(normalizeBuff(buff));
+      });
+    });
+  });
+
+  return result;
+}
+
+
+function normalizeBuff(buff) {
+  const value =
+    buff.valueUnit === "percent"
+      ? buff.source.value / 100
+      : buff.source.value;
+
+  return {
+    valueType: buff.valueType,
+    valueUnit: buff.valueUnit,
+    value,
+  };
+}
+
+function normalizeBuffs(buffs = []) {
+  return buffs.map(normalizeBuff);
+}
+
+
+
+function collectSupporterBuffs() {
+  // 将来:
+  // supporterSkills / supporterStates を受け取って処理
   return [];
 }
 
