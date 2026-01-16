@@ -3,6 +3,7 @@ import { checkCondition } from "./conditionEngine.js";
  * 計算に使用するすべてのバフを収集する
  */
 export function collectAllBuffs(context) {
+  console.log("[buffEngine] context dump", structuredClone(context));
   const buffs = [];
 
   buffs.push(
