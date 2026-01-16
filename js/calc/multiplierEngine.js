@@ -1,25 +1,46 @@
 /**
- * 倍率データから値を取得する
+ * multiplierEngine.js
  *
- * @param {Object} multiplierData - multiplier.json全体
- * @param {string} table - 参照するテーブル名（例: "ultimate"）
- * @param {number} level - スキルレベル
- * @param {string} id - 倍率ID（例: "x"）
- * @returns {number} 倍率値（存在しなければ0）
+ * multiplier.json から倍率を安全に取得する
  */
-export function getMultiplier(multiplierData, table, level, id) {
 
-  // テーブルが存在しない場合は倍率0
-  const entry = multiplierData[table];
-  if (!entry) return 0;
+/**
+ * スキル倍率を取得する
+ *
+ * @param {Object} multiplierData multiplier.json
+ * @param {string} skillType "basicATK" | "skill" | "ultimate" | "talent"
+ * @param {number} skillLevel
+ * @param {string} id "x" | "y" など（デフォルト: "x"）
+ * @returns {number}
+ */
+export function getMultiplierValue(
+  multiplierData,
+  skillType,
+  skillLevel,
+  id = "x"
+) {
+  const skillTable = multiplierData[skillType];
+  if (!skillTable) {
+    throw new Error(`倍率テーブルが存在しません: ${skillType}`);
+  }
 
-  // 指定スキルレベルのデータを取得
-  const lv = entry.levels.find(l => l.level === level);
-  if (!lv) return 0;
+  const levelEntry = skillTable.levels.find(
+    entry => entry.level === skillLevel
+  );
+  if (!levelEntry) {
+    throw new Error(
+      `倍率レベルが見つかりません: ${skillType} Lv.${skillLevel}`
+    );
+  }
 
-  // 倍率IDが一致するものを検索
-  const multiplier = lv.multipilers.find(m => m.id === id);
+  const multiplier = levelEntry.multipilers.find(
+    m => m.id === id
+  );
+  if (!multiplier) {
+    throw new Error(
+      `倍率IDが見つかりません: ${skillType} Lv.${skillLevel} (${id})`
+    );
+  }
 
-  // 見つかれば倍率、なければ0
-  return multiplier ? multiplier.value : 0;
+  return multiplier.value;
 }

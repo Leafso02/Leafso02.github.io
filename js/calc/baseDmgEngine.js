@@ -1,3 +1,4 @@
+import { getMultiplierValue } from "./multiplierEngine.js";
 /**
  * baseDamageEngine.js
  *
@@ -86,22 +87,15 @@ export function calculateBaseDamage({
    * ============================
    */
 
-  const multiplierTableName = atkDef.multiplier; // 例: "basicATK"
 
-  const multiplierTable = multiplierData[multiplierTableName];
-  console.log("multiplierTable " + multiplierTable)
+  const multiplierTableName = atkDef.multiplier; // 例: "ultimate"
 
-  if (!multiplierTable) {
-    throw new Error(`倍率テーブルが存在しません: ${multiplierTableName}`);
-  }
-
-  const traceMultiplier = multiplierTable[skillLevel];
-
-  if (traceMultiplier == null) {
-    throw new Error(
-      `倍率が見つかりません: ${multiplierTableName} Lv.${skillLevel}`
-    );
-  }
+  const traceMultiplier = getMultiplierValue(
+    multiplierData,
+    multiplierTableName,
+    skillLevel,
+    "x"
+  );
 
   /**
    * ============================
