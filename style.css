@@ -30,3 +30,20 @@ button {
   margin-top: 20px;
   font-size: 1.2em;
 }
+
+#manual-buff-section {
+  margin: 16px 0;
+  padding: 12px;
+  border: 1px solid #ccc;
+}
+
+.manual-buff {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.manual-buff select,
+.manual-buff input {
+  padding: 4px;
+}
