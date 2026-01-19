@@ -12,19 +12,16 @@ export function collectAllBuffs({
   eidolons,
   skillType,
   eidolonLevel,
-  manualBuffs = []
 }) {
 
   const context = {
     skillType,
     eidolonLevel
-}
+};
 
-  console.log("skills : " + skills);
-  console.log("traces : " + traces);
-  console.log("eidolons : " + eidolons);
-  console.log("skillType : " + skillType);
-  console.log("eidolonLevel : " + eidolonLevel)
+  console.log("skills" + skills)
+  console.log("skills[skillType] : " + skills[skillType])
+  console.log("traces[skillType] : " + skills[skillType])
 
   const buffList = [
     ...collectSkillBuffs(skills, skillType, context),
@@ -74,7 +71,16 @@ function collectSkillBuffs(skills, skillType, context) {
 /* =====================
  * 天賦バフの集計
  * ===================== */
-function collectTalentBuffs(eidolons, eidolonLevel, context) {
+function collectTalentBuffs(context) {
+  const result = [];
+
+  return result;
+}
+
+/* =====================
+ * 軌跡バフの集計
+ * ===================== */
+function collectTraceBuffs(context) {
   const result = [];
 
   return result;
