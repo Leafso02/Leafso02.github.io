@@ -15,7 +15,7 @@ export function collectAllBuffs({
   manualBuffs = []
 }) {
 
-  context = {
+  const context = {
     skillType,
     eidolonLevel
 }
