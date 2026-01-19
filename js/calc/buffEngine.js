@@ -105,6 +105,7 @@ function collectEidolonBuffs(skills, context) {
   return result;
 }
 
+// 正規化を行うのはここだけ
 function normalizeBuff(buff) {
   const value =
     buff.valueUnit === "percent"
