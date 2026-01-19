@@ -140,7 +140,6 @@ calcBtn.addEventListener("click", () => {
    * ========== */
 
   const finalStats = calculateFinalStats(baseStats, buffs);
-  console.log("finalStats : " + finalStats);
   console.log("[mainCalc] finalStats", finalStats);
 
   /* ==========
