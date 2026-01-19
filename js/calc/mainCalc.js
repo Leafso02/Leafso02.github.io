@@ -118,7 +118,7 @@ console.log(eidolonLevel);
     eidolons: current.eidolons,
     skillType,
     eidolonLevel,
-    isUserTurn: true
+    // isUserTurn: true
     // manualBuffs: []
   });
 

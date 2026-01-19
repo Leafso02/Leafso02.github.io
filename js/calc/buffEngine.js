@@ -10,8 +10,8 @@ export function collectAllBuffs({
   traces,
   eidolons,
   skillType,
-  eldolonLevel,
-  isUserTurn
+  eidolonLevel,
+  // isUserTurn
   // manualBuffs = [],
 }) {
 
@@ -19,7 +19,7 @@ export function collectAllBuffs({
   console.log("traces : " + traces);
   console.log("eidolons : " + eidolons);
   console.log("skillType : " + skillType);
-  console.log("eldolonLevel : " + eldolonLevel)
+  console.log("eidolonLevel : " + eidolonLevel)
 
   const buffs = [];
 
