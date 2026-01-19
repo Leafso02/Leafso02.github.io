@@ -12,7 +12,7 @@ export function collectAllBuffs({
   skillType,
   eidolonLevel,
   // isUserTurn
-  // manualBuffs = [],
+  manualBuffs = []
 }) {
 
   console.log("skills : " + skills);
@@ -27,7 +27,6 @@ export function collectAllBuffs({
   buffs.push(
     ...collectSkillBuffs(skills, skillType, {
       eidolonLevel,
-      isUserTurn,
     })
   );
 
@@ -35,7 +34,6 @@ export function collectAllBuffs({
   buffs.push(
     ...collectTalentBuffs(skills, {
       eidolonLevel,
-      isUserTurn,
     })
   );
 
@@ -57,7 +55,9 @@ export function collectAllBuffs({
  * 各バフ種別ごとの収集
  * ===================== */
 
-// 使用スキル由来のバフを集計
+/* =====================
+ * 使用スキル由来のバフの集計
+ * ===================== */
 function collectSkillBuffs(skills, skillType, context) {
   const result = [];
 
@@ -79,8 +79,19 @@ function collectSkillBuffs(skills, skillType, context) {
   return result;
 }
 
+/* =====================
+ * 天賦バフの集計
+ * ===================== */
+function collectTalentBuffs(eidolons, eidolonLevel, context) {
+  const result = [];
 
-function collectTalentBuffs(skills, context) {
+  return result;
+}
+
+/* =====================
+ * 星魂バフの集計
+ * ===================== */
+function collectEidolonBuffs(skills, context) {
   const result = [];
 
   const talentGroup = skills.talent;
@@ -102,6 +113,36 @@ function collectTalentBuffs(skills, context) {
   return result;
 }
 
+/* =====================
+ * 手動バフの集計
+ * ===================== */
+function collectManualBuffs() {
+  const result = [];
+
+  const rows = document.querySelectorAll(".manual-buff");
+  rows.forEach(row => {
+    const valueType = row.querySelector(".buff-type")?.value;
+    const valueUnit = row.querySelector(".buff-unit")?.value;
+    const rawValue = row.querySelector(".buff-value")?.value;
+
+    if (!valueType || rawValue === "") return;
+
+    const value =
+      valueUnit === "percent"
+        ? Number(rawValue) / 100
+        : Number(rawValue);
+
+    result.push({
+      valueType,
+      valueUnit,
+      value,
+    });
+  });
+
+  return result;
+}
+
+
 
 function normalizeBuff(buff) {
   const value =
@@ -115,11 +156,6 @@ function normalizeBuff(buff) {
     value,
   };
 }
-
-function normalizeBuffs(buffs = []) {
-  return buffs.map(normalizeBuff);
-}
-
 
 
 function collectSupporterBuffs() {
