@@ -29,35 +29,21 @@ export function calculateFinalStats(baseStats, buffs) {
    // 1. 初期化
   const finalStats = { ...baseStats };
 
-  // 2. ステータスごとに集計用バケツを用意
-  const flatBonus = {};
-  const percentBonus = {};
-
   Object.keys(baseStats).forEach(stat => {
-    flatBonus[stat] = 0;
-    percentBonus[stat] = 0;
-  });
+    const buff = buffs[stat];
 
-  // 3. バフを振り分け
-  buffs.forEach(buff => {
-    const stat = buff.valueType;
-    if (!(stat in baseStats)) return;
-
-    if (buff.valueUnit === "flat") {
-      flatBonus[stat] += buff.value;
+    if (!buff) {
+      finalStats[stat] = baseStats[stat];
+      return;
     }
 
-    if (buff.valueUnit === "percent") {
-      percentBonus[stat] += buff.value;
-    }
-  });
+    const flat = buff.flat ?? 0;
+    const percent = buff.percent ?? 0;
 
-  // 4. 計算
-  Object.keys(baseStats).forEach(stat => {
     finalStats[stat] =
       baseStats[stat] +
-      flatBonus[stat] +
-      baseStats[stat] * percentBonus[stat];
+      flat +
+      baseStats[stat] * percent;
   });
 
   return finalStats;

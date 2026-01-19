@@ -117,9 +117,7 @@ console.log(eidolonLevel);
     traces: current.traces,
     eidolons: current.eidolons,
     skillType,
-    eidolonLevel,
-    // isUserTurn: true
-    // manualBuffs: []
+    eidolonLevel
   });
 
   console.log("[mainCalc] buffs", buffs);
