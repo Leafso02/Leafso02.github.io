@@ -131,8 +131,8 @@ calcBtn.addEventListener("click", () => {
     Atk: current.character.baseAtk,
     Def: current.character.baseDef,
     Spd: current.character.baseSpd,
-    CritRate: current.character.critRate || 0,
-    CritDmg: current.character.critDmg || 0
+    CritRate: 0.05,
+    CritDmg: 0.5
   };
 
   /* ==========

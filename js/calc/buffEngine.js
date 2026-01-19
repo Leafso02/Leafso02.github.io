@@ -19,10 +19,6 @@ export function collectAllBuffs({
     eidolonLevel
 };
 
-  console.log("skills" + skills)
-  console.log("skills[skillType] : " + skills[skillType])
-  console.log("traces[skillType] : " + skills[skillType])
-
   const buffList = [
     ...collectSkillBuffs(skills, skillType, context),
     ...collectTalentBuffs(skills, context),
@@ -49,8 +45,6 @@ export function collectAllBuffs({
  * ===================== */
 function collectSkillBuffs(skills, skillType, context) {
   const result = [];
-
-  console.log("skills:" + skills + "skillType:" + skillType + "context:" + context)
 
   const skillGroup = skills[skillType];
   if (!skillGroup?.base) return result;
