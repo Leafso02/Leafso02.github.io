@@ -52,6 +52,8 @@ export function collectAllBuffs({
 function collectSkillBuffs(skills, skillType, context) {
   const result = [];
 
+  console.log("skills:" + skills + "skillType:" + skillType + "contect:" + context)
+
   const skillGroup = skills[skillType];
   if (!skillGroup?.base) return result;
 
