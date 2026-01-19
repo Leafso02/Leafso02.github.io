@@ -15,6 +15,12 @@ export function collectAllBuffs({
   manualBuffs = []
 }) {
 
+  //  const context = {
+  //   usedSkillType,
+  //   eidolonLevel,
+  //   isUserTurn,
+  // };
+
   console.log("skills : " + skills);
   console.log("traces : " + traces);
   console.log("eidolons : " + eidolons);
@@ -167,10 +173,6 @@ function collectSupporterBuffs() {
 function collectLightConeBuffs(context) {
   // 将来実装
   return [];
-}
-
-function collectManualBuffs(context) {
-  return context.manualBuffs || [];
 }
 
 /* =====================
