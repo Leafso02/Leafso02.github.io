@@ -51,7 +51,7 @@ export function collectAllBuffs({
     ...collectSupporterBuffs()
   );
 
-  return buffs;
+  return aggrgateBuffs(buffs);
 
   // 条件評価
   // return buffs.filter(buff => evaluateCondition(buff.condition, context));
@@ -119,37 +119,6 @@ function collectEidolonBuffs(skills, context) {
   return result;
 }
 
-/* =====================
- * 手動バフの集計
- * ===================== */
-function collectManualBuffs() {
-  const result = [];
-
-  const rows = document.querySelectorAll(".manual-buff");
-  rows.forEach(row => {
-    const valueType = row.querySelector(".buff-type")?.value;
-    const valueUnit = row.querySelector(".buff-unit")?.value;
-    const rawValue = row.querySelector(".buff-value")?.value;
-
-    if (!valueType || rawValue === "") return;
-
-    const value =
-      valueUnit === "percent"
-        ? Number(rawValue) / 100
-        : Number(rawValue);
-
-    result.push({
-      valueType,
-      valueUnit,
-      value,
-    });
-  });
-
-  return result;
-}
-
-
-
 function normalizeBuff(buff) {
   const value =
     buff.valueUnit === "percent"
@@ -193,10 +162,39 @@ function isBuffActive(condition, context) {
       return context.eidolonLevel >= condition.value;
 
     case "userAct":
-      return context.isUserTurn === true;
+      return true;
 
     default:
       console.warn("未対応の条件:", condition);
       return true;
   }
 }
+
+function aggrgateBuffs(buffList) {
+  const result = {};
+
+  console.log(buffList);
+
+  for (const { valueType, valueUnit, value } of buffList) {
+
+    if (!result[valueType]) {
+      result[valueType] = { flat: 0, percent: 0 };
+    }
+    
+    // 固定値(flat)のバフは基本ステータスにしかないため、比較は基本ステータスのみに
+    const isBaseStat = ["Hp", "Atk", "Def", "Spd"].includes(valueType);
+
+    if (isBaseStat) {
+      if (valueUnit === "percent") {
+        result[valueType].percent += value;
+      } else {
+        result[valueType].flat += value;
+      }
+    } else {
+      result[valueType].percent += value;
+    }
+  }
+
+  return result;
+}
+

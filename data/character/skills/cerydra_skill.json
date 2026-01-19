@@ -94,7 +94,7 @@
             },
             "buffs": [
               {
-                "valueType": "Status",
+                "valueType": "Atk",
                 "valueUnit": "percent",
                 "target": "ally",
                 "source": {
@@ -115,7 +115,7 @@
               },
               {
                 "valueType": "AddDmg",
-                "valueUnit": "percent",
+                "valueUnit": "flat",
                 "target": "ally",
                 "source": {
                   "type": "expression",
