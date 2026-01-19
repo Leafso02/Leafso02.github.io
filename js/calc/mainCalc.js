@@ -160,9 +160,9 @@ calcBtn.addEventListener("click", () => {
    * 会心係数
    * ========== */
 
-  const critCoefResult = calculateCritCoef({
+  const critCoefResult = calculateCritCoef(
     finalStats
-  });
+  );
 
   console.log("[mainCalc] CritCoef", critCoefResult, critCoefResult);
 

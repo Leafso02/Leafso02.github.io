@@ -45,8 +45,5 @@ export function calculateFinalStats(baseStats, buffs) {
       baseStats[stat] * percent;
   });
 
-    console.log("finalStats : " + finalStats.CritRate);
-  console.log("baseStats : " + baseStats.CritRate);
-  
   return finalStats;
 }
