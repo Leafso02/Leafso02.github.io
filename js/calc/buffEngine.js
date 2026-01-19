@@ -184,7 +184,6 @@ function aggrgateBuffs(buffList) {
     }
   }
 
-  console.log(result);
   return result;
 }
 

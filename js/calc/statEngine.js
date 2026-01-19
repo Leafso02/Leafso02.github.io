@@ -45,5 +45,6 @@ export function calculateFinalStats(baseStats, buffs) {
       baseStats[stat] * percent;
   });
 
+  console.log(finalStats);
   return finalStats;
 }
