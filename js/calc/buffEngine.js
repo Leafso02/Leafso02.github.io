@@ -160,8 +160,6 @@ function isBuffActive(condition, context) {
 // 全てのバフを統合
 // 例) {Atk{}, crtRate{}}
 function aggrgateBuffs(buffList) {
-
-  console.log(buffList.CritRate);
   const result = {};
 
   console.log(buffList);
@@ -186,6 +184,7 @@ function aggrgateBuffs(buffList) {
     }
   }
 
+  console.log(result);
   return result;
 }
 
