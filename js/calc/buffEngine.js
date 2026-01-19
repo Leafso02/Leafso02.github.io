@@ -15,6 +15,11 @@ export function collectAllBuffs({
   manualBuffs = []
 }) {
 
+  context = {
+    skillType,
+    eidolonLevel
+}
+
   console.log("skills : " + skills);
   console.log("traces : " + traces);
   console.log("eidolons : " + eidolons);
@@ -48,7 +53,7 @@ export function collectAllBuffs({
 function collectSkillBuffs(skills, skillType, context) {
   const result = [];
 
-  console.log("skills:" + skills + "skillType:" + skillType + "contect:" + context)
+  console.log("skills:" + skills + "skillType:" + skillType + "context:" + context)
 
   const skillGroup = skills[skillType];
   if (!skillGroup?.base) return result;
