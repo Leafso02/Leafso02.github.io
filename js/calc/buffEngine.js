@@ -25,7 +25,7 @@ export function collectAllBuffs({
 
   // 1. 使用スキル由来バフ
   buffs.push(
-    ...collectSkillBuffs(attackerSkills, usedSkillType, {
+    ...collectSkillBuffs(skills, skillType, {
       eidolonLevel,
       isUserTurn,
     })
@@ -33,14 +33,14 @@ export function collectAllBuffs({
 
   // 2. 天賦（常時）
   buffs.push(
-    ...collectTalentBuffs(attackerSkills, {
+    ...collectTalentBuffs(skills, {
       eidolonLevel,
       isUserTurn,
     })
   );
 
   // 3. 手動バフ
-  buffs.push(...normalizeBuffs(manualBuffs));
+  // buffs.push(...normalizeBuffs(manualBuffs));
 
   // 4. サポーター由来バフ（入れ物）
   buffs.push(
