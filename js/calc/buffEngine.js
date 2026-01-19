@@ -1,3 +1,4 @@
+import { collectManualBuffs } from "./manualBuffParser.js";
 /**
  * buffEngine.js
  *
@@ -11,15 +12,8 @@ export function collectAllBuffs({
   eidolons,
   skillType,
   eidolonLevel,
-  // isUserTurn
   manualBuffs = []
 }) {
-
-  //  const context = {
-  //   usedSkillType,
-  //   eidolonLevel,
-  //   isUserTurn,
-  // };
 
   console.log("skills : " + skills);
   console.log("traces : " + traces);
@@ -27,31 +21,18 @@ export function collectAllBuffs({
   console.log("skillType : " + skillType);
   console.log("eidolonLevel : " + eidolonLevel)
 
-  const buffs = [];
+  const buffList = [
+    ...collectSkillBuffs(skills, skillType, context),
+    ...collectTalentBuffs(skills, context),
+    ...collectTraceBuffs(traces, context),
+    ...collectEidolonBuffs(eidolons, context),
+    ...collectSupporterBuffs(),
+    ...collectManualBuffs(manualBuffs)
+  ];
 
-  // 1. 使用スキル由来バフ
-  buffs.push(
-    ...collectSkillBuffs(skills, skillType, {
-      eidolonLevel,
-    })
-  );
+  console.log(buffList);
 
-  // 2. 天賦（常時）
-  buffs.push(
-    ...collectTalentBuffs(skills, {
-      eidolonLevel,
-    })
-  );
-
-  // 3. 手動バフ
-  // buffs.push(...normalizeBuffs(manualBuffs));
-
-  // 4. サポーター由来バフ（入れ物）
-  buffs.push(
-    ...collectSupporterBuffs()
-  );
-
-  return aggrgateBuffs(buffs);
+  return aggrgateBuffs(buffList);
 
   // 条件評価
   // return buffs.filter(buff => evaluateCondition(buff.condition, context));

@@ -5,7 +5,7 @@
  * buffEngine と同一フォーマットに正規化する
  */
 
-export function collectManualBuffsFromUI() {
+export function collectManualBuffs() {
   const result = [];
 
   const rows = document.querySelectorAll(".manual-buff");
