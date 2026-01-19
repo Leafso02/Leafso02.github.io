@@ -7,7 +7,7 @@
 
 export function calculateCritCoef(finalStats) {
 
-  console.log(finalStats.CritRate + finalStats.CritDmg);
+  console.log(finalStats.CritRate);
 
   const critRate = clamp(finalStats.CritRate, 0, 1);
   const critDmg  = finalStats.CritDmg;
