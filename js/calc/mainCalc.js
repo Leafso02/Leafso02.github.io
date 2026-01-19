@@ -105,6 +105,13 @@ calcBtn.addEventListener("click", () => {
    * バフ収集
    * ========== */
 
+console.log("collectAllBuffs");
+console.log(current.skills);
+console.log(current.traces);
+console.log(current.eidolons);
+console.log(skillType);
+console.log(manualBuffs);
+
   const buffs = collectAllBuffs({
     skills: current.skills,
     traces: current.traces,
