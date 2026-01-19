@@ -7,12 +7,14 @@
 
 export function calculateCritCoef(finalStats) {
 
-  const critRate = clamp(finalStats.CritRate ?? 0, 0, 1);
-  const critDmg  = Math.max(finalStats.CritDmg ?? 0, 0);
+  const critRate = clamp(finalStats.CritRate, 0, 1);
+  const critDmg  = finalStats.CritDmg;
 
   // 会心係数
   // 会心係数 = 1 + 会心率 × 会心ダメージ
   const critCoef = 1 + critRate * critDmg;
+
+  console.log("critCoef : " + critCoef);
 
   return {
     critCoef,

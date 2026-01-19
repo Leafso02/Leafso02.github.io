@@ -7,8 +7,6 @@
  * ⚠ %バフは必ず baseStat のみを参照する
  */
 
-const baseCritRate = 0.05;  // 5%
-const baseCritDmg = 0.5;    // 50%
 /**
  * バフを適用して最終ステータスを生成する
  *

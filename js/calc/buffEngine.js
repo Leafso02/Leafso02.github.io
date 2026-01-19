@@ -156,6 +156,8 @@ function isBuffActive(condition, context) {
   }
 }
 
+// 全てのバフを統合
+// 例) {Atk{}, crtRate{}}
 function aggrgateBuffs(buffList) {
   const result = {};
 
