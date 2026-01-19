@@ -29,7 +29,7 @@ export function collectAllBuffs({
     ...collectTraceBuffs(traces, context),
     ...collectEidolonBuffs(eidolons, context),
     ...collectSupporterBuffs(),
-    ...collectManualBuffs(manualBuffs)
+    ...collectManualBuffs()
   ];
 
   console.log(buffList);
