@@ -2,30 +2,22 @@
  * increaseDmgCoefEngine.js
  *
  * ・与ダメージ係数のみを算出する
- * ・statEngine には一切依存しない
+ * ・buffEngine が返す「集計済みオブジェクト」を参照する
  */
 
 export function calculateIncreaseDmgCoef(buffs) {
 
-  let typeDmg = 0;   // 属性与ダメ%
-  let otherDmg = 0;  // その他与ダメ%
+  // buffs 例:
+  // {
+  //   IncreaseDmg: { flat: 0, percent: 0.3 },
+  //   IncreaseTypeDmg: { flat: 0, percent: 0.2 }
+  // }
 
-  buffs.forEach(buff => {
-    switch (buff.valueType) {
+  const typeDmg =
+    buffs.IncreaseTypeDmg?.percent ?? 0;
 
-      case "IncreaseTypeDmg":
-        typeDmg += buff.value;
-        break;
-
-      case "IncreaseDmg":
-        otherDmg += buff.value;
-        break;
-
-      default:
-        // 無関係なバフは無視
-        break;
-    }
-  });
+  const otherDmg =
+    buffs.IncreaseDmg?.percent ?? 0;
 
   const increaseDmgCoef = 1 + typeDmg + otherDmg;
 
