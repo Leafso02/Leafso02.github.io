@@ -6,19 +6,19 @@
  */
 
 export function collectAllBuffs({
-  attackerSkills,
-  attackerTraces,
-  attackerEidolon,
-  usedSkillType,
+  skills,
+  traces,
+  eidolons,
+  skillType,
   eldolonLevel,
   isUserTurn
   // manualBuffs = [],
 }) {
 
-  console.log("attackerSkills : " + attackerSkills);
-  console.log("attackerTraces : " + attackerTraces);
-  console.log("attackerEidolon : " + attackerEidolon);
-  console.log("usedSkillType : " + usedSkillType);
+  console.log("skills : " + skills);
+  console.log("traces : " + traces);
+  console.log("eidolons : " + eidolons);
+  console.log("skillType : " + skillType);
   console.log("eldolonLevel : " + eldolonLevel)
 
   const buffs = [];
