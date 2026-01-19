@@ -39,6 +39,13 @@ export function calculateFinalStats(baseStats, buffs) {
     const flat = buff.flat ?? 0;
     const percent = buff.percent ?? 0;
 
+    if (stat === "CritRate" || stat === "CritDmg") {
+      finalStats[stat] =
+        baseStats[stat] + percent;
+      return;
+    }
+
+
     finalStats[stat] =
       baseStats[stat] +
       flat +
