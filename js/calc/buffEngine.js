@@ -1,10 +1,14 @@
-import { collectManualBuffs } from "./manualBuffParser.js";
 /**
  * buffEngine.js
- *
+ * ================================
+ * 上位ファイル : mainCalc.js
+ * 下位ファイル : manualBuffParser.js
+ * ================================
  * ・星魂・追加能力が適用されたスキル群から
  *   「今このアタッカーに有効なバフ」だけを抽出する
  */
+
+import { collectManualBuffs } from "./manualBuffParser.js";
 
 export function collectAllBuffs({
   skills,
@@ -71,39 +75,22 @@ function collectTalentBuffs(context) {
   return result;
 }
 
-/* =====================
- * 軌跡バフの集計
- * ===================== */
-function collectTraceBuffs(context) {
-  const result = [];
+// /* =====================
+//  * 軌跡バフの集計
+//  * ===================== */
+// function collectTraceBuffs(context) {
+//   const result = [];
+//   return result;
+// }
 
-  return result;
-}
+// /* =====================
+//  * 星魂バフの集計
+//  * ===================== */
+// function collectEidolonBuffs(skills, eidolons, context) {
+//   const result = [];
+//   return result;
+// }
 
-/* =====================
- * 星魂バフの集計
- * ===================== */
-function collectEidolonBuffs(skills, context) {
-  const result = [];
-
-  const talentGroup = skills.talent;
-  if (!talentGroup?.base) return result;
-
-  talentGroup.base.forEach(talent => {
-    // atkOnly の天賦は無視
-    if (talent.type === "atkOnly") return;
-
-    talent.buffGroups?.forEach(group => {
-      group.buffs?.forEach(buff => {
-        if (!isBuffActive(buff.condition, context)) return;
-
-        result.push(normalizeBuff(buff));
-      });
-    });
-  });
-
-  return result;
-}
 
 // 正規化を行うのはここだけ
 function normalizeBuff(buff) {

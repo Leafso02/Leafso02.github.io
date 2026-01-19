@@ -1,9 +1,12 @@
 import { getMultiplierValue } from "./multiplierEngine.js";
 /**
  * baseDamageEngine.js
- *
- * ・「ダメージ基礎値」のみを算出する
- * ・最終ダメージ計算は行わない
+ * ================================
+ * 上位ファイル : mainCalc.js
+ * 下位ファイル : multiplierEngine.js
+ * ================================
+ * 
+ * 「ダメージ基礎値」のみを算出する
  *
  * ダメージ基礎値 =
  *   参照ステータス × 軌跡倍率 + ダメージ加算

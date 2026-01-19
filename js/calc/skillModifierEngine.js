@@ -1,4 +1,12 @@
-// skillModifierEngine.js
+/**
+ * skillModifierEngine.js
+ * ================================
+ * 上位ファイル : .js
+ * 下位ファイル : modifiedSkillStore
+ * ================================
+ * 
+ * 星魂・追加能力をスキルに適用し、modifiedSkillStore に保存する
+ */
 
 import { setModifiedSkills } from "./modifiedSkillStore.js";
 

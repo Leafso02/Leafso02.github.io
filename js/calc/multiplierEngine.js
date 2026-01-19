@@ -1,7 +1,10 @@
 /**
  * multiplierEngine.js
- *
- * multiplier.json から倍率を安全に取得する
+ * ================================
+ * 上位ファイル : baseDmgEngine.js
+ * 下位ファイル : なし
+ * ================================
+ * multiplier.json から倍率を取得する
  */
 
 /**

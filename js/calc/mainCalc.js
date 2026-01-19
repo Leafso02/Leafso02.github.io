@@ -1,3 +1,17 @@
+/**
+ * mainCalc.js
+ * ================================
+ * 上位ファイル : index.html
+ * 下位ファイル : buffEngine.js
+ *               statsEngine.js
+ *               baseDmgEngine.js
+ *               critCoefEngine.js
+ *               increaseDmgCoefEngine.js
+ * ================================
+ * ・与ダメージ係数のみを算出する
+ * ・buffEngine が返す「集計済みオブジェクト」を参照する
+ */
+
 console.log("[mainCalc] loaded");
 
 import { loadJSON } from "./loadData.js";
