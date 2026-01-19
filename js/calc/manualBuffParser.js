@@ -29,5 +29,6 @@ export function collectManualBuffs() {
     });
   });
 
+  console.log(result);
   return result;
 }
