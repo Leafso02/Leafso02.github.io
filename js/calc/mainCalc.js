@@ -110,7 +110,6 @@ console.log(current.skills);
 console.log(current.traces);
 console.log(current.eidolons);
 console.log(skillType);
-console.log(manualBuffs);
 
   const buffs = collectAllBuffs({
     skills: current.skills,
@@ -118,8 +117,8 @@ console.log(manualBuffs);
     eidolons: current.eidolons,
     skillType,
     eidolonLevel,
-    isUserTurn: true,
-    manualBuffs: []
+    isUserTurn: true
+    // manualBuffs: []
   });
 
   console.log("[mainCalc] buffs", buffs);

@@ -7,11 +7,20 @@
 
 export function collectAllBuffs({
   attackerSkills,
+  attackerTraces,
+  attackerEidolon,
   usedSkillType,
-  eidolonLevel,
-  isUserTurn,
-  manualBuffs = [],
+  eldolonLevel,
+  isUserTurn
+  // manualBuffs = [],
 }) {
+
+  console.log("attackerSkills : " + attackerSkills);
+  console.log("attackerTraces : " + attackerTraces);
+  console.log("attackerEidolon : " + attackerEidolon);
+  console.log("usedSkillType : " + usedSkillType);
+  console.log("eldolonLevel : " + eldolonLevel)
+
   const buffs = [];
 
   // 1. 使用スキル由来バフ
