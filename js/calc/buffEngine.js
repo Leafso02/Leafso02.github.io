@@ -141,7 +141,7 @@ function collectManualBuffs(context) {
  * 条件評価エンジン
  * ===================== */
 
-function evaluateCondition(condition, context) {
+function isBuffActive(condition, context) {
   if (!condition) return true;
 
   switch (condition.type) {
