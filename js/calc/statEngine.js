@@ -28,6 +28,9 @@ export function calculateFinalStats(baseStats, buffs) {
    // 1. 初期化
   const finalStats = { ...baseStats };
 
+  console.log("finalStats : " + finalStats);
+  console.log("baseStats : " + baseStats);
+
   Object.keys(baseStats).forEach(stat => {
     const buff = buffs[stat];
 
