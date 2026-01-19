@@ -28,7 +28,6 @@ export function collectManualBuffs() {
       value,
     });
   });
-
-  console.log(result);
+  
   return result;
 }
