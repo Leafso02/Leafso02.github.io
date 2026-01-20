@@ -107,8 +107,8 @@ export function bindSkillLevelControl(skills) {
  * Lv input の調整
  * ===================== */
 function adjustSkillLevelInput(skills, skillType, levelInput) {
-      console.log("adjustSkillLevelInput入ってる")
   const validLevels = getValidSkillLevels(skills, skillType);
+    console.log("validLevels: " + validLevels)
   if (!validLevels.length) return;
 
   const min = validLevels[0];
