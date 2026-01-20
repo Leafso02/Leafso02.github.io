@@ -110,20 +110,20 @@ function adjustSkillLevelInput(multipliers, skillType, levelInput) {
   const validLevels = getValidSkillLevels(multipliers, skillType);
   if (!validLevels.length) return;
 
-
   let targetLv = DEFAULT_SKILL_LEVEL[skillType] ?? validLevels[0];
 
     // 有効レベルに含まれていればそれを使う
-  if (validLevels.includes(desired)) {
-    return desired;
+  if (validLevels.includes(targetLv)) {
+    return targetLv;
   }
 
   // 含まれていなければ一番近い値
   return validLevels.reduce((prev, curr) =>
-    Math.abs(curr - desired) < Math.abs(prev - desired)
+    Math.abs(curr - targetLv) < Math.abs(prev - targetLv)
       ? curr
       : prev
   );
+
 
   // if (!validLevels.includes(targetLv)) {
   //   targetLv = findNearestLevel(validLevels, targetLv);
