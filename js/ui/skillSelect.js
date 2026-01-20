@@ -112,6 +112,7 @@ function adjustSkillLevelInput(multipliers, skillType, levelInput) {
 
   let targetLv = DEFAULT_SKILL_LEVEL[skillType] ?? validLevels[0];
 
+  console.log(targetLv)
     // 有効レベルに含まれていればそれを使う
   if (validLevels.includes(targetLv)) {
     return targetLv;
