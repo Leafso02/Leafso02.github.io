@@ -147,24 +147,31 @@ function isBuffActive(condition, context) {
 // 例) {Atk{}, crtRate{}}
 function aggrgateBuffs(buffList) {
   const result = {};
+  const baseStats = ["Hp", "Atk", "Def", "Spd"];
 
   for (const { valueType, valueUnit, value } of buffList) {
 
+    // 初期化
+    // 基本ステータスのみvalueとflatValueの生成
     if (!result[valueType]) {
-      result[valueType] = { flat: 0, percent: 0 };
-    }
-    
-    // 固定値(flat)のバフは基本ステータスにしかないため、比較は基本ステータスのみに
-    const isBaseStat = ["Hp", "Atk", "Def", "Spd"].includes(valueType);
-
-    if (isBaseStat) {
-      if (valueUnit === "percent") {
-        result[valueType].percent += value;
+      if (baseStats.includes(valueType)) {
+        result[valueType] = { value: 0, flatValue: 0 };
       } else {
-        result[valueType].flat += value;
+        result[valueType] = { value: 0 };
       }
-    } else {
-      result[valueType].percent += value;
+    }
+
+    // 基本ステータス
+    if (baseStats.includes(valueType)) {
+      if (valueUnit === "percent") {
+        result[valueType].value += value;
+      } else {
+        result[valueType].flatValue += value;
+      }
+    }
+    // 非基本ステータス
+    else {
+      result[valueType].value += value;
     }
   }
 

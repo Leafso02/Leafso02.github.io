@@ -110,7 +110,6 @@ const modifiedSkills = applyEidolonsToSkills({
    * ダメージ基礎値
    * ========== */
 
-  console.log("AddmultiplierDmg : " + buffs.AddMultiplierDmg);
   const baseDmgResult = calculateBaseDamage({
     skillData: currentCharacter.skills,
     multiplierData: currentCharacter.multipliers,

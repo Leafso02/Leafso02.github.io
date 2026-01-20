@@ -103,12 +103,11 @@ export function calculateBaseDamage({
 
   /**
    * ============================
-   * 4. ダメージ加算（入れ物）
+   * 4. ダメージ加算
    * ============================
    */
 
-  // 今回はまだ計算しない
-  const addMultiplierDmg = 0;
+  const addMultiplierDmg = buffs.AddMultiplierDmg.value;
   
 
   /**
