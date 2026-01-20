@@ -77,10 +77,11 @@ export function calculateBaseDamage({
   }
 
   console.log(atkDef);
+
   const refStatKey = atkDef.reference; // 例: "Atk"
 
   const refStatValue = finalStats[refStatKey];
-
+  console.log("refStatValue : " + refStatValue);
   if (refStatValue == null) {
     throw new Error(`参照ステータスが見つかりません: ${refStatKey}`);
   }
