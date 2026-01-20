@@ -8,7 +8,9 @@
  *   「今このアタッカーに有効なバフ」だけを抽出する
  */
 
+import { BUFF_DEFINITIONS } from "./buffDefinitions.js";
 import { collectManualBuffs } from "./manualBuffParser.js";
+
 
 export function collectAllBuffs({
   skills,
@@ -21,10 +23,10 @@ export function collectAllBuffs({
 };
 
   const buffList = [
+    ...createInitialBuffList(),
+
     ...collectSkillBuffs(skills, skillType, context),
     ...collectTalentBuffs(skills, context),
-    // ...collectTraceBuffs(traces, context),
-    // ...collectEidolonBuffs(eidolons, context),
     ...collectSupporterBuffs(),
     ...collectManualBuffs()
   ];
@@ -35,6 +37,23 @@ export function collectAllBuffs({
 
   // 条件評価
   // return buffs.filter(buff => evaluateCondition(buff.condition, context));
+}
+
+// バフの初期化
+function createInitialBuffList() {
+  const list = [];
+
+  for (const def of BUFF_DEFINITIONS) {
+    for (const unit of def.units) {
+      list.push({
+        valueType: def.valueType,
+        valueUnit: unit,
+        value: 0
+      });
+    }
+  }
+
+  return list;
 }
 
 /*  =====================

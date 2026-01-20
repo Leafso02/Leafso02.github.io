@@ -15,12 +15,31 @@
           },
           "buffs": [
             {
-              "valueType": "DefIg",
+              "valueType": "DefIgnore",
               "valueUnit": "percent",
               "target": "ally",
               "source": {
                 "type": "fixed",
                 "value": 20
+              }
+            }
+          ]
+        },
+        {
+          "op": "addBuffToGroup",
+          "target": {
+            "skillType": "talent",
+            "skillId": 1,
+            "buffGroupId": 1
+          },
+          "buffs": [
+            {
+              "valueType": "DefIgnore",
+              "valueUnit": "percent",
+              "target": "ally",
+              "source": {
+                "type": "fixed",
+                "value": 16
               }
             }
           ]
