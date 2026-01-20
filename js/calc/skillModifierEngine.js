@@ -2,13 +2,13 @@
  * skillModifierEngine.js
  * ================================
  * 上位ファイル : mainCalc.js
- * 下位ファイル : modifiedSkillStore
+ * 下位ファイル : structuredClone.js
  * ================================
  * 
  * 星魂・追加能力をスキルに適用し、modifiedSkillStore に保存する
  */
 
-import structuredClone from "../utils/structuredClone";
+import structuredClone from "../utils/structuredClone.js";
 
 /* =====================
  * baseSkills に eidolons を適用した「仮スキル」を生成する
@@ -17,6 +17,12 @@ export function applyEidolonsToSkills({
   baseSkills,
   eidolons
 }) {
+
+  // 星魂が0だった場合そのまま返す
+  if (!eidolons || eidolons.length === 0) {
+    return skills;
+  }
+
   const skills = structuredClone(baseSkills);
 
   for (const eidolon of eidolons) {
