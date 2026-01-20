@@ -4,6 +4,7 @@ const skillLevelInput = document.getElementById("skillLevel");
 const eidolonLevelInput = document.getElementById("eidolonLevel");
 const resultElem = document.getElementById("damageResult");
 
+let current = {};
 
 export async function loadCharacterData(characterId) {
 
