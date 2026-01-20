@@ -1,57 +1,133 @@
 /**
- * 攻撃可能スキル一覧を取得し、select要素に反映する
- *
- * ・mainCalc から「計算可能なスキル情報」を受け取る
- * ・UI専用の処理なので、計算ロジックは書かない
+ * skillSelect.js
+ * ================================
+ * ・攻撃可能スキルを select に反映
+ * ・使用スキル変更時にスキルLvUIを制御
+ * ================================
  */
-export function updateSkillSelect(skills) {
 
-    console.log("[skillSelect] updateSkillSelect called");
+/* =====================
+ * デフォルトスキルLv
+ * ===================== */
+const DEFAULT_SKILL_LEVEL = {
+  normal: 6,
+  skill: 10,
+  ultimate: 10,
+  talent: 10,
+};
+
+/* =====================
+ * 攻撃可能スキル一覧を反映
+ * ===================== */
+export function updateSkillSelect(skills) {
+  console.log("[skillSelect] updateSkillSelect called");
 
   const skillSelect = document.getElementById("skillSelect");
   skillSelect.innerHTML = "";
 
-  const AttackableSkills = getAttackableSkills(skills);
+  const attackableSkills = getAttackableSkills(skills);
 
-AttackableSkills.forEach(skill => {
-  const option = document.createElement("option");
-  option.value = skill.skillKey;   // 計算用キー（basicATKなど）
-  option.textContent = skill.categoryLabel; // 日本語ラベル
-  skillSelect.appendChild(option);
-});
+  attackableSkills.forEach(skill => {
+    const option = document.createElement("option");
+    option.value = skill.skillKey;
+    option.textContent = skill.categoryLabel;
+    skillSelect.appendChild(option);
+  });
 }
 
-/**
- * 攻撃に使用可能なスキルだけを skillSelect に反映する
- *
- * ・current.skills の内容を参照
- * ・攻撃不可スキルは除外
- */
-/**
- * 現在ロードされているキャラの
- * 「攻撃に使用できるスキル一覧」を生成して返す
- *
- * ・UI側はこの戻り値をそのまま select に反映する
- */
+/* =====================
+ * 攻撃に使用可能なスキル抽出
+ * ===================== */
 export function getAttackableSkills(skills) {
-
   const result = [];
 
   Object.entries(skills).forEach(([skillKey, data]) => {
-
     if (!data.base) return;
 
     data.base.forEach(skill => {
-
- if (skill.type === "atkOnly" || skill.type === "both") {
+      if (skill.type === "atkOnly" || skill.type === "both") {
         result.push({
-          skillKey,                 // 例: "basicATK"
-          categoryLabel: data.skillLabel || "その他", // JSON の skillLabel をカテゴリとして使用
-          skillName: skill.name
+          skillKey,                         // "normal" / "skill" / "ultimate" など
+          categoryLabel: data.skillLabel,   // 日本語表示
+          skillName: skill.name,
         });
       }
     });
   });
 
   return result;
+}
+
+/* =====================
+ * 有効なスキルLv一覧を取得
+ * ===================== */
+function getValidSkillLevels(skills, skillType) {
+  const skillData = skills[skillType];
+  if (!skillData?.levels) return [];
+
+  return skillData.levels
+    .map(lv => lv.level)
+    .sort((a, b) => a - b);
+}
+
+/* =====================
+ * 使用スキル変更時のLv制御
+ * ===================== */
+export function bindSkillLevelControl(skills) {
+  const skillSelect = document.getElementById("skillSelect");
+  const levelInput = document.getElementById("skillLevel");
+
+  if (!skillSelect || !levelInput) return;
+
+  /* --- スキル変更時 --- */
+  skillSelect.addEventListener("change", () => {
+    const skillType = skillSelect.value;
+    adjustSkillLevelInput(skills, skillType, levelInput);
+  });
+
+  /* --- Lv直接入力時 --- */
+  levelInput.addEventListener("change", () => {
+    const skillType = skillSelect.value;
+    const validLevels = getValidSkillLevels(skills, skillType);
+    if (!validLevels.length) return;
+
+    const inputLv = Number(levelInput.value);
+
+    if (!validLevels.includes(inputLv)) {
+      const corrected = findNearestLevel(validLevels, inputLv);
+      levelInput.value = corrected;
+    }
+  });
+}
+
+/* =====================
+ * Lv input の調整
+ * ===================== */
+function adjustSkillLevelInput(skills, skillType, levelInput) {
+  const validLevels = getValidSkillLevels(skills, skillType);
+  if (!validLevels.length) return;
+
+  const min = validLevels[0];
+  const max = validLevels[validLevels.length - 1];
+
+  levelInput.min = min;
+  levelInput.max = max;
+  levelInput.step = 1;
+
+  let targetLv = DEFAULT_SKILL_LEVEL[skillType] ?? min;
+
+  if (!validLevels.includes(targetLv)) {
+    targetLv = findNearestLevel(validLevels, targetLv);
+  }
+
+  levelInput.value = targetLv;
+}
+
+/* =====================
+ * 最も近いLvを探す
+ * ===================== */
+function findNearestLevel(levels, target) {
+  return levels.reduce((prev, cur) =>
+    Math.abs(cur - target) < Math.abs(prev - target) ? cur : prev
+  );
 }
