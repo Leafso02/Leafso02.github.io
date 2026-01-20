@@ -50,7 +50,7 @@
         },
         {
           "type": "skillLevelUp",
-          "targets": ["basicATK"],
+          "targets": ["basicAtk"],
           "value": 1,
         }
       ]

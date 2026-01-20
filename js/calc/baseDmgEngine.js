@@ -27,7 +27,7 @@ import { getMultiplierValue } from "./multiplierEngine.js";
  *
  * @param {string} params.skillKey
  *   使用スキルのキー
- *   例: "basicATK", "ultimate"
+ *   例: "basicAtk", "ultimate"
  *
  * @param {number} params.skillLevel
  *   使用スキルのレベル

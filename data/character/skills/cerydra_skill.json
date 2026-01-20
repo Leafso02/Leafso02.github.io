@@ -1,5 +1,5 @@
 {
-  "basicATK": {
+  "basicAtk": {
     "skillLabel" : "通常攻撃",
     "base": [
       {
@@ -10,7 +10,7 @@
         "atk": [
           {
             "id": "x",
-            "multiplier": "basicATK",
+            "multiplier": "basicAtk",
             "reference": "Atk"
           }
         ]

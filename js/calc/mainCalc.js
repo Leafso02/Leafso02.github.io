@@ -41,7 +41,7 @@ calcBtn.addEventListener("click", () => {
    * ユーザー入力
    * ========== */
 
-  const skillType = skillSelect.value;     // "basicATK" 等
+  const skillType = skillSelect.value;     // "basicAtk" 等
   const skillLevel = Number(skillLevelInput.value);
   const eidolonLevel = Number(eidolonLevelInput.value);
 

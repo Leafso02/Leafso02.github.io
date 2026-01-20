@@ -11,7 +11,7 @@
  * スキル倍率を取得する
  *
  * @param {Object} multiplierData multiplier.json
- * @param {string} skillType "basicATK" | "skill" | "ultimate" | "talent"
+ * @param {string} skillType "basicAtk" | "skill" | "ultimate" | "talent"
  * @param {number} skillLevel
  * @param {string} id "x" | "y" など（デフォルト: "x"）
  * @returns {number}
