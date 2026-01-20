@@ -115,6 +115,20 @@ calcBtn.addEventListener("click", () => {
     eidolonLevel
   });
 
+
+  /* ==========
+   * 星魂、追加能力をスキルへ適用
+   * ========== */
+  const skillStore = buildModifiedSkills({
+    baseSkills: skillJson,
+    eidolons,
+    bonusAbilities
+  });
+
+const skill = skillStore.get("skill_1");
+
+
+
   /* ==========
    * バフ収集
    * ========== */

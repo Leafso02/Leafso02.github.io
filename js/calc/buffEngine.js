@@ -26,8 +26,8 @@ export function collectAllBuffs({
   const buffList = [
     ...collectSkillBuffs(skills, skillType, context),
     ...collectTalentBuffs(skills, context),
-    ...collectTraceBuffs(traces, context),
-    ...collectEidolonBuffs(eidolons, context),
+    // ...collectTraceBuffs(traces, context),
+    // ...collectEidolonBuffs(eidolons, context),
     ...collectSupporterBuffs(),
     ...collectManualBuffs()
   ];
@@ -40,8 +40,9 @@ export function collectAllBuffs({
   // return buffs.filter(buff => evaluateCondition(buff.condition, context));
 }
 
-/* =====================
+/*  =====================
  * 各バフ種別ごとの収集
+ * 軌跡(追加能力)と星魂はバフではスキルロジックに追加する形
  * ===================== */
 
 /* =====================
@@ -74,22 +75,6 @@ function collectTalentBuffs(context) {
 
   return result;
 }
-
-// /* =====================
-//  * 軌跡バフの集計
-//  * ===================== */
-// function collectTraceBuffs(context) {
-//   const result = [];
-//   return result;
-// }
-
-// /* =====================
-//  * 星魂バフの集計
-//  * ===================== */
-// function collectEidolonBuffs(skills, eidolons, context) {
-//   const result = [];
-//   return result;
-// }
 
 
 // 正規化を行うのはここだけ

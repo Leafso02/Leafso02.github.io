@@ -10,6 +10,8 @@
  * ⚠ %バフは必ず baseStat のみを参照する
  */
 
+import { checkStatsCondition } from "./conditionCheck.js";
+
 /**
  * バフを適用して最終ステータスを生成する
  *
