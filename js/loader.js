@@ -1,5 +1,6 @@
 console.log("loader.js読み込み完了")
 import { initCharacterSelect } from "./ui/characterSelect.js";
+import { initManualBuffUI } from "./manualBuffUI.js";
 import "./utils/loadCharacterData.js";
 import "./calc/mainCalc.js"
 
@@ -13,4 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // キャラクター選択プルダウンを生成する
   initCharacterSelect();
+  
+  // 手動バフの入力エリアを生成
+  initManualBuffUI();
 });
