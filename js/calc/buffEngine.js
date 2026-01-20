@@ -31,8 +31,6 @@ export function collectAllBuffs({
     ...collectManualBuffs()
   ];
 
-  console.log(buffList);
-
   return aggrgateBuffs(buffList);
 
   // 条件評価
@@ -149,8 +147,6 @@ function isBuffActive(condition, context) {
 // 例) {Atk{}, crtRate{}}
 function aggrgateBuffs(buffList) {
   const result = {};
-
-  console.log(buffList);
 
   for (const { valueType, valueUnit, value } of buffList) {
 
