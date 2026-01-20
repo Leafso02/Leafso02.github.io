@@ -1,3 +1,5 @@
+import { loadJSON } from "./loadData.js";
+
 /* ===== HTML要素取得 ===== */
 const skillSelect = document.getElementById("skillSelect");
 const skillLevelInput = document.getElementById("skillLevel");

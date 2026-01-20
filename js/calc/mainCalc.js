@@ -14,7 +14,6 @@
 
 console.log("[mainCalc] loaded");
 
-import { loadJSON } from "./loadData.js";
 import { applyEidolonsToSkills } from "./skillModifierEngine.js";
 import { collectAllBuffs } from "./buffEngine.js";
 import { calculateFinalStats } from "./statEngine.js";
