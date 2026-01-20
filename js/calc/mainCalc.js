@@ -14,6 +14,7 @@
 
 console.log("[mainCalc] loaded");
 
+import { getCharacterData } from "../ui/loadCharacter.js";
 import { applyEidolonsToSkills } from "./skillModifierEngine.js";
 import { collectAllBuffs } from "./buffEngine.js";
 import { calculateFinalStats } from "./statEngine.js";
@@ -21,85 +22,20 @@ import { calculateBaseDamage } from "./baseDmgEngine.js";
 import { calculateCritCoef } from "./critCoefEngine.js";
 import { calculateIncreaseDmgCoef } from "./increaseDmgCoefEngine.js";
 
-// /* ===== HTML要素取得 ===== */
-// const skillSelect = document.getElementById("skillSelect");
-// const skillLevelInput = document.getElementById("skillLevel");
-// const eidolonLevelInput = document.getElementById("eidolonLevel");
-// const resultElem = document.getElementById("damageResult");
+/* ===== HTML要素取得 ===== */
+const skillSelect = document.getElementById("skillSelect");
+const skillLevelInput = document.getElementById("skillLevel");
+const eidolonLevelInput = document.getElementById("eidolonLevel");
+const resultElem = document.getElementById("damageResult");
 
-// /* ===== 現在ロード中のキャラデータ =====
-//  * ・characterSelect 側から指定されたキャラIDを元に構築される
-//  */
-// let current = {};
-
-// /**
-//  * キャラIDを受け取り、計算に必要な全JSONを読み込む
-//  *
-//  * ・characterId：選択されたキャラのID
-//  * ・読み込んだデータは current に集約する
-//  */
-// export async function loadCharacterData(characterId) {
-
-//   current.character = await loadJSON(
-//     `data/character/characters/${characterId}_character.json`
-//   );
-
-//   current.skills = await loadJSON(
-//     `data/character/skills/${characterId}_skill.json`
-//   );
-
-//   current.eidolons = await loadJSON(
-//     `data/character/eidolons/${characterId}_eidolons.json`
-//   );
-
-//   current.traces = await loadJSON(
-//     `data/character/traces/${characterId}_traces.json`
-//   );
-
-//   current.multipliers = await loadJSON(
-//     `data/character/multipliers/${characterId}_multiplier.json`
-//   );
-// }
-
-// /**
-//  * 攻撃に使用可能なスキルだけを skillSelect に反映する
-//  *
-//  * ・current.skills の内容を参照
-//  * ・攻撃不可スキルは除外
-//  */
-// /**
-//  * 現在ロードされているキャラの
-//  * 「攻撃に使用できるスキル一覧」を生成して返す
-//  *
-//  * ・UI側はこの戻り値をそのまま select に反映する
-//  */
-// export function getAttackableSkills() {
-//   const result = [];
-
-//   Object.entries(current.skills).forEach(([skillKey, data]) => {
-
-//     if (!data.base) return;
-
-//     data.base.forEach(skill => {
-
-//  if (skill.type === "atkOnly" || skill.type === "both") {
-//         result.push({
-//           skillKey,                 // 例: "basicATK"
-//           categoryLabel: data.skillLabel || "その他", // JSON の skillLabel をカテゴリとして使用
-//           skillName: skill.name
-//         });
-//       }
-//     });
-//   });
-
-//   return result;
-// }
 
 /* =====================
  * 計算ボタン
  * ===================== */
 
 calcBtn.addEventListener("click", () => {
+
+  const currentCharacter = getCharacterData()
 
   /* ==========
    * ユーザー入力
@@ -121,8 +57,8 @@ calcBtn.addEventListener("click", () => {
  * ===================== */
 
 const modifiedSkills = applyEidolonsToSkills({
-  baseSkills: current.skills,     // skill.json 由来
-  eidolons: current.eidolons      // 適用済み星魂だけ
+  baseSkills: currentCharacter.skills,     // skill.json 由来
+  eidolons: currentCharacter.eidolons      // 適用済み星魂だけ
 });
 
   console.log("[mainCalc] modifiedSkills", modifiedSkills);
@@ -134,9 +70,9 @@ const modifiedSkills = applyEidolonsToSkills({
    * ========== */
 
   console.log("collectAllBuffs");
-  console.log(current.skills);
-  console.log(current.traces);
-  console.log(current.eidolons);
+  console.log(currentCharacter.skills);
+  console.log(currentCharacter.traces);
+  console.log(currentCharacter.eidolons);
   console.log(skillType);
   console.log(eidolonLevel);
 
@@ -152,10 +88,10 @@ const modifiedSkills = applyEidolonsToSkills({
    * ========== */
 
   const baseStats = {
-    Hp: current.character.baseHp,
-    Atk: current.character.baseAtk,
-    Def: current.character.baseDef,
-    Spd: current.character.baseSpd,
+    Hp: currentCharacter.character.baseHp,
+    Atk: currentCharacter.character.baseAtk,
+    Def: currentCharacter.character.baseDef,
+    Spd: currentCharacter.character.baseSpd,
     CritRate: 0.05,
     CritDmg: 0.5
   };
@@ -172,8 +108,8 @@ const modifiedSkills = applyEidolonsToSkills({
    * ========== */
 
   const baseDmgResult = calculateBaseDamage({
-    skillData: current.skills,
-    multiplierData: current.multipliers,
+    skillData: currentCharacter.skills,
+    multiplierData: currentCharacter.multipliers,
     finalStats,
     skillKey: skillType,
     skillLevel

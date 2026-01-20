@@ -1,6 +1,6 @@
 console.log("loader.js読み込み完了")
 import { initCharacterSelect } from "./ui/characterSelect.js";
-import "./ui/loadCharacterData.js";
+import "./utils/loadCharacterData.js";
 
 /**
  * ページ読み込み時にUI初期化を行う
