@@ -79,26 +79,29 @@ export function bindSkillLevelControl(skills) {
 
   if (!skillSelect || !levelInput) return;
 
-  /* --- スキル変更時 --- */
-  skillSelect.addEventListener("change", () => {
+  const sync = () => {
     const skillType = skillSelect.value;
     adjustSkillLevelInput(skills, skillType, levelInput);
-  });
+  };
 
-  /* --- Lv直接入力時 --- */
+  // スキル変更時
+  skillSelect.addEventListener("change", sync);
+
+  // ★ 初期表示時に1回実行
+  sync();
+
+  // Lv直接入力時
   levelInput.addEventListener("change", () => {
-    const skillType = skillSelect.value;
-    const validLevels = getValidSkillLevels(skills, skillType);
+    const validLevels = getValidSkillLevels(skills, skillSelect.value);
     if (!validLevels.length) return;
 
-    const inputLv = Number(levelInput.value);
-
-    if (!validLevels.includes(inputLv)) {
-      const corrected = findNearestLevel(validLevels, inputLv);
-      levelInput.value = corrected;
+    const lv = Number(levelInput.value);
+    if (!validLevels.includes(lv)) {
+      levelInput.value = findNearestLevel(validLevels, lv);
     }
   });
 }
+
 
 /* =====================
  * Lv input の調整
