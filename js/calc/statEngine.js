@@ -20,7 +20,7 @@ import { checkStatsCondition } from "./conditionCheck.js";
  *   例: { Atk: 1000, CritRate: 0.05 }
  *
  * @param {Array} buffs
- *   collectBuffs から渡されるバフ配列
+ *   collectBuffs から渡されるバフオブジェクト
  *
  * @returns {Object}
  *   計算に使用する最終ステータス
