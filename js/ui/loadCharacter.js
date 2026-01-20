@@ -1,4 +1,4 @@
-import { loadCharacterData } from "../calc/mainCalc.js";
+import { loadCharacterData } from "./loadCharacterData.js";
 import { updateSkillSelect } from "./skillSelect.js";
 /**
  * キャラクター一覧データを取得する
@@ -31,9 +31,9 @@ export async function loadCharacter(characterId) {
   console.log("loadCharacterの呼び出し成功");
 
   // キャラ関連JSONをすべてロードし、current を構築
-  await loadCharacterData(characterId);
+   const characterData = await loadCharacterData(characterId);
 
   // ↑で current.skills が揃ったので、
   // それを元に攻撃可能スキル一覧をUIに反映する
-  updateSkillSelect();
+  updateSkillSelect(characterData.skills);
 }
