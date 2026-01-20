@@ -2,23 +2,19 @@
  * バフ定義
  * ===================== */
 
-const BUFF_TYPES = [
-  "Hp",
-  "Atk",
-  "Def",
-  "Spd",
-  "CritRate",
-  "CritDmg",
-  "IncreaseTypeDmg",
-  "IncreaseDmg",
-  "AddMultiplierDmg",
-  "DefDebuf",
-  "DefIgnore",
-  "ResPen",
-  "TypeDmgReceived",
-  "DmgReceived",
-  "AddDmg",
-  "TrueDmg"
+const BUFF_TYPE = [
+  { value: "Hp", label: "HP" },
+  { value: "Atk", label: "攻撃力" },
+  { value: "Def", label: "防御力" },
+  { value: "Spd", label: "速度" },
+  { value: "CritRate", label: "会心率" },
+  { value: "CritDmg", label: "会心ダメージ" },
+  { value: "IncreaseDmg", label: "与ダメージ" },
+  { value: "DefDebuf", label: "防御デバフ" },
+  { value: "DefIgnore", label: "防御貫通" },
+  { value: "ResPen", label: "属性耐性貫通" },
+  { value: "DmgReceived", label: "敵の被ダメージ増加" },
+  { value: "TrueDmg", label: "確定ダメージ" },
 ];
 
 const FLAT_ALLOWED = new Set(["Hp", "Atk", "Def", "Spd"]);
@@ -36,10 +32,17 @@ function createBuffRow(index) {
   const typeSelect = document.createElement("select");
   typeSelect.className = "buff-type";
 
-  typeSelect.innerHTML = `
-    <option value="">なし</option>
-    ${BUFF_TYPES.map(t => `<option value="${t}">${t}</option>`).join("")}
-  `;
+  const noneOption = document.createElement("option");
+  noneOption.value = "";
+  noneOption.textContent = "なし";
+  typeSelect.appendChild(noneOption);
+
+  BUFF_TYPE.forEach(buff => {
+    const option = document.createElement("option");
+    option.value = buff.value;
+    option.textContent = buff.label;
+    typeSelect.appendChild(option);
+  });
 
   /* --- buff unit --- */
   const unitSelect = document.createElement("select");
@@ -61,9 +64,8 @@ function createBuffRow(index) {
    * ===================== */
   typeSelect.addEventListener("change", () => {
     const type = typeSelect.value;
-    if (!type) return;
 
-    // unit制御
+    // ---- unit制御 ----
     if (FLAT_ALLOWED.has(type)) {
       unitSelect.disabled = false;
     } else {
@@ -71,7 +73,8 @@ function createBuffRow(index) {
       unitSelect.value = "percent";
     }
 
-    addNextRowIfNeeded(index);
+    cleanupEmptyRows();
+    addNextRowIfNeeded();
   });
 
   row.append(typeSelect, unitSelect, valueInput);
@@ -79,18 +82,36 @@ function createBuffRow(index) {
 }
 
 /* =====================
+ * 空行整理（「なし」が2つ以上あれば削除）
+ * ===================== */
+
+function cleanupEmptyRows() {
+  const rows = Array.from(document.querySelectorAll(".manual-buff"));
+
+  const emptyRows = rows.filter(row => {
+    const type = row.querySelector(".buff-type")?.value;
+    return type === "";
+  });
+
+  while (emptyRows.length > 1) {
+    const rowToRemove = emptyRows.shift();
+    rowToRemove.remove();
+  }
+}
+
+/* =====================
  * 次の行を追加
  * ===================== */
 
-function addNextRowIfNeeded(index) {
-  const nextIndex = index + 1;
+function addNextRowIfNeeded() {
+  const rows = document.querySelectorAll(".manual-buff");
+  const lastRow = rows[rows.length - 1];
+  const lastType = lastRow.querySelector(".buff-type")?.value;
 
-  if (document.querySelector(`[data-index="${nextIndex}"]`)) {
-    return;
+  if (lastType !== "") {
+    const container = document.getElementById("manual-buff-container");
+    container.appendChild(createBuffRow(rows.length));
   }
-
-  const container = document.getElementById("manual-buff-container");
-  container.appendChild(createBuffRow(nextIndex));
 }
 
 /* =====================
@@ -99,6 +120,8 @@ function addNextRowIfNeeded(index) {
 
 export function initManualBuffUI() {
   const container = document.getElementById("manual-buff-container");
+  if (!container) return;
+
   container.innerHTML = "";
   container.appendChild(createBuffRow(0));
 }
