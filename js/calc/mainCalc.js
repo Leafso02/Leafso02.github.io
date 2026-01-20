@@ -60,7 +60,8 @@ console.log(currentCharacter.eidolons);
 const modifiedSkills = applyEidolonsToSkills({
   baseSkills: currentCharacter.skills,     // skill.json 由来
   eidolons: currentCharacter.eidolons,      // 適用済み星魂だけ
-  eidolonLevel
+  eidolonLevel,
+  skillLevel
 });
 
   console.log("[mainCalc] modifiedSkills", modifiedSkills);

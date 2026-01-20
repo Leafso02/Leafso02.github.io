@@ -16,17 +16,21 @@ import structuredClone from "../utils/structuredClone.js";
 export function applyEidolonsToSkills({
   baseSkills,
   eidolons,
-  eidolonLevel
+  eidolonLevel,
+  skillLevel
 }) {
 
   // 星魂が0だった場合そのまま返す
-  if (eidolonLevel == 0 || eidolons.length === 0) {
+  if (!Array.isArray(eidolons) || eidolonLevel <= 0) {
     return skills;
   }
 
   const skills = structuredClone(baseSkills);
 
   for (const eidolon of eidolons) {
+    if (eidolon.level > eidolonLevel) continue;
+    if (!eidolon.operations) continue;
+
     for (const operation of eidolon.operations) {
       applyOperation(skills, operation);
     }
