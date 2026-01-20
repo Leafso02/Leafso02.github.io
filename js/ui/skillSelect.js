@@ -117,8 +117,8 @@ function adjustSkillLevelInput(multipliers, skillType, levelInput) {
   levelInput.max = max;
   levelInput.step = 1;
 
-  console.log(min, max)
   let targetLv = DEFAULT_SKILL_LEVEL[skillType] ?? min;
+  console.log(targetLv)
 
   if (!validLevels.includes(targetLv)) {
     targetLv = findNearestLevel(validLevels, targetLv);
