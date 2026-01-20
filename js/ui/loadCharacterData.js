@@ -1,4 +1,4 @@
-import { loadJSON } from "..loader.js";
+import { loadJSON } from "./loadData.js";
 
 /* ===== HTML要素取得 ===== */
 const skillSelect = document.getElementById("skillSelect");
