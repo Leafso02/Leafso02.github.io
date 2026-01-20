@@ -8,7 +8,7 @@
  * 星魂・追加能力をスキルに適用し、modifiedSkillStore に保存する
  */
 
-import structuredClone from "./utils/structuredClone.js";
+import structuredClone from "../utils/structuredClone";
 
 /* =====================
  * baseSkills に eidolons を適用した「仮スキル」を生成する
