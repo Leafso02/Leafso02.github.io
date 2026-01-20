@@ -1,4 +1,4 @@
-import { loadCharacterData } from "../utils/loadCharacterData.js";
+import { loadCharacterData } from "../utils/loadCharacterData.js"
 import { updateSkillSelect } from "./skillSelect.js";
 
 let characterData = null
