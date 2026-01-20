@@ -15,6 +15,7 @@
 console.log("[mainCalc] loaded");
 
 import { loadJSON } from "./loadData.js";
+import { applyEidolonsToSkills } from "./skillModifierEngine.js";
 import { collectAllBuffs } from "./buffEngine.js";
 import { calculateFinalStats } from "./statEngine.js";
 import { calculateBaseDamage } from "./baseDmgEngine.js";
@@ -116,16 +117,16 @@ calcBtn.addEventListener("click", () => {
   });
 
 
-  /* ==========
-   * 星魂、追加能力をスキルへ適用
-   * ========== */
-  const skillStore = buildModifiedSkills({
-    baseSkills: skillJson,
-    eidolons,
-    bonusAbilities
-  });
+/* =====================
+ * 星魂、追加能力適用後の仮スキル生成
+ * ===================== */
 
-const skill = skillStore.get("skill_1");
+const modifiedSkills = applyEidolonsToSkills({
+  baseSkills: current.skills,     // skill.json 由来
+  eidolons: current.eidolons      // 適用済み星魂だけ
+});
+
+  console.log("[mainCalc] modifiedSkills", modifiedSkills);
 
 
 
@@ -141,11 +142,8 @@ const skill = skillStore.get("skill_1");
   console.log(eidolonLevel);
 
   const buffs = collectAllBuffs({
-    skills: current.skills,
-    traces: current.traces,
-    eidolons: current.eidolons,
-    skillType,
-    eidolonLevel
+    skills: modifiedSkills,
+    skillType
   });
 
   console.log("[mainCalc] buffs", buffs);

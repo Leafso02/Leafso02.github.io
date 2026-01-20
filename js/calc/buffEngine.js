@@ -12,10 +12,7 @@ import { collectManualBuffs } from "./manualBuffParser.js";
 
 export function collectAllBuffs({
   skills,
-  traces,
-  eidolons,
   skillType,
-  eidolonLevel,
 }) {
 
   const context = {
