@@ -38,6 +38,7 @@ export async function loadCharacter(characterId) {
   // ↑で current.skills が揃ったので、
   // それを元に攻撃可能スキル一覧をUIに反映する
   updateSkillSelect(characterData.skills);
+  bindSkillLevelControl(character.skills); 
 }
 
 export function getCharacterData(){
