@@ -55,10 +55,12 @@ calcBtn.addEventListener("click", () => {
 /* =====================
  * 星魂、追加能力適用後の仮スキル生成
  * ===================== */
+console.log(currentCharacter.eidolons);
 
 const modifiedSkills = applyEidolonsToSkills({
   baseSkills: currentCharacter.skills,     // skill.json 由来
-  eidolons: currentCharacter.eidolons      // 適用済み星魂だけ
+  eidolons: currentCharacter.eidolons,      // 適用済み星魂だけ
+  eidolonLevel
 });
 
   console.log("[mainCalc] modifiedSkills", modifiedSkills);
