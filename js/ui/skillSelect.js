@@ -11,9 +11,9 @@ export function updateSkillSelect(skills) {
   const skillSelect = document.getElementById("skillSelect");
   skillSelect.innerHTML = "";
 
-  const skills = getAttackableSkills(skills);
+  const AttackableSkills = getAttackableSkills(skills);
 
-skills.forEach(skill => {
+AttackableSkills.forEach(skill => {
   const option = document.createElement("option");
   option.value = skill.skillKey;   // 計算用キー（basicATKなど）
   option.textContent = skill.categoryLabel; // 日本語ラベル
