@@ -20,12 +20,12 @@ export function applyEidolonsToSkills({
   skillLevel
 }) {
 
+    const skills = structuredClone(baseSkills);
+
   // 星魂が0だった場合そのまま返す
   if (!Array.isArray(eidolons) || eidolonLevel <= 0) {
     return skills;
   }
-
-  const skills = structuredClone(baseSkills);
 
   for (const eidolon of eidolons) {
     if (eidolon.level > eidolonLevel) continue;
