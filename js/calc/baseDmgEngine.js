@@ -76,6 +76,7 @@ export function calculateBaseDamage({
     throw new Error(`攻撃定義が存在しません: ${skillKey}`);
   }
 
+  console.log(atkDef);
   const refStatKey = atkDef.reference; // 例: "Atk"
 
   const refStatValue = finalStats[refStatKey];
