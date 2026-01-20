@@ -80,7 +80,6 @@ export function bindSkillLevelControl(skills) {
   if (!skillSelect || !levelInput) return;
 
   const sync = () => {
-    console.log("sync入ってる")
     const skillType = skillSelect.value;
     adjustSkillLevelInput(skills, skillType, levelInput);
   };
@@ -108,6 +107,7 @@ export function bindSkillLevelControl(skills) {
  * Lv input の調整
  * ===================== */
 function adjustSkillLevelInput(skills, skillType, levelInput) {
+      console.log("adjustSkillLevelInput入ってる")
   const validLevels = getValidSkillLevels(skills, skillType);
   if (!validLevels.length) return;
 
