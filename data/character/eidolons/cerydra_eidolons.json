@@ -85,7 +85,7 @@
           },
           "buffs": [
             {
-              "valueType": "IncreaseMultiplier",
+              "valueType": "AddMultiplierDmg",
               "valueUnit": "percent",
               "target": "self",
               "source": {
