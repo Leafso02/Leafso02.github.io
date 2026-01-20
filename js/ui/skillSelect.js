@@ -61,11 +61,11 @@ export function getAttackableSkills(skills) {
 /* =====================
  * 有効なスキルLv一覧を取得
  * ===================== */
-function getValidSkillLevels(skills, skillType) {
-  const skillData = skills[skillType];
-  if (!skillData?.levels) return [];
+function getValidSkillLevels(multipliers, skillType) {
+  const multiPlierTable = multipliers[skillType];
+  if (!multiPlierTable?.levels) return [];
 
-  return skillData.levels
+  return multiPlierTable.levels
     .map(lv => lv.level)
     .sort((a, b) => a - b);
 }
@@ -73,7 +73,7 @@ function getValidSkillLevels(skills, skillType) {
 /* =====================
  * 使用スキル変更時のLv制御
  * ===================== */
-export function bindSkillLevelControl(skills) {
+export function bindSkillLevelControl(multipliers) {
   const skillSelect = document.getElementById("skillSelect");
   const levelInput = document.getElementById("skillLevel");
 
@@ -81,7 +81,7 @@ export function bindSkillLevelControl(skills) {
 
   const sync = () => {
     const skillType = skillSelect.value;
-    adjustSkillLevelInput(skills, skillType, levelInput);
+    adjustSkillLevelInput(multipliers, skillType, levelInput);
   };
 
   // スキル変更時
@@ -92,7 +92,7 @@ export function bindSkillLevelControl(skills) {
 
   // Lv直接入力時
   levelInput.addEventListener("change", () => {
-    const validLevels = getValidSkillLevels(skills, skillSelect.value);
+    const validLevels = getValidSkillLevels(multipliers, skillSelect.value);
     if (!validLevels.length) return;
 
     const lv = Number(levelInput.value);
@@ -108,7 +108,6 @@ export function bindSkillLevelControl(skills) {
  * ===================== */
 function adjustSkillLevelInput(skills, skillType, levelInput) {
   const validLevels = getValidSkillLevels(skills, skillType);
-    console.log("validLevels: " + validLevels)
   if (!validLevels.length) return;
 
   const min = validLevels[0];
