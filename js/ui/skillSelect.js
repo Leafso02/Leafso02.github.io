@@ -77,10 +77,10 @@ export function bindSkillLevelControl(skills) {
   const skillSelect = document.getElementById("skillSelect");
   const levelInput = document.getElementById("skillLevel");
 
-    console.log("bindSkillLevelControl入ってる" + skillSelect,levelInput)
   if (!skillSelect || !levelInput) return;
 
   const sync = () => {
+    console.log("sync入ってる")
     const skillType = skillSelect.value;
     adjustSkillLevelInput(skills, skillType, levelInput);
   };
