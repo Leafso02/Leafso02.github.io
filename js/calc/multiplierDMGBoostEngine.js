@@ -12,15 +12,15 @@ export function calculateAllDMGBoostCoef(buffs) {
 
   // buffs 例:
   // {
-  //   AllDMGBoost: { flat: 0, percent: 0.3 },
-  //   ElementalDMGBoost: { flat: 0, percent: 0.2 }
+  //   AllDMGBoost: { flatValue: 0, value: 0.3 },
+  //   ElementalDMGBoost: { flatValue: 0, value: 0.2 }
   // }
 
   const typeDmg =
-    buffs.ElementalDMGBoost?.percent ?? 0;
+    buffs.ElementalDMGBoost?.value ?? 0;
 
   const otherDmg =
-    buffs.AllDMGBoost?.percent ?? 0;
+    buffs.AllDMGBoost?.value ?? 0;
 
   const increaseDmgCoef = 1 + typeDmg + otherDmg;
 

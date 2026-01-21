@@ -16,7 +16,7 @@
           "buffs": [
             {
               "valueType": "DEFIgnore",
-              "valueUnit": "percent",
+              "valueUnit": "value",
               "target": "ally",
               "source": {
                 "type": "fixed",
@@ -35,7 +35,7 @@
           "buffs": [
             {
               "valueType": "DEFIgnore",
-              "valueUnit": "percent",
+              "valueUnit": "value",
               "target": "ally",
               "source": {
                 "type": "fixed",
@@ -62,7 +62,7 @@
           "buffs": [
             {
               "valueType": "OtherDmg",
-              "valueUnit": "percent",
+              "valueUnit": "value",
               "target": "ally",
               "source": {
                 "type": "fixed",
@@ -105,7 +105,7 @@
           "buffs": [
             {
               "valueType": "ExtraDMGDmg",
-              "valueUnit": "percent",
+              "valueUnit": "value",
               "target": "self",
               "source": {
                 "type": "fixed",
@@ -137,7 +137,7 @@
           "buffs": [
             {
               "valueType": "RESPEN",
-              "valueUnit": "percent",
+              "valueUnit": "value",
               "target": "ally",
               "source": {
                 "type": "fixed",

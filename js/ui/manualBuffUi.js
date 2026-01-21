@@ -48,8 +48,8 @@ function createBuffRow(index) {
   const unitSelect = document.createElement("select");
   unitSelect.className = "buff-unit";
   unitSelect.innerHTML = `
-    <option value="percent">%</option>
-    <option value="flat">固定値</option>
+    <option value="value">%</option>
+    <option value="flatValue">固定値</option>
   `;
   unitSelect.disabled = true;
 
@@ -70,7 +70,7 @@ function createBuffRow(index) {
       unitSelect.disabled = false;
     } else {
       unitSelect.disabled = true;
-      unitSelect.value = "percent";
+      unitSelect.value = "value";
     }
 
     cleanupEmptyRows();

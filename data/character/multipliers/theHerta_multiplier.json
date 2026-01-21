@@ -1,0 +1,88 @@
+{
+  "basicAtk": {
+    "valueCount": 1,
+    "description": {
+      "name": "これでわかった？",
+      "type": "単体攻撃",
+      "detail": "指定した敵単体にマダム・ヘルタの攻撃力X%分の氷属性ダメージを与える。"
+    },
+    "levels": [
+      { "level": 1, "multipilers": [{ "id": "x", "value": 0.50 }] },
+      { "level": 2, "multipilers": [{ "id": "x", "value": 0.60 }] },
+      { "level": 3, "multipilers": [{ "id": "x", "value": 0.70 }] },
+      { "level": 4, "multipilers": [{ "id": "x", "value": 0.80 }] },
+      { "level": 5, "multipilers": [{ "id": "x", "value": 0.90 }] },
+      { "level": 6, "multipilers": [{ "id": "x", "value": 1.00 }] },
+      { "level": 7, "multipilers": [{ "id": "x", "value": 1.10 }] }
+    ]
+  },
+
+  "skill": {
+    "valueCount": 3,
+    "description": {
+      "name": "視野が狭いよ / 大胆なアイデア",
+      "type": "拡散 / 全体",
+      "detail": "X=通常拡散、Y=強化拡散、Z=強化全体ダメージ倍率"
+    },
+    "levels": [
+      { "level": 1, "multipilers": [{ "id": "x", "value": 0.35 }, { "id": "y", "value": 0.40 }, { "id": "z", "value": 0.20 }] },
+      { "level": 2, "multipilers": [{ "id": "x", "value": 0.385 }, { "id": "y", "value": 0.44 }, { "id": "z", "value": 0.22 }] },
+      { "level": 3, "multipilers": [{ "id": "x", "value": 0.42 }, { "id": "y", "value": 0.48 }, { "id": "z", "value": 0.24 }] },
+      { "level": 4, "multipilers": [{ "id": "x", "value": 0.455 }, { "id": "y", "value": 0.52 }, { "id": "z", "value": 0.26 }] },
+      { "level": 5, "multipilers": [{ "id": "x", "value": 0.49 }, { "id": "y", "value": 0.56 }, { "id": "z", "value": 0.28 }] },
+      { "level": 6, "multipilers": [{ "id": "x", "value": 0.525 }, { "id": "y", "value": 0.60 }, { "id": "z", "value": 0.30 }] },
+      { "level": 7, "multipilers": [{ "id": "x", "value": 0.5688 }, { "id": "y", "value": 0.65 }, { "id": "z", "value": 0.325 }] },
+      { "level": 8, "multipilers": [{ "id": "x", "value": 0.6125 }, { "id": "y", "value": 0.70 }, { "id": "z", "value": 0.35 }] },
+      { "level": 9, "multipilers": [{ "id": "x", "value": 0.6563 }, { "id": "y", "value": 0.75 }, { "id": "z", "value": 0.375 }] },
+      { "level": 10, "multipilers": [{ "id": "x", "value": 0.70 }, { "id": "y", "value": 0.80 }, { "id": "z", "value": 0.40 }] },
+      { "level": 11, "multipilers": [{ "id": "x", "value": 0.735 }, { "id": "y", "value": 0.84 }, { "id": "z", "value": 0.42 }] },
+      { "level": 12, "multipilers": [{ "id": "x", "value": 0.77 }, { "id": "y", "value": 0.88 }, { "id": "z", "value": 0.44 }] }
+    ]
+  },
+
+  "ultimate": {
+    "valueCount": 2,
+    "description": {
+      "name": "魔法だって言ったでしょ",
+      "type": "全体攻撃",
+      "detail": "X=全体ダメージ倍率、Y=攻撃力アップ"
+    },
+    "levels": [
+      { "level": 1, "multipilers": [{ "id": "x", "value": 1.00 }, { "id": "y", "value": 0.40 }] },
+      { "level": 2, "multipilers": [{ "id": "x", "value": 1.10 }, { "id": "y", "value": 0.44 }] },
+      { "level": 3, "multipilers": [{ "id": "x", "value": 1.20 }, { "id": "y", "value": 0.48 }] },
+      { "level": 4, "multipilers": [{ "id": "x", "value": 1.30 }, { "id": "y", "value": 0.52 }] },
+      { "level": 5, "multipilers": [{ "id": "x", "value": 1.40 }, { "id": "y", "value": 0.56 }] },
+      { "level": 6, "multipilers": [{ "id": "x", "value": 1.50 }, { "id": "y", "value": 0.60 }] },
+      { "level": 7, "multipilers": [{ "id": "x", "value": 1.625 }, { "id": "y", "value": 0.65 }] },
+      { "level": 8, "multipilers": [{ "id": "x", "value": 1.75 }, { "id": "y", "value": 0.70 }] },
+      { "level": 9, "multipilers": [{ "id": "x", "value": 1.875 }, { "id": "y", "value": 0.75 }] },
+      { "level": 10, "multipilers": [{ "id": "x", "value": 2.00 }, { "id": "y", "value": 0.80 }] },
+      { "level": 11, "multipilers": [{ "id": "x", "value": 2.10 }, { "id": "y", "value": 0.84 }] },
+      { "level": 12, "multipilers": [{ "id": "x", "value": 2.20 }, { "id": "y", "value": 0.88 }] }
+    ]
+  },
+
+  "talent": {
+    "valueCount": 2,
+    "description": {
+      "name": "私がもらうね",
+      "type": "強化",
+      "detail": "解読1層ごとのダメージ倍率上昇"
+    },
+    "levels": [
+      { "level": 1, "multipilers": [{ "id": "x", "value": 0.04 }, { "id": "y", "value": 0.02 }] },
+      { "level": 2, "multipilers": [{ "id": "x", "value": 0.044 }, { "id": "y", "value": 0.022 }] },
+      { "level": 3, "multipilers": [{ "id": "x", "value": 0.048 }, { "id": "y", "value": 0.024 }] },
+      { "level": 4, "multipilers": [{ "id": "x", "value": 0.052 }, { "id": "y", "value": 0.026 }] },
+      { "level": 5, "multipilers": [{ "id": "x", "value": 0.056 }, { "id": "y", "value": 0.028 }] },
+      { "level": 6, "multipilers": [{ "id": "x", "value": 0.060 }, { "id": "y", "value": 0.030 }] },
+      { "level": 7, "multipilers": [{ "id": "x", "value": 0.065 }, { "id": "y", "value": 0.0325 }] },
+      { "level": 8, "multipilers": [{ "id": "x", "value": 0.070 }, { "id": "y", "value": 0.035 }] },
+      { "level": 9, "multipilers": [{ "id": "x", "value": 0.075 }, { "id": "y", "value": 0.0375 }] },
+      { "level": 10, "multipilers": [{ "id": "x", "value": 0.080 }, { "id": "y", "value": 0.040 }] },
+      { "level": 11, "multipilers": [{ "id": "x", "value": 0.084 }, { "id": "y", "value": 0.042 }] },
+      { "level": 12, "multipilers": [{ "id": "x", "value": 0.088 }, { "id": "y", "value": 0.044 }] }
+    ]
+  }
+}

@@ -25,18 +25,18 @@ export function collectManualBuffs() {
 
     if (!valueType || rawValue === "") return;
 
-    let valueUnit = unitElem?.value ?? "percent";
+    let valueUnit = unitElem?.value ?? "value";
     let numericValue = Number(rawValue);
 
     if (Number.isNaN(numericValue)) return;
 
     // 安全装置：flat禁止タイプは強制percent
     if (!FLAT_ALLOWED.has(valueType)) {
-      valueUnit = "percent";
+      valueUnit = "value";
     }
 
     const value =
-      valueUnit === "percent"
+      valueUnit === "value"
         ? numericValue / 100
         : numericValue;
 

@@ -19,8 +19,8 @@ import { applyEidolonsToSkills } from "./skillModifierEngine.js";
 import { collectAllBuffs } from "./buffEngine.js";
 import { calculateFinalStats } from "./statEngine.js";
 import { calculateBaseDamage } from "./baseDmgEngine.js";
-import { calculateCritCoef } from "./critCoefEngine.js";
-import { calculateAllDMGBoostCoef } from "./increaseDmgCoefEngine.js";
+import { calculateCritCoef } from "./multiplierCRITEngine.js";
+import { calculateAllDMGBoostCoef } from "./multiplierDMGBoostEngine.js";
 
 /* ===== HTML要素取得 ===== */
 const skillSelect = document.getElementById("skillSelect");

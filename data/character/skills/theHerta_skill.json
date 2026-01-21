@@ -1,0 +1,243 @@
+{
+  "basicAtk": {
+    "skillLabel": "通常攻撃",
+    "base": [
+      {
+        "skillId": 1,
+        "name": "これでわかった？",
+        "type": "atkOnly",
+        "label": "単体",
+        "atkGroups": [
+          {
+            "atkGroupId": 1,
+            "target": "single",
+            "atk": [
+              {
+                "id": "x",
+                "multiplier": "basicAtk",
+                "reference": "Atk"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  "skill": {
+    "skillLabel": "戦闘スキル",
+    "base": [
+      {
+        "skillId": 1,
+        "name": "視野が狭いよ",
+        "type": "atkOnly",
+        "label": "拡散攻撃",
+        "atkGroups": [
+          {
+            "atkGroupId": 1,
+            "target": "single",
+            "atk": [
+              {
+                "id": "x",
+                "multiplier": "skill",
+                "reference": "Atk"
+              }
+            ]
+          },
+          {
+            "atkGroupId": 2,
+            "target": "blast",
+            "atk": [
+              {
+                "id": "x",
+                "multiplier": "skill",
+                "reference": "Atk"
+              }
+            ]
+          },
+          {
+            "atkGroupId": 3,
+            "target": "blast",
+            "atk": [
+              {
+                "id": "x",
+                "multiplier": "skill",
+                "reference": "Atk"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "skillId": 2,
+        "name": "大胆なアイデア",
+        "type": "atkOnly",
+        "label": "全体攻撃",
+        "atkGroups": [
+          {
+            "atkGroupId": 1,
+            "target": "single",
+            "atk": [
+              {
+                "id": "y",
+                "multiplier": "skill",
+                "reference": "Atk"
+              }
+            ]
+          },
+          {
+            "atkGroupId": 2,
+            "target": "blast",
+            "atk": [
+              {
+                "id": "y",
+                "multiplier": "skill",
+                "reference": "Atk"
+              }
+            ]
+          },
+          {
+            "atkGroupId": 3,
+            "target": "blast",
+            "atk": [
+              {
+                "id": "y",
+                "multiplier": "skill",
+                "reference": "Atk"
+              }
+            ]
+          },
+          {
+            "atkGroupId": 4,
+            "target": "aoe",
+            "atk": [
+              {
+                "id": "z",
+                "multiplier": "skill",
+                "reference": "Atk"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  "ultimate": {
+    "skillLabel": "必殺技",
+    "base": [
+      {
+        "skillId": 1,
+        "name": "魔法だって言ったでしょ",
+        "type": "both",
+        "label": "全体攻撃",
+        "atkGroups": [
+          {
+            "atkGroupId": 1,
+            "target": "aoe",
+            "atk": [
+              {
+                "id": "x",
+                "multiplier": "ultimate",
+                "reference": "Atk"
+              }
+            ]
+          }
+        ],
+        "buffGroups": [
+          {
+            "buffGroupId": 1,
+            "condition": {
+              "type": "user",
+              "value": "userAct"
+            },
+            "buffs": [
+              {
+                "valueType": "Atk",
+                "valueUnit": "value",
+                "target": "self",
+                "source": {
+                  "type": "multiplier",
+                  "table": "ultimate",
+                  "id": "y"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  "talent": {
+    "skillLabel": "天賦",
+    "base": [
+      {
+        "skillId": 1,
+        "name": "私がもらうね",
+        "type": "supOnly",
+        "label": "強化",
+        "buffGroups": [
+          {
+            "buffGroupId": 1,
+            "condition": {
+              "type": "user",
+              "value": "userAct"
+            },
+            "buffs": [
+              {
+                "valueType": "ExtraDMG",
+                "valueUnit": "value",
+                "target": "self",
+                "source": {
+                  "type": "multiplier",
+                  "table": "talent",
+                  "id": "x"
+                }
+              },
+              {
+                "valueType": "ExtraDMG",
+                "valueUnit": "value",
+                "target": "self",
+                "source": {
+                  "type": "multiplier",
+                  "table": "talent",
+                  "id": "y"
+                }
+              }
+            ]
+          },
+          {
+            "buffGroupId": 2,
+            "condition": {
+              "type": "partyPath",
+              "value": "erudition>=2"
+            },
+            "buffs": [
+              {
+                "valueType": "ExtraDMG",
+                "valueUnit": "value",
+                "target": "self",
+                "source": {
+                  "type": "multiplier",
+                  "table": "talent",
+                  "id": "x"
+                }
+              },
+              {
+                "valueType": "ExtraDMG",
+                "valueUnit": "value",
+                "target": "self",
+                "source": {
+                  "type": "multiplier",
+                  "table": "talent",
+                  "id": "y"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

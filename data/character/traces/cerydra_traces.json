@@ -23,7 +23,7 @@
                     "buffs": [
                         {
                             "valueType": "Spd",
-                            "valueUnit": "flat",
+                            "valueUnit": "flatValue",
                             "target": "ally",
                             "source": {
                                 "type": "fixed",

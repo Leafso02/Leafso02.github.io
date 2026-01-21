@@ -94,7 +94,7 @@ function collectTalentBuffs(context) {
 // 正規化を行うのはここだけ
 function normalizeBuff(buff) {
   const value =
-    buff.valueUnit === "percent"
+    buff.valueUnit === "value"
       ? buff.source.value / 100
       : buff.source.value;
 
@@ -163,7 +163,7 @@ function aggrgateBuffs(buffList) {
 
     // 基本ステータス
     if (baseStats.includes(valueType)) {
-      if (valueUnit === "percent") {
+      if (valueUnit === "value") {
         result[valueType].value += value;
       } else {
         result[valueType].flatValue += value;

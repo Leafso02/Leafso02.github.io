@@ -35,7 +35,7 @@
             "buffs": [
               {
                 "valueType": "CRITDMG",
-                "valueUnit": "percent",
+                "valueUnit": "value",
                 "target": "ally",
                 "source": {
                   "type": "multiplier",
@@ -45,7 +45,7 @@
               },
               {
                 "valueType": "RESPEN",
-                "valueUnit": "percent",
+                "valueUnit": "value",
                 "target": "ally",
                 "source": {
                   "type": "multiplier",
@@ -95,7 +95,7 @@
             "buffs": [
               {
                 "valueType": "Atk",
-                "valueUnit": "percent",
+                "valueUnit": "value",
                 "target": "ally",
                 "source": {
                   "type": "expression",
@@ -115,7 +115,7 @@
               },
               {
                 "valueType": "AddDmg",
-                "valueUnit": "flat",
+                "valueUnit": "flatValue",
                 "target": "ally",
                 "source": {
                   "type": "expression",
