@@ -1,4 +1,5 @@
 // buffDefinitions.js
+// バフオブジェクトの初期化
 export const BUFF_DEFINITIONS = [
   { valueType: "Hp", units: ["flat", "percent"] },
   { valueType: "Atk", units: ["flat", "percent"] },
