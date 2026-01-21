@@ -26,17 +26,17 @@
     },
     "levels": [
       { "level": 1, "multipilers": [{ "id": "x", "value": 0.36 }, { "id": "y", "value": 0.080 }] },
-      { "level": 2, "multipilers": [{ "id": "x", "value": 0.39 }, { "id": "y", "value": 0.082 }] },
-      { "level": 3, "multipilers": [{ "id": "x", "value": 0.43 }, { "id": "y", "value": 0.084 }] },
-      { "level": 4, "multipilers": [{ "id": "x", "value": 0.46 }, { "id": "y", "value": 0.086 }] },
-      { "level": 5, "multipilers": [{ "id": "x", "value": 0.50 }, { "id": "y", "value": 0.088 }] },
+      { "level": 2, "multipilers": [{ "id": "x", "value": 0.396 }, { "id": "y", "value": 0.082 }] },
+      { "level": 3, "multipilers": [{ "id": "x", "value": 0.432 }, { "id": "y", "value": 0.084 }] },
+      { "level": 4, "multipilers": [{ "id": "x", "value": 0.468 }, { "id": "y", "value": 0.086 }] },
+      { "level": 5, "multipilers": [{ "id": "x", "value": 0.504 }, { "id": "y", "value": 0.088 }] },
       { "level": 6, "multipilers": [{ "id": "x", "value": 0.54 }, { "id": "y", "value": 0.090 }] },
-      { "level": 7, "multipilers": [{ "id": "x", "value": 0.58 }, { "id": "y", "value": 0.092 }] },
+      { "level": 7, "multipilers": [{ "id": "x", "value": 0.585 }, { "id": "y", "value": 0.0925 }] },
       { "level": 8, "multipilers": [{ "id": "x", "value": 0.63 }, { "id": "y", "value": 0.095 }] },
-      { "level": 9, "multipilers": [{ "id": "x", "value": 0.67 }, { "id": "y", "value": 0.098 }] },
+      { "level": 9, "multipilers": [{ "id": "x", "value": 0.675 }, { "id": "y", "value": 0.0975 }] },
       { "level": 10, "multipilers": [{ "id": "x", "value": 0.72 }, { "id": "y", "value": 0.100 }] },
-      { "level": 11, "multipilers": [{ "id": "x", "value": 0.76 }, { "id": "y", "value": 0.102 }] },
-      { "level": 12, "multipilers": [{ "id": "x", "value": 0.79 }, { "id": "y", "value": 0.104 }] }
+      { "level": 11, "multipilers": [{ "id": "x", "value": 0.756 }, { "id": "y", "value": 0.102 }] },
+      { "level": 12, "multipilers": [{ "id": "x", "value": 0.792 }, { "id": "y", "value": 0.104 }] }
     ]
   },
 
@@ -49,17 +49,17 @@
     },
     "levels": [
       { "level": 1, "multipilers": [{ "id": "x", "value": 1.44 }] },
-      { "level": 2, "multipilers": [{ "id": "x", "value": 1.53 }] },
-      { "level": 3, "multipilers": [{ "id": "x", "value": 1.63 }] },
-      { "level": 4, "multipilers": [{ "id": "x", "value": 1.72 }] },
-      { "level": 5, "multipilers": [{ "id": "x", "value": 1.82 }] },
+      { "level": 2, "multipilers": [{ "id": "x", "value": 1.536 }] },
+      { "level": 3, "multipilers": [{ "id": "x", "value": 1.632 }] },
+      { "level": 4, "multipilers": [{ "id": "x", "value": 1.728 }] },
+      { "level": 5, "multipilers": [{ "id": "x", "value": 1.824 }] },
       { "level": 6, "multipilers": [{ "id": "x", "value": 1.92 }] },
       { "level": 7, "multipilers": [{ "id": "x", "value": 2.04 }] },
       { "level": 8, "multipilers": [{ "id": "x", "value": 2.16 }] },
       { "level": 9, "multipilers": [{ "id": "x", "value": 2.28 }] },
       { "level": 10, "multipilers": [{ "id": "x", "value": 2.40 }] },
-      { "level": 11, "multipilers": [{ "id": "x", "value": 2.50 }] },
-      { "level": 12, "multipilers": [{ "id": "x", "value": 2.59 }] }
+      { "level": 11, "multipilers": [{ "id": "x", "value": 2.496 }] },
+      { "level": 12, "multipilers": [{ "id": "x", "value": 2.592 }] }
     ]
   },
 
@@ -77,9 +77,9 @@
       { "level": 4, "multipilers": [{ "id": "x", "value": 0.198 }, { "id": "y", "value": 0.39 }] },
       { "level": 5, "multipilers": [{ "id": "x", "value": 0.204 }, { "id": "y", "value": 0.42 }] },
       { "level": 6, "multipilers": [{ "id": "x", "value": 0.210 }, { "id": "y", "value": 0.45 }] },
-      { "level": 7, "multipilers": [{ "id": "x", "value": 0.218 }, { "id": "y", "value": 0.48 }] },
-      { "level": 8, "multipilers": [{ "id": "x", "value": 0.225 }, { "id": "y", "value": 0.52 }] },
-      { "level": 9, "multipilers": [{ "id": "x", "value":  0.233 }, { "id": "y", "value": 0.56 }] },
+      { "level": 7, "multipilers": [{ "id": "x", "value": 0.2175 }, { "id": "y", "value": 0.4875 }] },
+      { "level": 8, "multipilers": [{ "id": "x", "value": 0.225 }, { "id": "y", "value": 0.525 }] },
+      { "level": 9, "multipilers": [{ "id": "x", "value":  0.2325 }, { "id": "y", "value": 0.5625 }] },
       { "level": 10, "multipilers": [{ "id": "x", "value": 0.240 }, { "id": "y", "value": 0.60 }] },
       { "level": 11, "multipilers": [{ "id": "x", "value": 0.246 }, { "id": "y", "value": 0.63 }] },
       { "level": 12, "multipilers": [{ "id": "x", "value": 0.252 }, { "id": "y", "value": 0.66 }] }
