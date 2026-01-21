@@ -17,7 +17,7 @@ import { checkStatsCondition } from "./conditionCheck.js";
  *
  * @param {Object} baseStats
  *   キャラクターの基礎ステータス
- *   例: { Atk: 1000, CritRate: 0.05 }
+ *   例: { Atk: 1000, CRITRate: 0.05 }
  *
  * @param {Array} buffs
  *   collectBuffs から渡されるバフオブジェクト
@@ -44,7 +44,7 @@ export function calculateFinalStats(baseStats, buffs) {
     const flatValue = buff.flatValue ?? 0;
     const value = buff.value ?? 0;
 
-    if (stat === "CritRate" || stat === "CritDmg") {
+    if (stat === "CRITRate" || stat === "CRITDMG") {
       finalStats[stat] =
         baseStats[stat] + value;
       return;

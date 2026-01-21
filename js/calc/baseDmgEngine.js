@@ -107,7 +107,7 @@ export function calculateBaseDamage({
    * ============================
    */
 
-  const addMultiplierDmg = buffs.AddMultiplierDmg.value;
+  const addMultiplierDmg = buffs.ExtraDMGDmg.value;
   
 
   /**

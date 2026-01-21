@@ -10,8 +10,8 @@
 
 export function calculateCritCoef(finalStats) {
 
-  const critRate = clamp(finalStats.CritRate, 0, 1);
-  const critDmg  = finalStats.CritDmg;
+  const critRate = clamp(finalStats.CRITRate, 0, 1);
+  const critDmg  = finalStats.CRITDMG;
 
   // 会心係数
   // 会心係数 = 1 + 会心率 × 会心ダメージ

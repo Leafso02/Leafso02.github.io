@@ -20,7 +20,7 @@ import { collectAllBuffs } from "./buffEngine.js";
 import { calculateFinalStats } from "./statEngine.js";
 import { calculateBaseDamage } from "./baseDmgEngine.js";
 import { calculateCritCoef } from "./critCoefEngine.js";
-import { calculateIncreaseDmgCoef } from "./increaseDmgCoefEngine.js";
+import { calculateAllDMGBoostCoef } from "./increaseDmgCoefEngine.js";
 
 /* ===== HTML要素取得 ===== */
 const skillSelect = document.getElementById("skillSelect");
@@ -95,8 +95,8 @@ const modifiedSkills = applyEidolonsToSkills({
     Atk: currentCharacter.character.baseAtk,
     Def: currentCharacter.character.baseDef,
     Spd: currentCharacter.character.baseSpd,
-    CritRate: 0.05,
-    CritDmg: 0.5
+    CRITRate: 0.05,
+    CRITDMG: 0.5
   };
 
   /* ==========
@@ -135,7 +135,7 @@ const modifiedSkills = applyEidolonsToSkills({
    * 与ダメ係数
    * ========== */
 
-  const increaseDmgResult = calculateIncreaseDmgCoef(buffs);
+  const increaseDmgResult = calculateAllDMGBoostCoef(buffs);
 
   console.log("[mainCalc] increaseDmgCoef", increaseDmgResult);
 
