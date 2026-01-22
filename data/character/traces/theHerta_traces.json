@@ -1,0 +1,95 @@
+{
+  "characterId": "theHerta",
+  "bonusAbilities": [
+    {
+      "ascension": 2,
+      "name": "冷たい真実",
+      "description": "味方が攻撃を行う時、攻撃が命中する敵に「解読」を1層付与する。攻撃後、命中した敵1体につきマダム・ヘルタはEPを固定で3回復する（最大5体）。強化戦闘スキルを発動する時、メインターゲットの「解読」が42層に達している場合、その回の攻撃中、マダム・ヘルタの与ダメージ+50%。",
+      "operations": [
+        {
+          "op": "addBuffGroup",
+          "target": {
+            "skillType": "skill",
+            "skillId": 2
+          },
+          "condition": {
+            "type": "user",
+            "value": "userAct"
+          },
+          "buffs": [
+            {
+              "valueType": "AllDMGBoost",
+              "valueUnit": "value",
+              "target": "self",
+              "source": {
+                "type": "fixed",
+                "value": 50
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "ascension": 4,
+      "name": "境界からの便り",
+      "description": "戦闘に入る時、パーティに「知恵」の運命を歩むキャラクターが2名以上いる場合、味方全体の会心ダメージ+80%。",
+      "operations": [
+        {
+          "op": "addBuffGroup",
+          "target": {
+            "skillType": "talent",
+            "skillId": 1
+          },
+          "condition": {
+            "type": "user",
+            "value": "userAct"
+          },
+          "buffs": [
+            {
+              "valueType": "CRITDMG",
+              "valueUnit": "value",
+              "target": "party",
+              "source": {
+                "type": "fixed",
+                "value": 80
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "ascension": 6,
+      "name": "飢えた地景",
+      "description": "敵に「解読」が1層付与されるたびに、マダム・ヘルタは「回答」を1層獲得する（最大99層）。必殺技を発動する時、「回答」1層につき、その回の必殺技のダメージ倍率+1.0%。",
+      "operations": [
+        {
+          "op": "addBuffGroup",
+          "target": {
+            "skillType": "ultimate",
+            "skillId": 1
+          },
+          "condition": {
+            "type": "user",
+            "value": "userAct"
+          },
+          "buffs": [
+            {
+              "valueType": "ExtraDMG",
+              "valueUnit": "value",
+              "target": "self",
+              "source": {
+                "type": "fixed",
+                "value": 1,
+                "refStat": "ATK"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

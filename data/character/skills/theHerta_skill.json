@@ -1,5 +1,5 @@
 {
-  "basicAtk": {
+  "basicATK": {
     "skillLabel": "通常攻撃",
     "base": [
       {
@@ -14,8 +14,7 @@
             "atk": [
               {
                 "id": "x",
-                "multiplier": "basicAtk",
-                "reference": "Atk"
+                "reference": "ATK"
               }
             ]
           }
@@ -39,8 +38,7 @@
             "atk": [
               {
                 "id": "x",
-                "multiplier": "skill",
-                "reference": "Atk"
+                "reference": "ATK"
               }
             ]
           },
@@ -50,8 +48,7 @@
             "atk": [
               {
                 "id": "x",
-                "multiplier": "skill",
-                "reference": "Atk"
+                "reference": "ATK"
               }
             ]
           },
@@ -61,8 +58,7 @@
             "atk": [
               {
                 "id": "x",
-                "multiplier": "skill",
-                "reference": "Atk"
+                "reference": "ATK"
               }
             ]
           }
@@ -80,8 +76,7 @@
             "atk": [
               {
                 "id": "y",
-                "multiplier": "skill",
-                "reference": "Atk"
+                "reference": "ATK"
               }
             ]
           },
@@ -91,8 +86,7 @@
             "atk": [
               {
                 "id": "y",
-                "multiplier": "skill",
-                "reference": "Atk"
+                "reference": "ATK"
               }
             ]
           },
@@ -102,8 +96,7 @@
             "atk": [
               {
                 "id": "y",
-                "multiplier": "skill",
-                "reference": "Atk"
+                "reference": "ATK"
               }
             ]
           },
@@ -113,8 +106,7 @@
             "atk": [
               {
                 "id": "z",
-                "multiplier": "skill",
-                "reference": "Atk"
+                "reference": "ATK"
               }
             ]
           }
@@ -138,8 +130,7 @@
             "atk": [
               {
                 "id": "x",
-                "multiplier": "ultimate",
-                "reference": "Atk"
+                "reference": "ATK"
               }
             ]
           }
@@ -148,17 +139,24 @@
           {
             "buffGroupId": 1,
             "condition": {
-              "type": "user",
-              "value": "userAct"
+              "operator": "OR",
+              "conditions": 
+              [{
+                "type": "useSkill",
+                "value": [{"skill": "ultimate", "skillId": 1}]
+              },
+              {
+                "type": "userAction",
+                "action": "toggle"
+              }]
             },
             "buffs": [
               {
-                "valueType": "Atk",
+                "valueType": "ATK",
                 "valueUnit": "value",
                 "target": "self",
                 "source": {
                   "type": "multiplier",
-                  "table": "ultimate",
                   "id": "y"
                 }
               }
@@ -181,8 +179,17 @@
           {
             "buffGroupId": 1,
             "condition": {
-              "type": "user",
-              "value": "userAct"
+              "oprator": "AND",
+              "conditions": [{
+                "type": "useSkill",
+                "value": [{"skill": "skill", "skillId": 2}]
+              },
+              {
+                "type": "userAction",
+                "action": "number",
+                "userInputId": 1,
+                "param": {"min": 0, "max": 42}
+              }]
             },
             "buffs": [
               {
@@ -191,8 +198,8 @@
                 "target": "self",
                 "source": {
                   "type": "multiplier",
-                  "table": "talent",
-                  "id": "x"
+                  "id": "x",
+                  "refStat": "ATK"
                 }
               },
               {
@@ -201,18 +208,19 @@
                 "target": "self",
                 "source": {
                   "type": "multiplier",
-                  "table": "talent",
-                  "id": "y"
+                  "id": "y",
+                  "refStat": "ATK"
                 }
               }
             ]
           },
           {
             "buffGroupId": 2,
-            "condition": {
+            "condition": [{
               "type": "partyPath",
-              "value": "erudition>=2"
-            },
+              "value": ["erudition>=2"]
+            }
+          ],
             "buffs": [
               {
                 "valueType": "ExtraDMG",
@@ -220,8 +228,8 @@
                 "target": "self",
                 "source": {
                   "type": "multiplier",
-                  "table": "talent",
-                  "id": "x"
+                  "id": "x",
+                  "refStat": "ATK"
                 }
               },
               {
@@ -230,8 +238,8 @@
                 "target": "self",
                 "source": {
                   "type": "multiplier",
-                  "table": "talent",
-                  "id": "y"
+                  "id": "y",
+                  "refStat": "ATK"
                 }
               }
             ]

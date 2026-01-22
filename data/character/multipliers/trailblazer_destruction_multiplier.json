@@ -1,5 +1,5 @@
 {
-  "basicAtk" : {
+  "basicATK" : {
     "count" : 1,
     "levels" : [
       { "level" : 1, "multipilers" : [{"id": "x", "value": 0.50}] },

@@ -1,5 +1,5 @@
 {
-  "basicAtk": {
+  "basicATK": {
     "skillLabel" : "通常攻撃",
     "base": [
       {
@@ -10,8 +10,7 @@
         "atk": [
           {
             "id": "x",
-            "multiplier": "basicAtk",
-            "reference": "Atk"
+            "reference": "ATK"
           }
         ]
       }
@@ -28,10 +27,14 @@
         "buffGroups": [
           {
             "buffGroupId": 1,
-            "condition": {
+            "condition": [{
+              "type" : "useSkill",
+              "value" : ["skill"]
+            },
+            {
               "type" : "user",
               "value" : "userAct"
-            },
+            }],
             "buffs": [
               {
                 "valueType": "CRITDMG",
@@ -39,7 +42,6 @@
                 "target": "ally",
                 "source": {
                   "type": "multiplier",
-                  "table": "skill",
                   "id": "x"
                 }
               },
@@ -49,7 +51,6 @@
                 "target": "ally",
                 "source": {
                   "type": "multiplier",
-                  "table": "skill",
                   "id": "y"
                 }
               }
@@ -71,7 +72,7 @@
           {
             "id": "x",
             "multiplier": "ultimate",
-            "reference": "Atk"
+            "reference": "ATK"
           }
         ]
       }
@@ -88,14 +89,14 @@
         "buffGroups": [
           {
             "buffGroupId": 1,
-            "condition": {
+            "condition": [{
               "type" : "always",
-              "value" : "always"
-            },
+              "value" : ["always"]
+            }],
             "buffs": [
               {
-                "valueType": "Atk",
-                "valueUnit": "value",
+                "valueType": "ATK",
+                "valueUnit": "flatValue",
                 "target": "ally",
                 "source": {
                   "type": "expression",
@@ -103,12 +104,12 @@
                   "left": {
                     "type": "statScale",
                     "refTarget": "self",
-                    "refStat": "Atk",
+                    "refStat": "ATK",
                     "rate": 100
                   },
                   "right": {
                     "type": "multiplier",
-                    "table": "talent",
+                    "multiplierTable": "talent",
                     "id": "x"
                   }
                 }
@@ -123,12 +124,12 @@
                   "left": {
                     "type": "statScale",
                     "refTarget": "self",
-                    "refStat": "Atk",
+                    "refStat": "ATK",
                     "rate": 100
                   },
                   "right": {
                     "type": "multiplier",
-                    "table": "talent",
+                    "multiplierTable": "talent",
                     "id": "y"
                   }
                 }

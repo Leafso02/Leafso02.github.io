@@ -3,8 +3,8 @@
       "name": "開拓者-壊滅",
       "image": "icon/物理/開拓者.jpeg",
       "element": "Physical",
-      "baseHp": 1203,
-      "baseAtk": 620,
-      "baseDef": 460,
+      "baseHP": 1203,
+      "baseATK": 620,
+      "baseDEF": 460,
       "baseSpe": 100
 }

@@ -27,7 +27,7 @@ import { getMultiplierValue } from "./multiplierEngine.js";
  *
  * @param {string} params.skillKey
  *   使用スキルのキー
- *   例: "basicAtk", "ultimate"
+ *   例: "basicATK", "ultimate"
  *
  * @param {number} params.skillLevel
  *   使用スキルのレベル
@@ -71,13 +71,13 @@ export function calculateBaseDamage({
    */
 
   // atk 定義の最初の要素を参照
-  const atkDef = skill.atk?.[0];
+  const atkDEF = skill.atk?.[0];
 
-  if (!atkDef) {
+  if (!atkDEF) {
     throw new Error(`攻撃定義が存在しません: ${skillKey}`);
   }
 
-  const refStatKey = atkDef.reference; // 例: "Atk"
+  const refStatKey = atkDEF.reference; // 例: "ATK"
 
   const refStatValue = finalStats[refStatKey];
 
@@ -92,7 +92,7 @@ export function calculateBaseDamage({
    */
 
 
-  const multiplierTableName = atkDef.multiplier; // 例: "ultimate"
+  const multiplierTableName = atkDEF.multiplier; // 例: "ultimate"
 
   const traceMultiplier = getMultiplierValue(
     multiplierData,

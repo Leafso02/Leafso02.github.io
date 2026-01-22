@@ -10,7 +10,7 @@
  * デフォルトスキルLv
  * ===================== */
 const DEFAULT_SKILL_LEVEL = {
-  basicAtk: 6,
+  basicATK: 6,
   skill: 10,
   ultimate: 10,
   talent: 10,

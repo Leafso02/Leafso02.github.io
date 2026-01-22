@@ -6,7 +6,7 @@
  */
 
 
-const FLAT_ALLOWED = new Set(["Hp", "Atk", "Def", "Spd"]);
+const FLAT_ALLOWED = new Set(["HP", "ATK", "DEF", "SPD"]);
 
 export function collectManualBuffs() {
   const result = [];
@@ -30,7 +30,7 @@ export function collectManualBuffs() {
 
     if (Number.isNaN(numericValue)) return;
 
-    // 安全装置：flat禁止タイプは強制percent
+    // 安全装置：flat禁止タイプは強制value
     if (!FLAT_ALLOWED.has(valueType)) {
       valueUnit = "value";
     }

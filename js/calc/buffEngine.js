@@ -8,7 +8,7 @@
  *   「今このアタッカーに有効なバフ」だけを抽出する
  */
 
-import { BUFF_DEFINITIONS } from "./buffDefinitions.js";
+import { BUFF_DEFINITIONS } from "./buffDEFinitions.js";
 import { collectManualBuffs } from "./manualBuffParser.js";
 
 
@@ -144,10 +144,10 @@ function isBuffActive(condition, context) {
 }
 
 // 全てのバフを統合
-// 例) {Atk{}, crtRate{}}
+// 例) {ATK{}, crtRate{}}
 function aggrgateBuffs(buffList) {
   const result = {};
-  const baseStats = ["Hp", "Atk", "Def", "Spd"];
+  const baseStats = ["HP", "ATK", "DEF", "SPD"];
 
   for (const { valueType, valueUnit, value } of buffList) {
 

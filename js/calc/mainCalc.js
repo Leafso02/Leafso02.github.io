@@ -41,7 +41,7 @@ calcBtn.addEventListener("click", () => {
    * ユーザー入力
    * ========== */
 
-  const skillType = skillSelect.value;     // "basicAtk" 等
+  const skillType = skillSelect.value;     // "basicATK" 等
   const skillLevel = Number(skillLevelInput.value);
   const eidolonLevel = Number(eidolonLevelInput.value);
 
@@ -91,10 +91,10 @@ const modifiedSkills = applyEidolonsToSkills({
    * ========== */
 
   const baseStats = {
-    Hp: currentCharacter.character.baseHp,
-    Atk: currentCharacter.character.baseAtk,
-    Def: currentCharacter.character.baseDef,
-    Spd: currentCharacter.character.baseSpd,
+    HP: currentCharacter.character.baseHP,
+    ATK: currentCharacter.character.baseATK,
+    DEF: currentCharacter.character.baseDEF,
+    SPD: currentCharacter.character.baseSPD,
     CRITRate: 0.05,
     CRITDMG: 0.5
   };

@@ -17,7 +17,7 @@ import { checkStatsCondition } from "./conditionCheck.js";
  *
  * @param {Object} baseStats
  *   キャラクターの基礎ステータス
- *   例: { Atk: 1000, CRITRate: 0.05 }
+ *   例: { ATK: 1000, CRITRate: 0.05 }
  *
  * @param {Array} buffs
  *   collectBuffs から渡されるバフオブジェクト

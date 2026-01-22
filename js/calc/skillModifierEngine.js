@@ -59,8 +59,8 @@ function applyOperation(skills, operation) {
       addBuffToGroup(skills, operation);
       break;
 
-    case "addAtk":
-      addAtk(skills, operation);
+    case "addATK":
+      addATK(skills, operation);
       break;
 
     default:
@@ -122,9 +122,9 @@ function addBuffToGroup(skills, operation) {
 }
 
 /* =====================
- * addAtk
+ * addATK
  * ===================== */
-function addAtk(skills, operation) {
+function addATK(skills, operation) {
   const skill = getTargetSkill(skills, operation.target);
   if (!skill) return;
 

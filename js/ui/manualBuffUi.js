@@ -3,21 +3,21 @@
  * ===================== */
 
 const BUFF_TYPE = [
-  { value: "Hp", label: "HP" },
-  { value: "Atk", label: "攻撃力" },
-  { value: "Def", label: "防御力" },
-  { value: "Spd", label: "速度" },
+  { value: "HP", label: "HP" },
+  { value: "ATK", label: "攻撃力" },
+  { value: "DEF", label: "防御力" },
+  { value: "SPD", label: "速度" },
   { value: "CRITRate", label: "会心率" },
   { value: "CRITDMG", label: "会心ダメージ" },
   { value: "AllDMGBoost", label: "与ダメージ" },
-  { value: "DefDebuf", label: "防御デバフ" },
+  { value: "DEFDebuf", label: "防御デバフ" },
   { value: "DEFIgnore", label: "防御貫通" },
   { value: "RESPEN", label: "属性耐性貫通" },
   { value: "DmgReceived", label: "敵の被ダメージ増加" },
   { value: "TrueDmg", label: "確定ダメージ" },
 ];
 
-const FLAT_ALLOWED = new Set(["Hp", "Atk", "Def", "Spd"]);
+const FLAT_ALLOWED = new Set(["HP", "ATK", "DEF", "SPD"]);
 
 /* =====================
  * 行生成

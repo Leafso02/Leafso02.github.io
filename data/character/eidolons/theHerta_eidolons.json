@@ -1,0 +1,154 @@
+{
+  "characterId": "theHerta",
+  "eidolons": [
+    {
+      "level": 1,
+      "name": "群星が降る夜",
+      "description": "強化戦闘スキルで「解読」の層数を計算する時、スキルのメインターゲットおよび隣接する敵の中で最も「解読」の層数が多い敵1体の層数50%分を計算に加える。強化戦闘スキルを発動して「解読」をリセットした時、「解読」の層数は15層にリセットされる。"
+    },
+
+    {
+      "level": 2,
+      "name": "鍵穴を吹き抜ける風",
+      "description": "マダム・ヘルタが戦闘に入る、または必殺技を発動した後、追加で「第六感」を1層獲得する。強化戦闘スキルを発動した後、マダム・ヘルタの次の行動順が35%早まる。"
+    },
+
+    {
+      "level": 3,
+      "name": "真夏の扉の向こう",
+      "description": "戦闘スキルのLv.+2、最大Lv.15まで。天賦のLv.+2、最大Lv.15まで。"
+    },
+
+    {
+      "level": 4,
+      "name": "十六本目の鍵",
+      "description": "パーティ内の「知恵」の運命を歩むキャラクターの速度+12%。",
+      "operations": [
+        {
+          "op": "addBuffGroup",
+          "target": {
+            "skillType": "talent",
+            "skillId": 1
+          },
+          "condition": {
+            "type": "partyPath",
+            "value": "erudition"
+          },
+          "buffs": [
+            {
+              "valueType": "SPD",
+              "valueUnit": "value",
+              "target": "ally",
+              "source": {
+                "type": "fixed",
+                "value": 12
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "level": 5,
+      "name": "真実は良薬のように苦い",
+      "description": "必殺技のLv.+2、最大Lv.15まで。通常攻撃のLv.+1、最大Lv.10まで。"
+    },
+
+    {
+      "level": 6,
+      "name": "答えは誘惑のように甘い",
+      "description": "マダム・ヘルタの氷属性耐性貫通+20%。また、必殺技のダメージ倍率がフィールド上の敵の数に応じてアップする。",
+      "operations": [
+        {
+          "op": "addBuffGroup",
+          "target": {
+            "skillType": "ultimate",
+            "skillId": 1
+          },
+          "condition": {
+            "type": "always",
+            "value": "always"
+          },
+          "buffs": [
+            {
+              "valueType": "RESPEN",
+              "valueUnit": "value",
+              "target": "self",
+              "source": {
+                "type": "fixed",
+                "value": 20
+              }
+            }
+          ]
+        },
+        {
+          "op": "addBuffGroup",
+          "target": {
+            "skillType": "ultimate",
+            "skillId": 1
+          },
+          "condition": {
+            "type": "enemyCount",
+            "value": ">=3"
+          },
+          "buffs": [
+            {
+              "valueType": "ExtraDMG",
+              "valueUnit": "value",
+              "target": "self",
+              "source": {
+                "type": "fixed",
+                "value": 140
+              }
+            }
+          ]
+        },
+        {
+          "op": "addBuffGroup",
+          "target": {
+            "skillType": "ultimate",
+            "skillId": 1
+          },
+          "condition": {
+            "type": "enemyCount",
+            "value": "==2"
+          },
+          "buffs": [
+            {
+              "valueType": "ExtraDMG",
+              "valueUnit": "value",
+              "target": "self",
+              "source": {
+                "type": "fixed",
+                "value": 250
+              }
+            }
+          ]
+        },
+        {
+          "op": "addBuffGroup",
+          "target": {
+            "skillType": "ultimate",
+            "skillId": 1
+          },
+          "condition": {
+            "type": "enemyCount",
+            "value": "==1"
+          },
+          "buffs": [
+            {
+              "valueType": "ExtraDMG",
+              "valueUnit": "value",
+              "target": "self",
+              "source": {
+                "type": "fixed",
+                "value": 400
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
