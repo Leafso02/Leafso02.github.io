@@ -8,7 +8,7 @@
  *   「今このアタッカーに有効なバフ」だけを抽出する
  */
 
-import { BUFF_DEFINITIONS } from "./buffDEFinitions.js";
+import { BUFF_DEFINITIONS } from "./buffDedinitions.js";
 import { collectManualBuffs } from "./manualBuffParser.js";
 
 

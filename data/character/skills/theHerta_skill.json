@@ -147,7 +147,8 @@
               },
               {
                 "type": "userAction",
-                "action": "toggle"
+                "action": "toggle",
+                "userInputId": 
               }]
             },
             "buffs": [
