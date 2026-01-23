@@ -1,4 +1,12 @@
 {
+    "userStates": {
+    "ultimateBuffToggle": {
+      "type": "toggle",
+      "label": "必殺技バフ有効",
+      "default": false
+    }
+  },
+  
   "basicATK": {
     "skillLabel" : "通常攻撃",
     "base": [
