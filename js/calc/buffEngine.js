@@ -6,38 +6,42 @@
  * ================================
  * ・星魂・追加能力が適用されたスキル群から
  *   「今このアタッカーに有効なバフ」だけを抽出する
+ *
+ * 【収集対象】
+ * ・アタッカーが今回使用したバフスキル
+ * ・アタッカーの天賦バフ（常時・条件付き）
+ * ・サポーター由来バフ
+ * ・手動入力バフ
  */
 
 import { BUFF_DEFINITIONS } from "./buffDefinitions.js";
 import { collectManualBuffs } from "./manualBuffParser.js";
 
-
+/* =====================
+ * バフ総収集エントリ
+ * ===================== */
 export function collectAllBuffs({
-  skills,
-  skillType,
+  attackerSkills,     // 星魂適用済みアタッカースキル群
+  usedBuffSkills,     // 今回使用したアタッカーのバフスキル
+  supporterBuffs,     // サポーター由来バフ
+  context
 }) {
-
-  const context = {
-    skillType,
-    eidolonLevel
-};
 
   const buffList = [
     ...createInitialBuffList(),
 
-    ...collectSkillBuffs(skills, skillType, context),
-    ...collectTalentBuffs(skills, context),
-    ...collectSupporterBuffs(),
+    ...collectAttackerUsedSkillBuffs(usedBuffSkills, context),
+    ...collectTalentBuffs(attackerSkills, context),
+    ...collectSupporterBuffs(supporterBuffs, context),
     ...collectManualBuffs()
   ];
 
   return aggrgateBuffs(buffList);
-
-  // 条件評価
-  // return buffs.filter(buff => evaluateCondition(buff.condition, context));
 }
 
-// バフの初期化
+/* =====================
+ * 初期バフ枠生成
+ * ===================== */
 function createInitialBuffList() {
   const list = [];
 
@@ -54,25 +58,19 @@ function createInitialBuffList() {
   return list;
 }
 
-/*  =====================
- * 各バフ種別ごとの収集
- * 軌跡(追加能力)と星魂はバフではスキルロジックに追加する形
- * ===================== */
-
 /* =====================
- * 使用スキル由来のバフの集計
+ * アタッカー使用スキル由来バフ
  * ===================== */
-function collectSkillBuffs(skills, skillType, context) {
+function collectAttackerUsedSkillBuffs(usedBuffSkills, context) {
   const result = [];
+  if (!usedBuffSkills) return result;
 
-  const skillGroup = skills[skillType];
-  if (!skillGroup?.base) return result;
+  Object.values(usedBuffSkills).forEach(skill => {
+    skill?.buffGroups?.forEach(group => {
+      if (!isBuffActive(group.condition, context)) return;
 
-  skillGroup.base.forEach(skill => {
-    skill.buffGroups?.forEach(group => {
       group.buffs?.forEach(buff => {
         if (!isBuffActive(buff.condition, context)) return;
-
         result.push(normalizeBuff(buff));
       });
     });
@@ -82,16 +80,54 @@ function collectSkillBuffs(skills, skillType, context) {
 }
 
 /* =====================
- * 天賦バフの集計
+ * 天賦バフ（常時・条件評価あり）
  * ===================== */
-function collectTalentBuffs(context) {
+function collectTalentBuffs(attackerSkills, context) {
   const result = [];
+
+  const talentGroup = attackerSkills?.talent;
+  if (!talentGroup?.base) return result;
+
+  talentGroup.base.forEach(skill => {
+    skill.buffGroups?.forEach(group => {
+      if (!isBuffActive(group.condition, context)) return;
+
+      group.buffs?.forEach(buff => {
+        if (!isBuffActive(buff.condition, context)) return;
+        result.push(normalizeBuff(buff));
+      });
+    });
+  });
 
   return result;
 }
 
+/* =====================
+ * サポーター由来バフ
+ * ===================== */
+function collectSupporterBuffs(supporterBuffs, context) {
+  const result = [];
+  // if (!Array.isArray(supporterBuffs)) return result;
 
-// 正規化を行うのはここだけ
+  // supporterBuffs.forEach(supporter => {
+  //   Object.values(supporter.usedSkills ?? {}).forEach(skill => {
+  //     skill?.buffGroups?.forEach(group => {
+  //       if (!isBuffActive(group.condition, context)) return;
+
+  //       group.buffs?.forEach(buff => {
+  //         if (!isBuffActive(buff.condition, context)) return;
+  //         result.push(normalizeBuff(buff));
+  //       });
+  //     });
+  //   });
+  // });
+
+  return result;
+}
+
+/* =====================
+ * バフ正規化
+ * ===================== */
 function normalizeBuff(buff) {
   const value =
     buff.valueUnit === "value"
@@ -105,22 +141,9 @@ function normalizeBuff(buff) {
   };
 }
 
-
-function collectSupporterBuffs() {
-  // 将来:
-  // supporterSkills / supporterStates を受け取って処理
-  return [];
-}
-
-function collectLightConeBuffs(context) {
-  // 将来実装
-  return [];
-}
-
 /* =====================
  * 条件評価エンジン
  * ===================== */
-
 function isBuffActive(condition, context) {
   if (!condition) return true;
 
@@ -143,16 +166,15 @@ function isBuffActive(condition, context) {
   }
 }
 
-// 全てのバフを統合
-// 例) {ATK{}, crtRate{}}
+/* =====================
+ * バフ統合
+ * ===================== */
 function aggrgateBuffs(buffList) {
   const result = {};
   const baseStats = ["HP", "ATK", "DEF", "SPD"];
 
   for (const { valueType, valueUnit, value } of buffList) {
 
-    // 初期化
-    // 基本ステータスのみvalueとflatValueの生成
     if (!result[valueType]) {
       if (baseStats.includes(valueType)) {
         result[valueType] = { value: 0, flatValue: 0 };
@@ -161,20 +183,16 @@ function aggrgateBuffs(buffList) {
       }
     }
 
-    // 基本ステータス
     if (baseStats.includes(valueType)) {
       if (valueUnit === "value") {
         result[valueType].value += value;
       } else {
         result[valueType].flatValue += value;
       }
-    }
-    // 非基本ステータス
-    else {
+    } else {
       result[valueType].value += value;
     }
   }
 
   return result;
 }
-
