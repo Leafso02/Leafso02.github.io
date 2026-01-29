@@ -16,8 +16,7 @@ import structuredClone from "../utils/structuredClone.js";
 export function applyEidolonsToSkills({
   baseSkills,
   eidolons,
-  eidolonLevel,
-  skillLevel
+  eidolonLevel
 }) {
 
     const skills = structuredClone(baseSkills);
@@ -41,12 +40,12 @@ export function applyEidolonsToSkills({
 
 
 /* =====================
- * opの処理毎にケースを分ける
+ * operationの処理毎にケースを分ける
  * ===================== */
 function applyOperation(skills, operation) {
-  const { op } = operation;
+  const { abilityOp } = operation;
 
-  switch (op) {
+  switch (abilityOp) {
     case "changeBaseType":
       changeBaseType(skills, operation);
       break;
@@ -59,50 +58,56 @@ function applyOperation(skills, operation) {
       addBuffToGroup(skills, operation);
       break;
 
+    case "abilityLevelUp":
+      abilityLevelUp(skills, operation);
+      break;
+
     case "addATK":
       addATK(skills, operation);
       break;
 
     default:
-      console.warn(`[skillModifierEngine] Unknown op: ${op}`);
+      console.warn(`[skillModifierEngine] Unknown abilityOp: ${abilityOp}`);
   }
 }
 
 /* =====================
  * 対象スキルを取得する
  * ===================== */
-function getTargetSkill(skills, target) {
-  const { skillType, skillId } = target;
+function getTargetSkill(skills, targetSkill) {
+  const { skillType, skillId } = targetSkill;
 
-  const skillGroup = skills[skillType];
-  if (!skillGroup) return null;
+  const group = skills[skillType];
+  if (!group || !Array.isArray(group.base)) return null;
 
-  return skillGroup.base.find(s => s.skillId === skillId) ?? null;
+  return group.base.find(s => s.skillId === skillId) ?? null;
 }
 
 /* =====================
  * changeBaseType
  * ===================== */
 function changeBaseType(skills, operation) {
-  const skill = getTargetSkill(skills, operation.target);
+  const skill = getTargetSkill(skills, operation.targetSkill);
   if (!skill) return;
 
   skill.type = operation.newBaseType;
 }
 
+
 /* =====================
  * addBuffGroup
  * ===================== */
 function addBuffGroup(skills, operation) {
-  const skill = getTargetSkill(skills, operation.target);
+  const skill = getTargetSkill(skills, operation.targetSkill);
   if (!skill) return;
 
-  if (!skill.buffs) {
-    skill.buffs = [];
+  if (!skill.buffGroups) {
+    skill.buffGroups = [];
   }
 
-  skill.buffs.push({
-    condition: operation.condition,
+  skill.buffGroups.push({
+    buffGroupId: operation.targetSkill.buffGroupId ?? generateBuffGroupId(skill),
+    condition: operation.condition ?? null,
     buffs: structuredClone(operation.buffs)
   });
 }
@@ -111,14 +116,34 @@ function addBuffGroup(skills, operation) {
  * addBuffToGroup
  * ===================== */
 function addBuffToGroup(skills, operation) {
-  const skill = getTargetSkill(skills, operation.target);
-  if (!skill || !skill.buffs) return;
+  const skill = getTargetSkill(skills, operation.targetSkill);
+  if (!skill || !skill.buffGroups) return;
 
-  const { buffGroupIndex } = operation.target;
-  const group = skill.buffs[buffGroupIndex];
+  const { buffGroupId } = operation.targetSkill;
+  const group = skill.buffGroups.find(bg => bg.buffGroupId === buffGroupId);
   if (!group) return;
 
   group.buffs.push(...structuredClone(operation.buffs));
+}
+
+/* =====================
+ * abilityLevelUp
+ * ===================== */
+function abilityLevelUp(skills, operation) {
+  const { skillType } = operation.targetSkill;
+  const group = skills[skillType];
+  if (!group) return;
+
+  group.levelBonus = (group.levelBonus ?? 0) + operation.upValue;
+  group.maxLevel = operation.maxLevel ?? group.maxLevel;
+}
+
+/* =====================
+ * buffGroupId 自動生成
+ * ===================== */
+function generateBuffGroupId(skill) {
+  if (!skill.buffGroups || skill.buffGroups.length === 0) return 1;
+  return Math.max(...skill.buffGroups.map(b => b.buffGroupId ?? 0)) + 1;
 }
 
 /* =====================

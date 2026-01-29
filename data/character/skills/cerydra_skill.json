@@ -1,12 +1,17 @@
 {
-    "userStates": {
-    "ultimateBuffToggle": {
+    "userStat": {
+    "rankUpPeerage": {
       "type": "toggle",
-      "label": "必殺技バフ有効",
-      "default": false
+      "description": "味方キャラの「軍功」チャージが6に達した時「爵位」へと昇格し、戦闘スキルの会心ダメージ、全属性耐性貫通をアップさせる。",
+      "default": true
+    },
+    "haveMilitaryMerit":{
+    "type": "toggle",
+    "description": "アタッカーが「軍功」を所持している",
+    "default": false
     }
   },
-  
+
   "basicATK": {
     "skillLabel" : "通常攻撃",
     "base": [
@@ -15,10 +20,17 @@
         "name": "征け、兵は神速を尊ぶ",
         "type": "atkOnly",
         "label": "単体",
-        "atk": [
+        "atkGroups": [
           {
-            "id": "x",
-            "reference": "ATK"
+            "atkGroupId": 1,
+            "attackRange": "single",
+            "element": "Wind",
+            "atk":[
+              {
+                "id": "x",
+                "reference": "ATK"
+              }
+            ]
           }
         ]
       }
@@ -31,23 +43,23 @@
         "skillId": 1,
         "name": "名を馳せよ、歩兵も将の器",
         "type": "supOnly",
-        "label": "サポート",
+        "label": "ケリュドラ 戦闘スキル",
         "buffGroups": [
           {
             "buffGroupId": 1,
-            "condition": [{
-              "type" : "useSkill",
-              "value" : ["skill"]
+            "condition": {
+              "conditionOp": "AND",
+              "conditions": [
+                {"type" : "userStat","statId" : "haveMilitaryMerit"},
+                {"type": "userStat", "statId": "rankUpPeerage"},
+                {"type": "attackSkill","value" : ["skill"]}
+              ]
             },
-            {
-              "type" : "user",
-              "value" : "userAct"
-            }],
             "buffs": [
               {
                 "valueType": "CRITDMG",
                 "valueUnit": "value",
-                "target": "ally",
+                "buffTarget": "ally",
                 "source": {
                   "type": "multiplier",
                   "id": "x"
@@ -56,7 +68,7 @@
               {
                 "valueType": "RESPEN",
                 "valueUnit": "value",
-                "target": "ally",
+                "buffTarget": "ally",
                 "source": {
                   "type": "multiplier",
                   "id": "y"
@@ -76,11 +88,18 @@
         "name": "世は盤上、チェックメイト",
         "type": "atkOnly",
         "label": "全体攻撃",
-        "atk": [
+        "atkGroups": [
           {
-            "id": "x",
-            "multiplier": "ultimate",
-            "reference": "ATK"
+            "atkGroupId": 1,
+            "attackRange": "aoe",
+            "element": "Wind",
+            "atk": [
+              {
+                "id": "x",
+                "multiplier": "ultimate",
+                "reference": "ATK"
+              }
+            ]
           }
         ]
       }
@@ -97,47 +116,44 @@
         "buffGroups": [
           {
             "buffGroupId": 1,
-            "condition": [{
-              "type" : "always",
-              "value" : ["always"]
-            }],
+            "condition": [
+              {"type" : "userStat","statId" : "haveMilitaryMerit"}
+            ],
             "buffs": [
               {
                 "valueType": "ATK",
                 "valueUnit": "flatValue",
-                "target": "ally",
+                "buffTarget": "ally",
                 "source": {
                   "type": "expression",
                   "operator": "multiply",
                   "left": {
                     "type": "statScale",
                     "refTarget": "self",
-                    "refStat": "ATK",
-                    "rate": 100
+                    "refStat": "ATK"
                   },
                   "right": {
                     "type": "multiplier",
-                    "multiplierTable": "talent",
                     "id": "x"
                   }
                 }
               },
               {
                 "valueType": "AddDmg",
-                "valueUnit": "flatValue",
-                "target": "ally",
+                "element": "Wind",
+                "buffTarget": "ally",
+                "attackTarget": "mainTarget",
+                "hitCount": 1,
                 "source": {
                   "type": "expression",
                   "operator": "multiply",
                   "left": {
                     "type": "statScale",
                     "refTarget": "self",
-                    "refStat": "ATK",
-                    "rate": 100
+                    "refStat": "ATK"
                   },
                   "right": {
                     "type": "multiplier",
-                    "multiplierTable": "talent",
                     "id": "y"
                   }
                 }

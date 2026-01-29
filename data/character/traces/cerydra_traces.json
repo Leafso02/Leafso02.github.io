@@ -3,28 +3,92 @@
     "bonusAbilities": [
         {
             "ascension": 2,
-            "name" : "来た者"
+            "name": "来た者",
+            "operations": [
+                {
+                    "abilityOp": "addBuffGroup",
+                    "targetSkill": {
+                        "skillType": "talent",
+                        "skillId": 1
+                    },
+                    "condition": [
+                        {"type": "always"}
+                    ],
+                    "buffs": [
+                        {
+                            "valueType": "CRITDMG",
+                            "valueUnit": "value",
+                            "buffTarget": "self",
+                            "source": {
+                                "type": "expression",
+                                "operator": "multiply",
+                                "param": {
+                                    "min": 0,
+                                    "max": 360
+                                },
+                                "left": {
+                                    "type": "overStatus",
+                                    "refStatus": "ATK",
+                                    "overStatus": {
+                                        "overLine": 2000,
+                                        "per": 100
+                                    }
+                                },
+                                "right": {
+                                    "type": "fixed",
+                                    "value": 18
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         {
-            "ascension" : 4,
-            "name" : "見た者"
+            "ascension": 4,
+            "name": "見た者",
+            "operations": [
+                {
+                    "abilityOp": "addBuffGroup",
+                    "targetSkill": {
+                        "skillType": "talent",
+                        "skillId": 1
+                    },
+                    "condition": [
+                        {"type": "always"}
+                    ],
+                    "buffs": [
+                        {
+                            "valueType": "CRITRate",
+                            "valueUnit": "value",
+                            "buffTarget": "self",
+                            "source": {
+                                "type": "fixed",
+                                "value": 100
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         {
             "ascension": 6,
             "name": "征した者",
             "operations": [
                 {
-                    "op": "addBuffToGroup",
-                    "target": {
-                        "skillType": "talent",
-                        "skillId": 1,
-                        "buffGroupId": 1
+                    "abilityOp": "addBuffGroup",
+                    "targetSkill": {
+                        "skillType": "skill",
+                        "skillId": 1
                     },
+                    "condition": [
+                        {"type" : "userStat","statId" : "haveMilitaryMerit"}
+                    ],
                     "buffs": [
                         {
                             "valueType": "SPD",
                             "valueUnit": "flatValue",
-                            "target": "ally",
+                            "buffTarget": "ally",
                             "source": {
                                 "type": "fixed",
                                 "value": 20
