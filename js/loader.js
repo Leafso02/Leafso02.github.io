@@ -2,7 +2,8 @@ console.log("loader.js読み込み完了")
 import { initCharacterSelect } from "./ui/characterSelect.js";
 import { initManualBuffUI } from "./ui/manualBuffUi.js";
 import "./utils/loadCharacterData.js";
-import "./calc/mainCalc.js"
+import "./calc/mainCalc.js";
+import "./ui/enemyInfo.js"
 
 /**
  * ページ読み込み時にUI初期化を行う
@@ -17,4 +18,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // 手動バフの入力エリアを生成
   initManualBuffUI();
+
+  // 敵情報エリアを生成
 });

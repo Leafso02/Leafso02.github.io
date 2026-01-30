@@ -107,7 +107,7 @@ export function calculateBaseDamage({
    * ============================
    */
 
-  const addMultiplierDmg = buffs.ExtraDMGDmg.value;
+  const ExtraDMG = buffs.ExtraDMG.value;
   
 
   /**
@@ -118,12 +118,12 @@ export function calculateBaseDamage({
 
   const baseDamage =
     (refStatValue * traceMultiplier) +
-    addMultiplierDmg;
+    ExtraDMG;
 
   return {
     baseDamage,
     refStat: refStatKey,
     traceMultiplier,
-    addMultiplierDmg
+    ExtraDMG
   };
 }

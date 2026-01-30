@@ -60,6 +60,40 @@
         <pre id="debugOutput"></pre>
     </div>
 
+        <!-- ===== 敵情報入力 ===== -->
+    <div class="enemy-panel">
+        <div class="enemy-header">
+            <button id="syncHighDifficultyBtn">
+                現在の高難易度を反映
+            </button>
+        </div>
+
+        <!-- 属性選択 -->
+        <div class="enemy-row">
+            <span class="enemy-label">属性</span>
+            <div class="element-selector">
+                <button class="element-btn" data-element="physical">⚔</button>
+                <button class="element-btn" data-element="fire">🔥</button>
+                <button class="element-btn" data-element="ice">❄</button>
+                <button class="element-btn" data-element="lightning">⚡</button>
+                <button class="element-btn" data-element="wind">🌪</button>
+                <button class="element-btn" data-element="quantum">✨</button>
+                <button class="element-btn" data-element="imaginary">☯</button>
+            </div>
+        </div>
+
+        <!-- 敵レベル -->
+        <div class="enemy-row">
+            <span class="enemy-label">敵Lv</span>
+            <div class="enemy-level-control">
+                <button id="enemyLvUp">▲</button>
+                <span id="enemyLevelValue">90</span>
+                <button id="enemyLvDown">▼</button>
+            </div>
+        </div>
+    </div>
+
+
     <script type="module" src="./js/loader.js"></script>
 
 </body>
