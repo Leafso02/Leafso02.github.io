@@ -42,6 +42,7 @@ calcBtn.addEventListener("click", () => {
    * ========== */
 
   const skillType = skillSelect.value;     // "basicATK" 等
+  const skillId = skillSelect
   const skillLevel = Number(skillLevelInput.value);
   const eidolonLevel = Number(eidolonLevelInput.value);
 
@@ -112,6 +113,7 @@ const modifiedSkills = applyEidolonsToSkills({
   console.log("[mainCalc] skillData", currentCharacter.skills);
   const baseDmgResult = calculateBaseDamage({
     skillData: currentCharacter.skills,
+    skillId,
     multiplierData: currentCharacter.multipliers,
     finalStats,
     skillKey: skillType,

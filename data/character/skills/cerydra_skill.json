@@ -19,7 +19,26 @@
         "skillId": 1,
         "name": "征け、兵は神速を尊ぶ",
         "type": "atkOnly",
-        "label": "単体",
+        "label": "通常攻撃",
+        "atkGroups": [
+          {
+            "atkGroupId": 1,
+            "attackRange": "single",
+            "element": "Wind",
+            "atk":[
+              {
+                "id": "x",
+                "reference": "ATK"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "skillId": 2,
+        "name": "征け、兵は神速を尊ぶ",
+        "type": "atkOnly",
+        "label": "強化通常攻撃",
         "atkGroups": [
           {
             "atkGroupId": 1,

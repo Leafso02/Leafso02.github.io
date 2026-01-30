@@ -28,10 +28,10 @@ export function updateSkillSelect(skills) {
   const attackableSkills = getAttackableSkills(skills);
 
   attackableSkills.forEach(skill => {
-    const option = document.createElement("option");
-    option.value = skill.skillKey;
-    option.textContent = skill.categoryLabel;
-    skillSelect.appendChild(option);
+      const option = document.createElement("option");
+      option.value = skill.skillKey;
+      option.textContent = skill.categoryLabel;
+      skillSelect.appendChild(option);
   });
 }
 
@@ -44,11 +44,12 @@ export function getAttackableSkills(skills) {
   Object.entries(skills).forEach(([skillKey, data]) => {
     if (!data.base) return;
 
+    // skillId毎に抽出
     data.base.forEach(skill => {
-      if (skill.type === "atkOnly" || skill.type === "both") {
-        result.push({
-          skillKey,                         // "normal" / "skill" / "ultimate" など
-          categoryLabel: data.skillLabel,   // 日本語表示
+          if (skill.type === "atkOnly" || skill.type === "both") {
+          result.push({
+          skillKey,                         // "basicATK" / "skill" / "ultimate" など
+          categoryLabel: skill.label,   // 日本語表示
           skillName: skill.name,
         });
       }
