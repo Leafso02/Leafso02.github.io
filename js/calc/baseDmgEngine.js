@@ -40,7 +40,7 @@ import { getMultiplierValue } from "./multiplierEngine.js";
  *     increaseDamage: number
  *   }
  */
-export function calculateBaseDamage({
+export function calculateBaseDMG({
   skillData,
   multiplierData,
   finalStats,
@@ -116,12 +116,12 @@ export function calculateBaseDamage({
    * ============================
    */
 
-  const baseDamage =
+  const BaseDMG =
     (refStatValue * traceMultiplier) +
     ExtraDMG;
 
   return {
-    baseDamage,
+    BaseDMG,
     refStat: refStatKey,
     traceMultiplier,
     ExtraDMG

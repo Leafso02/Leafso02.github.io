@@ -5,8 +5,8 @@
  * 下位ファイル : buffEngine.js
  *               statsEngine.js
  *               baseDmgEngine.js
- *               critCoefEngine.js
- *               increaseDmgCoefEngine.js
+ *               multiplierCRITEngine.js
+ *               multiplierDMGBoostEngine.js
  * ================================
  * ・与ダメージ係数のみを算出する
  * ・buffEngine が返す「集計済みオブジェクト」を参照する
@@ -18,9 +18,9 @@ import { getCharacterData } from "../ui/loadCharacter.js";
 import { applyEidolonsToSkills } from "./skillModifierEngine.js";
 import { collectAllBuffs } from "./buffEngine.js";
 import { calculateFinalStats } from "./statEngine.js";
-import { calculateBaseDamage } from "./baseDmgEngine.js";
-import { calculateCritCoef } from "./multiplierCRITEngine.js";
-import { calculateAllDMGBoostCoef } from "./multiplierDMGBoostEngine.js";
+import { calculateBaseDMG } from "./baseDmgEngine.js";
+import { calculateCRITMultiplier } from "./multiplierCRITEngine.js";
+import { calculateDMGBoostMultiplier } from "./multiplierDMGBoostEngine.js";
 
 /* ===== HTML要素取得 ===== */
 const skillSelect = document.getElementById("skillSelect");
@@ -111,7 +111,7 @@ const modifiedSkills = applyEidolonsToSkills({
    * ダメージ基礎値
    * ========== */
   console.log("[mainCalc] skillData", currentCharacter.skills);
-  const baseDmgResult = calculateBaseDamage({
+  const baseDmgResult = calculateBaseDMG({
     skillData: currentCharacter.skills,
     skillId,
     multiplierData: currentCharacter.multipliers,
@@ -127,28 +127,35 @@ const modifiedSkills = applyEidolonsToSkills({
    * 会心係数
    * ========== */
 
-  const critCoefResult = calculateCritCoef(
+  const CRITMultiplierResult = calculateCRITMultiplier(
     finalStats
   );
 
-  console.log("[mainCalc] CritCoef", critCoefResult, critCoefResult);
+  console.log("[mainCalc] CRITMultiplier", CRITMultiplierResult);
 
   /* ==========
    * 与ダメ係数
    * ========== */
 
-  const increaseDmgResult = calculateAllDMGBoostCoef(buffs);
+  const DMGBoostMultiplierResult = calculateDMGBoostMultiplier(buffs);
 
-  console.log("[mainCalc] increaseDmgCoef", increaseDmgResult);
+  console.log("[mainCalc] DMGBoostMultiplier", increaseDmgResult);
+
+  /* ==========
+   * 防御係数
+   * ========== */
+
+  // const enemyDefResult = calculateDefMultiplier(buffs);
+
 
   /* ==========
    * 最終計算
    * ========== */
 
   const damage =
-    baseDmgResult.baseDamage *
-    critCoefResult.critCoef *
-    increaseDmgResult.increaseDmgCoef;
+    baseDmgResult.BaseDMG *
+    CRITMultiplierResult.CRITMultiplier *
+    DMGBoostMultiplierResult.DMGBoostMultiplier;
 
   console.log("[mainCalc] finalDamage", damage);
 

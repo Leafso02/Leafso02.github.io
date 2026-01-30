@@ -3,7 +3,7 @@ import { initCharacterSelect } from "./ui/characterSelect.js";
 import { initManualBuffUI } from "./ui/manualBuffUi.js";
 import "./utils/loadCharacterData.js";
 import "./calc/mainCalc.js";
-import "./ui/enemyInfo.js"
+import "./ui/enemyStat.js"
 
 /**
  * ページ読み込み時にUI初期化を行う
