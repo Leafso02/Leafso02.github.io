@@ -71,7 +71,7 @@ export function calculateBaseDamage({
    */
 
   // atk 定義の最初の要素を参照
-  const atkDEF = skill.atkGroup?.[0];
+  const atkDEF = skill.atkGroups?.[0];
 
   if (!atkDEF) {
     throw new Error(`攻撃定義が存在しません: ${skillKey}`);
